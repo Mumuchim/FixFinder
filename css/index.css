@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-image: url("../img/bgmap.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: #fff;
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    width: 400px;
+    max-width: 100%;
+    padding: 30px;
+    text-align: center;
+}
+
+h4.display-4.text-center {
+    font-weight: bold; /* Bold text */
+    font-size: 20px; /* Smaller size */
+    color: #333; /* Darker text */
+    margin-bottom: 20px; /* Maintain spacing */
+    text-align: center;
+}
+
+.container p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.container input {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 12px 15px;
+    font-size: 14px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.container input:focus {
+    border-color: #0674b0;
+    box-shadow: 0 0 5px rgba(6, 116, 176, 0.3);
+}
+
+.container button {
+    background-color: #0674b0;
+    color: #fff;
+    font-size: 16px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.container button:hover {
+    background-color: #055a92;
+}
+
+.container label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+}
+
+.text-center a {
+    color: #0674b0;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.text-center a:hover {
+    color: #055a92;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+}
