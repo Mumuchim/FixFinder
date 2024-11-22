@@ -91,16 +91,10 @@
 	display: block;
 	margin-bottom: 10px;
 	padding: 10px;
-	background-color: #063146;
 	border-radius: 5px;
 	text-align: center;
 	cursor: pointer;
-	color: #fff;
 	font-size: 15px;
-  }
-  
-  .pin:hover {
-	background-color: #0b577d;
   }
   
   /* Map container styles */
@@ -266,4 +260,9 @@ label #cancel {
 
 .hoverable-container:hover {
     transform: translateX(10px); /* Move to the right on hover */
+}
+
+.pin img {
+    width: 45px; /* Set the width to your desired size */
+    height: auto; /* Maintain the aspect ratio */
 }

@@ -36,6 +36,7 @@ session_start();
         src="img/Caution_shadow.png" 
         alt="Caution Pin" 
         style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        data-pin-type="cautionIcon"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Hazard Pin</span>
 </div>
@@ -46,6 +47,7 @@ session_start();
         src="img/Cleaning_shadow.png" 
         alt="Cleaning Pin" 
         style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        data-pin-type="cleaningIcon"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Cleaning Pin</span>
 </div>
@@ -56,6 +58,7 @@ session_start();
         src="img/Electrical Hazard_shadow.png" 
         alt="Electrical Pin" 
         style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        data-pin-type="electricalIcon"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Electrical Pin</span>
 </div>
@@ -66,6 +69,7 @@ session_start();
         src="img/IT Maintenance_shadow.png" 
         alt="IT Maintenance Pin" 
         style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        data-pin-type="itIcon"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">IT Maintenance Pin</span>
 </div>
@@ -76,6 +80,7 @@ session_start();
         src="img/Repair_shadow.png" 
         alt="Repair Pin" 
         style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        data-pin-type="repairIcon"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Repair Pin</span>
 </div>
@@ -86,6 +91,7 @@ session_start();
         src="img/Request_shadow.png" 
         alt="Request Pin" 
         style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        data-pin-type="requestIcon"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Request Pin</span>
 </div>

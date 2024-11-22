@@ -57,9 +57,14 @@ function savePinPositions() {
         const positionsWithImages = pinPositions.map(position => {
             const pinElement = document.getElementById(position.pinId);
             const img = pinElement.querySelector('img');
+            const imgSrc = img ? img.src : null;
+
+            // Remove the base URL and only save the relative path
+            const relativeImgSrc = imgSrc ? imgSrc.replace(/^http:\/\/localhost:3000\//, '') : null;
+
             return {
                 ...position,
-                imgSrc: img ? img.src : null
+                imgSrc: relativeImgSrc  // Save only the relative image path
             };
         });
         localStorage.setItem("pinPositions", JSON.stringify(positionsWithImages));
@@ -67,6 +72,7 @@ function savePinPositions() {
         console.error("Error saving pin positions to localStorage", e);
     }
 }
+
 
 function loadPinPositions() {
     try {
@@ -81,6 +87,7 @@ function loadPinPositions() {
                 pinElement.id = position.pinId;
                 document.getElementById("mapContainer").appendChild(pinElement);
 
+                // Create image element with the saved image source
                 const img = document.createElement('img');
                 img.src = position.imgSrc;
                 pinElement.appendChild(img);
@@ -97,6 +104,7 @@ function loadPinPositions() {
     }
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
     const mapContainer = document.getElementById('mapContainer');
 
@@ -108,37 +116,44 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
     
+        const pinType = pin.dataset.pinType;  // Get the pin type from the data-pin-type attribute
+        const imgSrc = getFixedImagePath(pinType);  // Get the fixed image path based on pin type
+    
         const clone = pin.cloneNode(true);
         const pinId = `pin-${Date.now()}`;
         clone.id = pinId;
         clone.style.position = 'absolute';
         clone.style.left = `${x}px`;
         clone.style.top = `${y}px`;
-        mapContainer.appendChild(clone);
     
-        const img = clone.querySelector('img');
-        const imgSrc = img ? img.src : null;
-    
+        // Add pin to positions but don't save it yet
         pinPositions.push({
             pinId: pinId,
             top: clone.style.top,
             left: clone.style.left,
-            imgSrc: imgSrc,
+            imgSrc: imgSrc,  // Save the fixed image path
         });
     
-        savePinPositions();
+        mapContainer.appendChild(clone);
+        
+        // Create image element with the fixed image path
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        clone.appendChild(img);
     
         lastClonedPin = clone;
-        cloningInProgress = true; // Block additional cloning until confirmed
-    
+        cloningInProgress = true;  // Block additional cloning until confirmed
+        
         makeDraggable(clone);
-    
+        
         clone.addEventListener('click', () => {
             if (!pinPlacedManually) {
                 showPinOptions(clone, pinId);
             }
         });
     }
+    
+
     function makeDraggable(pin) {
         let isDragging = false;
         let offsetX, offsetY;
@@ -221,30 +236,50 @@ document.addEventListener('DOMContentLoaded', function () {
         clone.style.position = 'absolute';
         clone.style.left = `${x}px`;
         clone.style.top = `${y}px`;
-        mapContainer.appendChild(clone);
     
-        const img = clone.querySelector('img');
-        const imgSrc = img ? img.src : null;
+        const pinType = pin.dataset.pinType;  // Get the pin type (e.g., 'cleaning', 'repair')
+        const imgSrc = getFixedImagePath(pinType);  // Get the fixed image path based on pin type
     
         // Add pin to positions but don't save it yet
         pinPositions.push({
             pinId: pinId,
             top: clone.style.top,
             left: clone.style.left,
-            imgSrc: imgSrc,
+            imgSrc: imgSrc,  // Save the fixed image path
         });
     
+        mapContainer.appendChild(clone);
+        
+        // Create image element with the fixed image path
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        clone.appendChild(img);
+    
         lastClonedPin = clone;
-        cloningInProgress = true; // Block additional cloning until confirmed
-    
+        cloningInProgress = true;  // Block additional cloning until confirmed
+        
         makeDraggable(clone);
-    
+        
         clone.addEventListener('click', () => {
             if (!pinPlacedManually) {
                 showPinOptions(clone, pinId);
             }
         });
-    }    
+    }
+    
+    function getFixedImagePath(pinType) {
+        const imagePaths = {
+            'cleaningIcon': 'img/Cleaning_shadow.png',
+            'repairIcon': 'img/Repair_shadow.png',
+            'itIcon': 'img/IT Maintenance_shadow.png',
+            'electricalIcon': 'img/Electrical Hazard_shadow.png',
+            'cautionIcon': 'img/Caution_shadow.png',
+            'requestIcon': 'img/Request_shadow.png',
+        };
+    
+        return imagePaths[pinType] || 'error';  // Return a default image if pinType is unknown
+    }
+    
 
     function enablePinPlacement(icon) {
         icon.addEventListener('click', function (e) {
