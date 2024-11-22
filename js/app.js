@@ -315,7 +315,7 @@ function showPinOptions(pinElement, pinId) {
     modal.style.padding = '10px';
     modal.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
 
-    const heightLimit = 30;
+    const heightLimit = 40;
     const pinRect = pinElement.getBoundingClientRect();
     const modalTop = pinRect.top - 100;
     const modalLeft = pinRect.left;
