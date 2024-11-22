@@ -139,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-    
     function makeDraggable(pin) {
         let isDragging = false;
         let offsetX, offsetY;
@@ -160,14 +159,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 pin.style.position = 'absolute';
                 const pinId = pin.id;
     
-                // Update pin positions
+                // Only save positions after confirmation
                 pinPositions = pinPositions.filter(p => p.pinId !== pinId);
                 pinPositions.push({
                     pinId: pinId,
                     top: pin.style.top,
                     left: pin.style.left,
                 });
-                savePinPositions();
+                savePinPositions();  // Save to localStorage after confirmation
     
                 // Reset the cloning process
                 cloningInProgress = false;
@@ -191,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 mapContainer.removeChild(pin); // Remove the ongoing pin
     
                 // Reset cloning process
-                cloningInProgress = false; 
+                cloningInProgress = false;
             }
     
             document.removeEventListener('mousemove', onMouseMove);
@@ -210,8 +209,6 @@ document.addEventListener('DOMContentLoaded', function () {
         pin.addEventListener('mousedown', onMouseDown);
     }
     
-    
-
     function clonePin(pin, x, y) {
         if (cloningInProgress) {
             alert("Please confirm the current pin's position before cloning a new one.");
@@ -229,14 +226,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const img = clone.querySelector('img');
         const imgSrc = img ? img.src : null;
     
+        // Add pin to positions but don't save it yet
         pinPositions.push({
             pinId: pinId,
             top: clone.style.top,
             left: clone.style.left,
             imgSrc: imgSrc,
         });
-    
-        savePinPositions();
     
         lastClonedPin = clone;
         cloningInProgress = true; // Block additional cloning until confirmed
@@ -248,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 showPinOptions(clone, pinId);
             }
         });
-    }
+    }    
 
     function enablePinPlacement(icon) {
         icon.addEventListener('click', function (e) {
