@@ -257,3 +257,13 @@ label #cancel {
 	display: none;
   }
   
+  .hoverable-container {
+    display: flex; /* Arrange image and text in a row */
+    align-items: center; /* Vertically center-align text and image */
+    gap: 5px; /* Add spacing between image and text */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.hoverable-container:hover {
+    transform: translateX(10px); /* Move to the right on hover */
+}

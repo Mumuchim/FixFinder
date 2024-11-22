@@ -1,5 +1,6 @@
 document.getElementById('secondFloor').style.display = 'none';
 
+let cloningInProgress = false; // Track if a pin is being placed
 let lastClonedPin = null; // Track the most recently cloned pin
 let pinPlacedManually = false; // Flag to track if a pin was placed manually
 
@@ -99,66 +100,14 @@ function loadPinPositions() {
 document.addEventListener('DOMContentLoaded', function () {
     const mapContainer = document.getElementById('mapContainer');
 
-    function makeDraggable(pin) {
-        let isDragging = false;
-        let offsetX, offsetY;
-
-        function onMouseMove(e) {
-            if (isDragging) {
-                pin.style.position = 'absolute';
-                pin.style.left = `${e.clientX - offsetX}px`;
-                pin.style.top = `${e.clientY - offsetY}px`;
-            }
-        }
-
-        function onMouseUp() {
-            isDragging = false;
-
-            const confirmPosition = confirm('Do you want to confirm the pin\'s position?');
-            if (confirmPosition) {
-                pin.style.position = 'absolute';
-                const pinId = pin.id;
-                pinPositions = pinPositions.filter(p => p.pinId !== pinId);
-                pinPositions.push({
-                    pinId: pinId,
-                    top: pin.style.top,
-                    left: pin.style.left
-                });
-                savePinPositions();
-
-                pin.removeEventListener('mousedown', onMouseDown);
-                pin.removeEventListener('mousemove', onMouseMove);
-                pin.removeEventListener('mouseup', onMouseUp);
-
-                pin.addEventListener('click', () => {
-                    if (!pinPlacedManually) {
-                        showPinOptions(pin, pinId);
-                    }
-                });
-
-                openForm();
-                pinPlacedManually = true;
-            } else {
-                makeDraggable(pin);
-            }
-
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
-        }
-
-        function onMouseDown(e) {
-            isDragging = true;
-            offsetX = e.clientX - pin.getBoundingClientRect().left;
-            offsetY = e.clientY - pin.getBoundingClientRect().top;
-
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
-        }
-
-        pin.addEventListener('mousedown', onMouseDown);
-    }
+    let cloningInProgress = false; // Track if a pin is being placed
 
     function clonePin(pin, x, y) {
+        if (cloningInProgress) {
+            alert("Please confirm the current pin's position before cloning a new one.");
+            return;
+        }
+    
         const clone = pin.cloneNode(true);
         const pinId = `pin-${Date.now()}`;
         clone.id = pinId;
@@ -166,22 +115,134 @@ document.addEventListener('DOMContentLoaded', function () {
         clone.style.left = `${x}px`;
         clone.style.top = `${y}px`;
         mapContainer.appendChild(clone);
-
+    
         const img = clone.querySelector('img');
         const imgSrc = img ? img.src : null;
-
+    
         pinPositions.push({
             pinId: pinId,
             top: clone.style.top,
             left: clone.style.left,
-            imgSrc: imgSrc
+            imgSrc: imgSrc,
         });
-
+    
         savePinPositions();
-
+    
         lastClonedPin = clone;
-
+        cloningInProgress = true; // Block additional cloning until confirmed
+    
         makeDraggable(clone);
+    
+        clone.addEventListener('click', () => {
+            if (!pinPlacedManually) {
+                showPinOptions(clone, pinId);
+            }
+        });
+    }
+    
+    function makeDraggable(pin) {
+        let isDragging = false;
+        let offsetX, offsetY;
+    
+        function onMouseMove(e) {
+            if (isDragging) {
+                pin.style.position = 'absolute';
+                pin.style.left = `${e.clientX - offsetX}px`;
+                pin.style.top = `${e.clientY - offsetY}px`;
+            }
+        }
+    
+        function onMouseUp() {
+            isDragging = false;
+    
+            const confirmPosition = confirm("Do you want to confirm the pin's position?");
+            if (confirmPosition) {
+                pin.style.position = 'absolute';
+                const pinId = pin.id;
+    
+                // Update pin positions
+                pinPositions = pinPositions.filter(p => p.pinId !== pinId);
+                pinPositions.push({
+                    pinId: pinId,
+                    top: pin.style.top,
+                    left: pin.style.left,
+                });
+                savePinPositions();
+    
+                // Reset the cloning process
+                cloningInProgress = false;
+    
+                // Finalize the pin
+                pin.removeEventListener('mousedown', onMouseDown);
+                pin.removeEventListener('mousemove', onMouseMove);
+                pin.removeEventListener('mouseup', onMouseUp);
+    
+                pin.addEventListener('click', () => {
+                    if (!pinPlacedManually) {
+                        showPinOptions(pin, pinId);
+                    }
+                });
+    
+                openForm();
+                pinPlacedManually = true;
+            } else {
+                // Cancel placement, remove the ongoing pin
+                const mapContainer = document.getElementById("mapContainer");
+                mapContainer.removeChild(pin); // Remove the ongoing pin
+    
+                // Reset cloning process
+                cloningInProgress = false; 
+            }
+    
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+    
+        function onMouseDown(e) {
+            isDragging = true;
+            offsetX = e.clientX - pin.getBoundingClientRect().left;
+            offsetY = e.clientY - pin.getBoundingClientRect().top;
+    
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        }
+    
+        pin.addEventListener('mousedown', onMouseDown);
+    }
+    
+    
+
+    function clonePin(pin, x, y) {
+        if (cloningInProgress) {
+            alert("Please confirm the current pin's position before cloning a new one.");
+            return;
+        }
+    
+        const clone = pin.cloneNode(true);
+        const pinId = `pin-${Date.now()}`;
+        clone.id = pinId;
+        clone.style.position = 'absolute';
+        clone.style.left = `${x}px`;
+        clone.style.top = `${y}px`;
+        mapContainer.appendChild(clone);
+    
+        const img = clone.querySelector('img');
+        const imgSrc = img ? img.src : null;
+    
+        pinPositions.push({
+            pinId: pinId,
+            top: clone.style.top,
+            left: clone.style.left,
+            imgSrc: imgSrc,
+        });
+    
+        savePinPositions();
+    
+        lastClonedPin = clone;
+        cloningInProgress = true; // Block additional cloning until confirmed
+    
+        makeDraggable(clone);
+    
         clone.addEventListener('click', () => {
             if (!pinPlacedManually) {
                 showPinOptions(clone, pinId);

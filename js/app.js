@@ -186,7 +186,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 openForm();
                 pinPlacedManually = true;
             } else {
-                makeDraggable(pin); // Allow re-positioning
+                // Cancel placement, remove the ongoing pin
+                const mapContainer = document.getElementById("mapContainer");
+                mapContainer.removeChild(pin); // Remove the ongoing pin
+    
+                // Reset cloning process
+                cloningInProgress = false; 
             }
     
             document.removeEventListener('mousemove', onMouseMove);
@@ -204,6 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
         pin.addEventListener('mousedown', onMouseDown);
     }
+    
     
 
     function clonePin(pin, x, y) {
