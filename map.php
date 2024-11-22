@@ -30,7 +30,7 @@ session_start();
         <div id="pins"></div>
     
         <!-- Pin Icons -->
-<div class="hoverable-container" style="position: absolute; top: 135px; right: 90px;" onclick="preparePin('cautionPin')">
+<div class="hoverable-container" style="position: absolute; top: 80px; right: 90px;" onclick="preparePin('cautionPin')">
     <img 
         id="cautionIcon" 
         src="img/Caution_shadow.png" 
@@ -41,7 +41,7 @@ session_start();
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Hazard Pin</span>
 </div>
 
-<div class="hoverable-container" style="position: absolute; top: 205px; right: 80px;" onclick="preparePin('cleaningPin')">
+<div class="hoverable-container" style="position: absolute; top: 150px; right: 80px;" onclick="preparePin('cleaningPin')">
     <img 
         id="cleaningIcon" 
         src="img/Cleaning_shadow.png" 
@@ -52,7 +52,7 @@ session_start();
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Cleaning Pin</span>
 </div>
 
-<div class="hoverable-container" style="position: absolute; top: 275px; right: 80px;" onclick="preparePin('electricalPin')">
+<div class="hoverable-container" style="position: absolute; top: 220px; right: 80px;" onclick="preparePin('electricalPin')">
     <img 
         id="electricalIcon" 
         src="img/Electrical Hazard_shadow.png" 
@@ -63,7 +63,7 @@ session_start();
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Electrical Pin</span>
 </div>
 
-<div class="hoverable-container" style="position: absolute; top: 345px; right: 43px;" onclick="preparePin('itPin')">
+<div class="hoverable-container" style="position: absolute; top: 290px; right: 43px;" onclick="preparePin('itPin')">
     <img 
         id="itIcon" 
         src="img/IT Maintenance_shadow.png" 
@@ -74,7 +74,7 @@ session_start();
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">IT Maintenance Pin</span>
 </div>
 
-<div class="hoverable-container" style="position: absolute; top: 415px; right: 95px;" onclick="preparePin('repairPin')">
+<div class="hoverable-container" style="position: absolute; top: 360px; right: 95px;" onclick="preparePin('repairPin')">
     <img 
         id="repairIcon" 
         src="img/Repair_shadow.png" 
@@ -85,7 +85,7 @@ session_start();
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Repair Pin</span>
 </div>
 
-<div class="hoverable-container" style="position: absolute; top: 485px; right: 85px;" onclick="preparePin('requestPin')">
+<div class="hoverable-container" style="position: absolute; top: 430px; right: 85px;" onclick="preparePin('requestPin')">
     <img 
         id="requestIcon" 
         src="img/Request_shadow.png" 
