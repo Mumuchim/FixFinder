@@ -80,6 +80,34 @@
                 keyCell.textContent = key;
                 valueCell.textContent = value;
                 
+                // Make the value cell editable on click
+                valueCell.onclick = function() {
+                    const currentValue = valueCell.textContent;
+                    const inputField = document.createElement('input');
+                    inputField.type = 'text';
+                    inputField.value = currentValue;
+                    valueCell.innerHTML = ''; // Clear the cell and insert the input field
+                    valueCell.appendChild(inputField);
+                    
+                    // Focus on the input field to allow immediate editing
+                    inputField.focus();
+
+                    // When the user presses Enter or clicks away, update localStorage
+                    inputField.addEventListener('blur', function() {
+                        const newValue = inputField.value;
+                        if (newValue !== currentValue) {
+                            localStorage.setItem(key, newValue); // Update localStorage
+                        }
+                        renderLocalStorage(); // Re-render the table with updated value
+                    });
+
+                    inputField.addEventListener('keydown', function(event) {
+                        if (event.key === 'Enter') {
+                            inputField.blur(); // Trigger the blur event to save and exit
+                        }
+                    });
+                };
+                
                 // Create a "Delete" button to remove items from localStorage
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Delete';
