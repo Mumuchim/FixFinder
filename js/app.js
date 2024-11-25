@@ -24,6 +24,7 @@ const zoneConfigurations = {
 };
 
 // Function to update zones based on the active floor
+// Function to update zones based on the active floor
 function updateZones(floor) {
     const mapContainer = document.getElementById('mapContainer');
 
@@ -47,7 +48,7 @@ function updateZones(floor) {
     });
 }
 
-// Modify the showFloor function to update zones
+// Function to show the specified floor
 function showFloor(floor) {
     const firstFloor = document.getElementById('firstFloor');
     const secondFloor = document.getElementById('secondFloor');
@@ -56,17 +57,22 @@ function showFloor(floor) {
         firstFloor.style.display = 'block';
         secondFloor.style.display = 'none';
         updateZones('floor1'); // Update zones for Floor 1
+        localStorage.setItem('activeFloor', 1); // Save the active floor to localStorage
     } else if (floor === 2) {
         firstFloor.style.display = 'none';
         secondFloor.style.display = 'block';
         updateZones('floor2'); // Update zones for Floor 2
+        localStorage.setItem('activeFloor', 2); // Save the active floor to localStorage
     }
 }
 
-// Initialize zones for the default floor on page load
+// Initialize zones and set the active floor on page load
 document.addEventListener('DOMContentLoaded', () => {
-    updateZones('floor1'); // Set up zones for Floor 1 initially
+    const savedFloor = localStorage.getItem('activeFloor'); // Get the saved floor from localStorage
+    const activeFloor = savedFloor ? parseInt(savedFloor, 10) : 1; // Default to Floor 1 if nothing is saved
+    showFloor(activeFloor); // Set the active floor
 });
+
 
 
 function addPathListeners(paths, svgId) {
