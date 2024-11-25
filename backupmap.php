@@ -30,54 +30,71 @@ session_start();
         <div id="pins"></div>
     
         <!-- Pin Icons -->
-        <img 
-            id="cautionIcon" 
-            src="img/Caution_shadow.png" 
-            alt="Caution Pin" 
-            style="width: 45px; height: auto; position: absolute; top: 135px; right: 170px; cursor: pointer; margin: 10px; z-index: 20;"
-            onclick="preparePin('cautionPin')"
-        />
-        <span style="font-size: 13px; color: #ffffff; position: absolute; top: 165px; right: 90px;"> Hazard Pin </span>
-        <img 
-            id="cleaningIcon" 
-            src="img/Cleaning_shadow.png" 
-            alt="Cleaning Pin" 
-            style="width: 45px; height: auto; position: absolute; top: 205px; right: 170px; cursor: pointer; margin: 10px; z-index: 20;"
-            onclick="preparePin('cleaningPin')"
-        />
-        <span style="font-size: 13px; color: #ffffff; position: absolute; top: 235px; right: 80px;"> Cleaning Pin </span>
-        <img 
-            id="electricalIcon" 
-            src="img/Electrical Hazard_shadow.png" 
-            alt="Electrical Pin" 
-            style="width: 45px; height: auto; position: absolute; top: 275px; right: 170px; cursor: pointer; margin: 10px; z-index: 20;"
-            onclick="preparePin('electricalPin')"
-        />
-        <span style="font-size: 13px; color: #ffffff; position: absolute; top: 305px; right: 80px;"> Electrical Pin </span>
-        <img 
-            id="itIcon" 
-            src="img/IT Maintenance_shadow.png" 
-            alt="IT Maintenance Pin" 
-            style="width: 45px; height: auto; position: absolute; top: 345px; right: 170px; cursor: pointer; margin: 10px; z-index: 20;"
-            onclick="preparePin('itPin')"
-        />
-        <span style="font-size: 13px; color: #ffffff; position: absolute; top: 375px; right: 43px;"> IT Maintenance Pin </span>
-        <img 
-            id="repairIcon" 
-            src="img/Repair_shadow.png" 
-            alt="Repair Pin" 
-            style="width: 45px; height: auto; position: absolute; top: 415px; right: 170px; cursor: pointer; margin: 10px; z-index: 20;"
-            onclick="preparePin('repairPin')"
-        />
-        <span style="font-size: 13px; color: #ffffff; position: absolute; top: 445px; right: 95px;"> Repair Pin </span>
-        <img 
-            id="requestIcon" 
-            src="img/Request_shadow.png" 
-            alt="Request Pin" 
-            style="width: 45px; height: auto; position: absolute; top: 485px; right: 170px; cursor: pointer; margin: 10px; z-index: 20;"
-            onclick="preparePin('requestPin')"
-        />
-        <span style="font-size: 13px; color: #ffffff; position: absolute; top: 515px; right: 85px;"> Request Pin </span>
+<div class="hoverable-container" style="position: absolute; top: 80px; right: 90px;" onclick="preparePin('cautionPin')">
+    <img 
+        id="cautionIcon" 
+        src="img/Caution_symbol.png" 
+        alt="Caution Pin" 
+        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        data-pin-type="cautionIcon"
+    />
+    <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Hazard Pin</span>
+</div>
+
+<div class="hoverable-container" style="position: absolute; top: 150px; right: 80px;" onclick="preparePin('cleaningPin')">
+    <img 
+        id="cleaningIcon" 
+        src="img/Cleaning_symbol.png" 
+        alt="Cleaning Pin" 
+        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        data-pin-type="cleaningIcon"
+    />
+    <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Cleaning Pin</span>
+</div>
+
+<div class="hoverable-container" style="position: absolute; top: 220px; right: 80px;" onclick="preparePin('electricalPin')">
+    <img 
+        id="electricalIcon" 
+        src="img/Electrical Hazard_symbol.png" 
+        alt="Electrical Pin" 
+        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        data-pin-type="electricalIcon"
+    />
+    <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Electrical Pin</span>
+</div>
+
+<div class="hoverable-container" style="position: absolute; top: 290px; right: 43px;" onclick="preparePin('itPin')">
+    <img 
+        id="itIcon" 
+        src="img/IT Maintenance_symbol.png" 
+        alt="IT Maintenance Pin" 
+        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        data-pin-type="itIcon"
+    />
+    <span style="font-size: 13px; color: #ffffff; cursor: pointer;">IT Maintenance Pin</span>
+</div>
+
+<div class="hoverable-container" style="position: absolute; top: 360px; right: 95px;" onclick="preparePin('repairPin')">
+    <img 
+        id="repairIcon" 
+        src="img/Repair_symbol.png" 
+        alt="Repair Pin" 
+        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        data-pin-type="repairIcon"
+    />
+    <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Repair Pin</span>
+</div>
+
+<div class="hoverable-container" style="position: absolute; top: 430px; right: 85px;" onclick="preparePin('requestPin')">
+    <img 
+        id="requestIcon" 
+        src="img/Request_symbol.png" 
+        alt="Request Pin" 
+        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        data-pin-type="requestIcon"
+    />
+    <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Request Pin</span>
+</div>
         <!-- Add other icons similarly -->
         
         <!-- The Confirm Button will appear when a pin is selected -->
@@ -86,7 +103,14 @@ session_start();
     
     <!-- Map Section -->
 
+
     <div id="mapContainer">
+    <div class="confirm-zone" id="floor1top" style="top: 0px; left: 355px; width: 568px; height: 65px;"></div>
+    <div class="confirm-zone" id="floor1left" style="top: 140px; left: 355px; width: 109px; height: 310px;"></div>
+    <div class="confirm-zone" id="floor1right" style="top: 140px; left: 815px; width: 109px; height: 310px;"></div>
+    <div class="confirm-zone" id="floor1library" style="top: 140px; left: 540px; width: 200px; height: 308px;"></div>
+    <div class="confirm-zone" id="floor1botleft" style="top: 495px; left: 427px; width: 157px; height: 70px;"></div>
+    <div class="confirm-zone" id="floor1botright" style="top: 495px; left: 708px; width: 215px; height: 70px;"></div>
         <div id="sidebar-container"></div>
 
         <svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
