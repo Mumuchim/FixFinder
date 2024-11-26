@@ -272,9 +272,3 @@ label #cancel {
     height: auto; /* Maintain the aspect ratio */
 }
 
-.confirm-zone {
-    position: absolute;
-    /*border: 2px dashed  rgba(0, 0, 0, 1);/* Dashed border for visibility */
-	background-color: rgba(215, 124, 252, 0.3); /* 20% opacity */
-    pointer-events: none; /* Prevent interactions */
-}

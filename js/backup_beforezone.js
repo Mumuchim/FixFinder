@@ -4,62 +4,6 @@ let cloningInProgress = false; // Track if a pin is being placed
 let lastClonedPin = null; // Track the most recently cloned pin
 let pinPlacedManually = false; // Flag to track if a pin was placed manually
 
-// Define zone configurations for each floor
-const zoneConfigurations = {
-    floor1: [
-        { id: 'floor1top', top: '0px', left: '356px', width: '566px', height: '65px' },
-        { id: 'floor1left', top: '140px', left: '355px', width: '109px', height: '310px' },
-        { id: 'floor1right', top: '140px', left: '816px', width: '107px', height: '310px' },
-        { id: 'floor1library', top: '140px', left: '540px', width: '200px', height: '306px' },
-        { id: 'floor1botleft', top: '495px', left: '427px', width: '157px', height: '70px' },
-        { id: 'floor1botright', top: '495px', left: '708px', width: '215px', height: '70px' }
-    ],
-    floor2: [
-        { id: 'floor2top', top: '0px', left: '357px', width: '566px', height: '65px' },
-        { id: 'floor2left', top: '140px', left: '355px', width: '109px', height: '310px' },
-        { id: 'floor2right', top: '140px', left: '818px', width: '106px', height: '310px' },
-        { id: 'floor2library', top: '140px', left: '541px', width: '200px', height: '307px' },
-        { id: 'floor2bot', top: '495px', left: '355px', width: '570px', height: '70px' },
-    ]
-};
-
-// Function to update zones based on the active floor
-// Function to update zones based on the active floor
-function updateZones(floor) {
-    const mapContainer = document.getElementById('mapContainer');
-
-    // Remove existing zones
-    const existingZones = mapContainer.querySelectorAll('.confirm-zone');
-    existingZones.forEach(zone => mapContainer.removeChild(zone));
-
-    // Add zones for the active floor
-    const zones = zoneConfigurations[floor] || [];
-    zones.forEach(config => {
-        const zone = document.createElement('div');
-        zone.classList.add('confirm-zone');
-        zone.id = config.id;
-        zone.style.position = 'absolute';
-        zone.style.top = config.top;
-        zone.style.left = config.left;
-        zone.style.width = config.width;
-        zone.style.height = config.height;
-        zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)'; // Default style
-        mapContainer.appendChild(zone);
-    });
-}
-
-function highlightZone(pin) {
-    const zones = document.querySelectorAll('.confirm-zone');
-    zones.forEach(zone => {
-        if (isInsideZone(pin, zone)) {
-            zone.style.backgroundColor = 'rgba(215, 124, 252, 0.3)';
-        } else {
-            zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
-        }
-    });
-}
-
-// Function to show the specified floor
 function showFloor(floor) {
     const firstFloor = document.getElementById('firstFloor');
     const secondFloor = document.getElementById('secondFloor');
@@ -67,24 +11,11 @@ function showFloor(floor) {
     if (floor === 1) {
         firstFloor.style.display = 'block';
         secondFloor.style.display = 'none';
-        updateZones('floor1'); // Update zones for Floor 1
-        localStorage.setItem('activeFloor', 1); // Save the active floor to localStorage
     } else if (floor === 2) {
         firstFloor.style.display = 'none';
         secondFloor.style.display = 'block';
-        updateZones('floor2'); // Update zones for Floor 2
-        localStorage.setItem('activeFloor', 2); // Save the active floor to localStorage
     }
 }
-
-// Initialize zones and set the active floor on page load
-document.addEventListener('DOMContentLoaded', () => {
-    const savedFloor = localStorage.getItem('activeFloor'); // Get the saved floor from localStorage
-    const activeFloor = savedFloor ? parseInt(savedFloor, 10) : 1; // Default to Floor 1 if nothing is saved
-    showFloor(activeFloor); // Set the active floor
-});
-
-
 
 function addPathListeners(paths, svgId) {
     const nameLabel = document.getElementById('name');
@@ -107,7 +38,7 @@ function addPathListeners(paths, svgId) {
 
         path.addEventListener('click', () => {
             slidingColumn.classList.add('show');
-        //    document.getElementById('pins').innerHTML = `<div class="pin">You clicked on: ${svgId} - ${path.id}</div>`;
+            document.getElementById('pins').innerHTML = `<div class="pin">You clicked on: ${svgId} - ${path.id}</div>`;
         });
     });
 }
@@ -185,8 +116,8 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
     
-        const pinType = pin.dataset.pinType; // Get the pin type from the data-pin-type attribute
-        const imgSrc = getFixedImagePath(pinType); // Get the fixed image path based on pin type
+        const pinType = pin.dataset.pinType;  // Get the pin type from the data-pin-type attribute
+        const imgSrc = getFixedImagePath(pinType);  // Get the fixed image path based on pin type
     
         const clone = pin.cloneNode(true);
         const pinId = `pin-${Date.now()}`;
@@ -200,27 +131,28 @@ document.addEventListener('DOMContentLoaded', function () {
             pinId: pinId,
             top: clone.style.top,
             left: clone.style.left,
-            imgSrc: imgSrc, // Save the fixed image path
+            imgSrc: imgSrc,  // Save the fixed image path
         });
     
         mapContainer.appendChild(clone);
-    
+        
         // Create image element with the fixed image path
         const img = document.createElement('img');
         img.src = imgSrc;
         clone.appendChild(img);
     
         lastClonedPin = clone;
-        cloningInProgress = true; // Block additional cloning until confirmed
-    
+        cloningInProgress = true;  // Block additional cloning until confirmed
+        
         makeDraggable(clone);
-    
+        
         clone.addEventListener('click', () => {
             if (!pinPlacedManually) {
                 showPinOptions(clone, pinId);
             }
         });
-    }    
+    }
+    
 
     function makeDraggable(pin) {
         let isDragging = false;
@@ -231,67 +163,54 @@ document.addEventListener('DOMContentLoaded', function () {
                 pin.style.position = 'absolute';
                 pin.style.left = `${e.clientX - offsetX}px`;
                 pin.style.top = `${e.clientY - offsetY}px`;
-    
-                // Highlight the zones as the pin moves
-                highlightZone(pin);
             }
         }
     
         function onMouseUp() {
             isDragging = false;
-        
-            // Check if the pin is within any confirmable zone
-            const zones = document.querySelectorAll('.confirm-zone');
-            let isInZone = false;
-        
-            zones.forEach(zone => {
-                if (isInsideZone(pin, zone)) {
-                    isInZone = true;
-                }
-            });
-        
-            if (isInZone) {
-                const confirmPosition = confirm("Do you want to confirm the pin's position?");
-                if (confirmPosition) {
-                    pin.style.position = 'absolute';
-                    const pinId = pin.id;
-        
-                    // Save the confirmed position
-                    pinPositions = pinPositions.filter(p => p.pinId !== pinId);
-                    pinPositions.push({
-                        pinId: pinId,
-                        top: pin.style.top,
-                        left: pin.style.left,
-                    });
-                    savePinPositions(); // Save to localStorage after confirmation
-        
-                    cloningInProgress = false; // Allow new pins to be cloned
-        
-                    // Finalize the pin and remove drag listeners
-                    pin.removeEventListener('mousedown', onMouseDown);
-                    pin.removeEventListener('mousemove', onMouseMove);
-                    pin.removeEventListener('mouseup', onMouseUp);
-        
-                    pin.addEventListener('click', () => {
-                        if (!pinPlacedManually) {
-                            showPinOptions(pin, pinId);
-                        }
-                    });
-        
-                    openForm();
-                    pinPlacedManually = true;
-                } else {
-                    cancelPinPlacement(); // Use updated cancel function
-                }
+    
+            const confirmPosition = confirm("Do you want to confirm the pin's position?");
+            if (confirmPosition) {
+                pin.style.position = 'absolute';
+                const pinId = pin.id;
+    
+                // Only save positions after confirmation
+                pinPositions = pinPositions.filter(p => p.pinId !== pinId);
+                pinPositions.push({
+                    pinId: pinId,
+                    top: pin.style.top,
+                    left: pin.style.left,
+                });
+                savePinPositions();  // Save to localStorage after confirmation
+    
+                // Reset the cloning process
+                cloningInProgress = false;
+    
+                // Finalize the pin
+                pin.removeEventListener('mousedown', onMouseDown);
+                pin.removeEventListener('mousemove', onMouseMove);
+                pin.removeEventListener('mouseup', onMouseUp);
+    
+                pin.addEventListener('click', () => {
+                    if (!pinPlacedManually) {
+                        showPinOptions(pin, pinId);
+                    }
+                });
+    
+                openForm();
+                pinPlacedManually = true;
             } else {
-                alert("Pin must be placed within a designated confirmable zone.");
-                cancelPinPlacement(); // Use updated cancel function
+                // Cancel placement, remove the ongoing pin
+                const mapContainer = document.getElementById("mapContainer");
+                mapContainer.removeChild(pin); // Remove the ongoing pin
+    
+                // Reset cloning process
+                cloningInProgress = false;
             }
-        
-            // Remove drag event listeners after mouseup
+    
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
-        }                     
+        }
     
         function onMouseDown(e) {
             isDragging = true;
@@ -303,6 +222,49 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     
         pin.addEventListener('mousedown', onMouseDown);
+    }
+    
+    function clonePin(pin, x, y) {
+        if (cloningInProgress) {
+            alert("Please confirm the current pin's position before cloning a new one.");
+            return;
+        }
+    
+        const clone = pin.cloneNode(true);
+        const pinId = `pin-${Date.now()}`;
+        clone.id = pinId;
+        clone.style.position = 'absolute';
+        clone.style.left = `${x}px`;
+        clone.style.top = `${y}px`;
+    
+        const pinType = pin.dataset.pinType;  // Get the pin type (e.g., 'cleaning', 'repair')
+        const imgSrc = getFixedImagePath(pinType);  // Get the fixed image path based on pin type
+    
+        // Add pin to positions but don't save it yet
+        pinPositions.push({
+            pinId: pinId,
+            top: clone.style.top,
+            left: clone.style.left,
+            imgSrc: imgSrc,  // Save the fixed image path
+        });
+    
+        mapContainer.appendChild(clone);
+        
+        // Create image element with the fixed image path
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        clone.appendChild(img);
+    
+        lastClonedPin = clone;
+        cloningInProgress = true;  // Block additional cloning until confirmed
+        
+        makeDraggable(clone);
+        
+        clone.addEventListener('click', () => {
+            if (!pinPlacedManually) {
+                showPinOptions(clone, pinId);
+            }
+        });
     }
     
     function getFixedImagePath(pinType) {
@@ -351,9 +313,9 @@ function showPinOptions(pinElement, pinId) {
     modal.style.border = '1px solid #ccc';
     modal.style.borderRadius = '8px';
     modal.style.padding = '10px';
-    modal.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+    modal.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
 
-    const heightLimit = 40;
+    const heightLimit = 30;
     const pinRect = pinElement.getBoundingClientRect();
     const modalTop = pinRect.top - 100;
     const modalLeft = pinRect.left;
@@ -434,21 +396,3 @@ function closeForm() {
 
 
 document.getElementById("cancelRequestButton").addEventListener('click', closeForm);
-
-function isInsideZone(pin, zone) {
-    const pinRect = pin.getBoundingClientRect();
-    const zoneRect = zone.getBoundingClientRect();
-
-    return (
-        pinRect.left >= zoneRect.left &&
-        pinRect.right <= zoneRect.right &&
-        pinRect.top >= zoneRect.top &&
-        pinRect.bottom <= zoneRect.bottom
-    );
-}
-
-function cancelPinPlacement() {
-    // Reload the page to reset all pin placements
-    location.reload();
-}
-
