@@ -334,7 +334,7 @@ session_start();
 </div>
 
 
-		  <div class="report-type">
+		  <!-- <div class="report-type">
 		    <label class="form-label">Type of Report</label>
 		    <select id="reportType" name="type" class="form-control">
                             <option value="">Select Report Type</option>
@@ -345,7 +345,19 @@ session_start();
                             <option value="repair">Repair</option>
                             <option value="request">Request</option>
                         </select>
-		  </div>
+		  </div> -->
+
+          <div class="report-type">
+    <label for="reportTypeInput">Type of Report:</label>
+    <input 
+        type="text" 
+        id="reportTypeInput" 
+        name="type" 
+        class="form-control" 
+        value="">
+    <span id="reportTypeSpan" style="display: none;">Default Report Type</span>
+</div>
+
 
 		  <div class="mb-3">
 		    <label class="form-label">Upload a file:</label>

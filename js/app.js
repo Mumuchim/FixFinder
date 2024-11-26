@@ -107,7 +107,7 @@ function addPathListeners(paths, svgId) {
 
         path.addEventListener('click', () => {
             slidingColumn.classList.add('show');
-         //   document.getElementById('pins').innerHTML = `<div class="pin">You clicked on: ${svgId} - ${path.id}</div>`;
+        //    document.getElementById('pins').innerHTML = `<div class="pin">You clicked on: ${svgId} - ${path.id}</div>`;
         });
     });
 }

@@ -38,7 +38,7 @@ function addPathListeners(paths, svgId) {
 
         path.addEventListener('click', () => {
             slidingColumn.classList.add('show');
-         //   document.getElementById('pins').innerHTML = `<div class="pin">You clicked on: ${svgId} - ${path.id}</div>`;
+            document.getElementById('pins').innerHTML = `<div class="pin">You clicked on: ${svgId} - ${path.id}</div>`;
         });
     });
 }
@@ -224,6 +224,48 @@ document.addEventListener('DOMContentLoaded', function () {
         pin.addEventListener('mousedown', onMouseDown);
     }
     
+    function clonePin(pin, x, y) {
+        if (cloningInProgress) {
+            alert("Please confirm the current pin's position before cloning a new one.");
+            return;
+        }
+    
+        const clone = pin.cloneNode(true);
+        const pinId = `pin-${Date.now()}`;
+        clone.id = pinId;
+        clone.style.position = 'absolute';
+        clone.style.left = `${x}px`;
+        clone.style.top = `${y}px`;
+    
+        const pinType = pin.dataset.pinType;  // Get the pin type (e.g., 'cleaning', 'repair')
+        const imgSrc = getFixedImagePath(pinType);  // Get the fixed image path based on pin type
+    
+        // Add pin to positions but don't save it yet
+        pinPositions.push({
+            pinId: pinId,
+            top: clone.style.top,
+            left: clone.style.left,
+            imgSrc: imgSrc,  // Save the fixed image path
+        });
+    
+        mapContainer.appendChild(clone);
+        
+        // Create image element with the fixed image path
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        clone.appendChild(img);
+    
+        lastClonedPin = clone;
+        cloningInProgress = true;  // Block additional cloning until confirmed
+        
+        makeDraggable(clone);
+        
+        clone.addEventListener('click', () => {
+            if (!pinPlacedManually) {
+                showPinOptions(clone, pinId);
+            }
+        });
+    }
     
     function getFixedImagePath(pinType) {
         const imagePaths = {
@@ -273,7 +315,7 @@ function showPinOptions(pinElement, pinId) {
     modal.style.padding = '10px';
     modal.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
 
-    const heightLimit = 40;
+    const heightLimit = 30;
     const pinRect = pinElement.getBoundingClientRect();
     const modalTop = pinRect.top - 100;
     const modalLeft = pinRect.left;
