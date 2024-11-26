@@ -54,7 +54,7 @@
 
 
 		  <div class="mb-3">
-		    <label class="form-label">Type of Report</label>
+		    <!-- <label class="form-label">Type of Report</label>
 		    <select id="reportType" name="type" class="form-control">
                             <option value="">Select Report Type</option>
                             <option value="caution">Caution</option>
@@ -63,7 +63,10 @@
                             <option value="it-maintenance">IT Maintenance</option>
                             <option value="repair">Repair</option>
                             <option value="request">Request</option>
-                        </select>
+                        </select> -->
+						<label for="reportType">Type of Report</label>
+						<input type="text" id="reportType" name="type" readonly>
+
 		  </div>
 
 		  <div class="mb-3">
