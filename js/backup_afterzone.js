@@ -7,18 +7,18 @@ let pinPlacedManually = false; // Flag to track if a pin was placed manually
 // Define zone configurations for each floor
 const zoneConfigurations = {
     floor1: [
-        { id: 'floor1top', top: '0px', left: '355px', width: '568px', height: '65px' },
+        { id: 'floor1top', top: '0px', left: '356px', width: '566px', height: '65px' },
         { id: 'floor1left', top: '140px', left: '355px', width: '109px', height: '310px' },
-        { id: 'floor1right', top: '140px', left: '815px', width: '109px', height: '310px' },
-        { id: 'floor1library', top: '140px', left: '540px', width: '200px', height: '308px' },
+        { id: 'floor1right', top: '140px', left: '816px', width: '107px', height: '310px' },
+        { id: 'floor1library', top: '140px', left: '540px', width: '200px', height: '306px' },
         { id: 'floor1botleft', top: '495px', left: '427px', width: '157px', height: '70px' },
         { id: 'floor1botright', top: '495px', left: '708px', width: '215px', height: '70px' }
     ],
     floor2: [
-        { id: 'floor2top', top: '0px', left: '355px', width: '568px', height: '65px' },
+        { id: 'floor2top', top: '0px', left: '357px', width: '566px', height: '65px' },
         { id: 'floor2left', top: '140px', left: '355px', width: '109px', height: '310px' },
-        { id: 'floor2right', top: '140px', left: '815px', width: '109px', height: '310px' },
-        { id: 'floor2middle', top: '140px', left: '540px', width: '200px', height: '308px' },
+        { id: 'floor2right', top: '140px', left: '818px', width: '106px', height: '310px' },
+        { id: 'floor2library', top: '140px', left: '541px', width: '200px', height: '307px' },
         { id: 'floor2bot', top: '495px', left: '355px', width: '570px', height: '70px' },
     ]
 };
@@ -43,8 +43,19 @@ function updateZones(floor) {
         zone.style.left = config.left;
         zone.style.width = config.width;
         zone.style.height = config.height;
-        zone.style.backgroundColor = 'rgba(76, 175, 80, 0.2)'; // Default style
+        zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)'; // Default style
         mapContainer.appendChild(zone);
+    });
+}
+
+function highlightZone(pin) {
+    const zones = document.querySelectorAll('.confirm-zone');
+    zones.forEach(zone => {
+        if (isInsideZone(pin, zone)) {
+            zone.style.backgroundColor = 'rgba(215, 124, 252, 0.3)';
+        } else {
+            zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
+        }
     });
 }
 
@@ -340,7 +351,7 @@ function showPinOptions(pinElement, pinId) {
     modal.style.border = '1px solid #ccc';
     modal.style.borderRadius = '8px';
     modal.style.padding = '10px';
-    modal.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+    modal.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
 
     const heightLimit = 40;
     const pinRect = pinElement.getBoundingClientRect();
@@ -441,13 +452,3 @@ function cancelPinPlacement() {
     location.reload();
 }
 
-function highlightZone(pin) {
-    const zones = document.querySelectorAll('.confirm-zone');
-    zones.forEach(zone => {
-        if (isInsideZone(pin, zone)) {
-            zone.style.backgroundColor = 'rgba(76, 175, 80, 0.4)';
-        } else {
-            zone.style.backgroundColor = 'rgba(76, 175, 80, 0.2)';
-        }
-    });
-}
