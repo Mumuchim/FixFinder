@@ -110,6 +110,7 @@ session_start();
         <svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- First Floor -->
             <g id="firstFloor">
+            <rect id="floor1top" class="zone" x="356" y="0" width="566" height="65" fill="rgba(0, 255, 0, 0.5)" />
                 <path id="COLLEGE LIBRARY" class="allPaths" d="M349.5 267.5 H729.5 V851.5 H349.5 Z" fill="#4A55A2" stroke="black" />
                 <path id="ST. CARLO ACUTIS CHAPEL" class="allPaths" d="M0.5 267.5 H202.5 V378.5 H0.5 Z" fill="#FFD0D0" stroke="black" />
                 <path id="ARETE HALL" class="allPaths" d="M0.5 379.5 H202.5 V485.5 H0.5 Z" fill="#E1ACAC" stroke="black" />
@@ -317,7 +318,8 @@ session_start();
                                 } else {
                                     echo '';
                                 }
-                           ?>">
+                           ?>"> 
+                           
 		  </div>
 
 		  <div class="report-title">

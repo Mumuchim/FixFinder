@@ -31,13 +31,16 @@
             border: none;
             cursor: pointer;
         }
-        #saveToDB {
+        #saveToDB, #deleteAll {
             margin-top: 20px;
             padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
+        }
+        #deleteAll {
+            background-color: #f44336; /* Red color for Delete All */
         }
     </style>
 </head>
@@ -51,6 +54,7 @@
             <tr>
                 <th>Key</th>
                 <th>Value</th>
+                <th>Floor</th> <!-- New column for Floor -->
                 <th>Action</th>
             </tr>
         </thead>
@@ -60,6 +64,7 @@
     </table>
 
     <button id="saveToDB">Save to Database</button>
+    <button id="deleteAll">Delete All</button> <!-- Delete All button -->
 
     <script>
         // Function to render localStorage contents into the table
@@ -72,14 +77,26 @@
                 const key = localStorage.key(i);
                 const value = localStorage.getItem(key);
 
+                // Parse the value as JSON to check for floor information
+                let parsedValue = {};
+                try {
+                    parsedValue = JSON.parse(value);
+                } catch (e) {
+                    // If value isn't JSON, it will remain an empty object
+                }
+
                 const row = tableBody.insertRow();
                 const keyCell = row.insertCell(0);
                 const valueCell = row.insertCell(1);
-                const actionCell = row.insertCell(2);
+                const floorCell = row.insertCell(2); // New cell for floor information
+                const actionCell = row.insertCell(3);
 
                 keyCell.textContent = key;
                 valueCell.textContent = value;
-                
+
+                // Show the floor data if available, otherwise display "N/A"
+                floorCell.textContent = parsedValue.floor ? parsedValue.floor : 'N/A';
+
                 // Make the value cell editable on click
                 valueCell.onclick = function() {
                     const currentValue = valueCell.textContent;
@@ -151,8 +168,17 @@
             });
         }
 
-        // Attach event listener to the Save to Database button
+        // Function to delete all items from localStorage
+        function deleteAll() {
+            if (confirm('Are you sure you want to delete all items in localStorage?')) {
+                localStorage.clear();
+                renderLocalStorage(); // Re-render the table after clearing localStorage
+            }
+        }
+
+        // Attach event listeners to the buttons
         document.getElementById('saveToDB').addEventListener('click', saveToDatabase);
+        document.getElementById('deleteAll').addEventListener('click', deleteAll);
 
         // Initial rendering of localStorage contents when the page loads
         window.onload = function () {
