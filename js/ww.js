@@ -44,7 +44,8 @@ function updateZones(floor) {
         zone.style.left = config.left;
         zone.style.width = config.width;
         zone.style.height = config.height;
-        zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)'; // Default style
+        // zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)'; // Default style
+        zone.style.backgroundColor = 'green'; // Default style
         mapContainer.appendChild(zone);
     });
 }
@@ -453,24 +454,3 @@ function cancelPinPlacement() {
     location.reload();
 }
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    const dateInput = document.getElementById('reportDate');
-    try {
-        // Get the current date in YYYY-MM-DD format
-        const today = new Date().toISOString().split('T')[0];
-
-        // Check if the input type is supported
-        if (dateInput.type === "date") {
-            dateInput.value = today;
-        } else {
-            throw new Error("Input type 'date' is not supported by this browser.");
-        }
-    } catch (error) {
-        console.error("Error setting the current date:", error.message);
-
-        // Fallback for unsupported browsers
-        dateInput.placeholder = "YYYY-MM-DD";
-        dateInput.type = "text";
-    }
-});

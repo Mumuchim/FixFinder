@@ -80,7 +80,7 @@
                         <input type="date"  name="date" class="date-picker">
         </div>
 
-
+		
 		
 		  <button type="submit" class="btn btn-primary">Submit</button>
 		  <button type="submit" class="btn btn-primary">Close</button>

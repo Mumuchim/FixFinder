@@ -304,23 +304,21 @@ session_start();
 		    <?php } ?>
 
             <div class="mb-3">
-    <label class="form-label">Name:</label>
-    <input type="text" 
-           class="form-control"
-           name="user"
-           readonly
-           value="<?php 
-                // Pre-fill with session data or allow user input
-                if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
-                    echo htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
-                } elseif (isset($_SESSION['fname'])) {
-                    echo htmlspecialchars($_SESSION['fname']);
-                } else {
-                    echo '';
-                }
-           ?>">
-</div>
-
+		    <label class="form-label">Name:</label>
+		    <input type="text" 
+		           class="form-control"
+		           name="user"
+		           value="<?php 
+                                // Pre-fill with session data or allow user input
+                                if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
+                                    echo htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
+                                } elseif (isset($_SESSION['fname'])) {
+                                    echo htmlspecialchars($_SESSION['fname']);
+                                } else {
+                                    echo '';
+                                }
+                           ?>">
+		  </div>
 
 		  <div class="report-title">
 		    <label class="form-label">Title</label>
@@ -356,11 +354,9 @@ session_start();
         id="reportTypeInput" 
         name="type" 
         class="form-control" 
-        value="" 
-        readonly>
-    <span id="reportTypeSpan" style="display: none;">Select a Pin</span>
+        value="">
+    <span id="reportTypeSpan" style="display: none;">Default Report Type</span>
 </div>
-
 
 
 		  <div class="mb-3">
@@ -369,12 +365,10 @@ session_start();
 		           class="form-control"
 		           name="image">
 		  </div>
-
-		 <div class="mb-3">
-    <label for="reportDate" class="date-label">Report Date:</label>
-    <input type="date" id="reportDate" name="date" class="date-picker">
-</div>
-
+		  <div class="date-picker-section">
+                        <label for="reportDate" class="date-label">Report Date:</label>
+                        <input type="date"  name="date" class="date-picker">
+                    </div>
 		  <button type="submit" class="btn btn-primary" id="submitButton" >Submit</button>
           <button type="button" class="btn cancel" id="cancelRequestButton">Cancel Request</button>
 
@@ -382,7 +376,7 @@ session_start();
     </div>
     
     <script src="js/studSidebar.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/ww.js"></script>
     <script src="js/submit.js"></script>
 
 </body>
