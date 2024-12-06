@@ -21,12 +21,16 @@ function preparePin(pinType) {
         const reportType = pinTypes[pinType] || "Unknown";
         reportTypeSpan.textContent = reportType; // Update the span's text content
         reportTypeInput.value = reportType; // Update the input box value
+
+        // Move the alert here, after the DOM has been updated
+        alert(`${reportType} selected!`);
     } else {
         console.error("Report type input or span not found!");
     }
+}
+
 
     alert(`${pinTypes[pinType]} selected!`); // Alert the user with the selected pin type
-}
 
 // Wait for the document to load before attaching event listeners
 document.addEventListener('DOMContentLoaded', function () {
@@ -99,4 +103,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+document.getElementById('reportForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(this);
+
+    fetch('rep.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showPopup(data.success, 'success');
+        } else if (data.error) {
+            showPopup(data.error, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showPopup('An unexpected error occurred.', 'error');
+    });
+});
 

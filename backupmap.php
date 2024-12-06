@@ -105,12 +105,6 @@ session_start();
 
 
     <div id="mapContainer">
-    <div class="confirm-zone" id="floor1top" style="top: 0px; left: 355px; width: 568px; height: 65px;"></div>
-    <div class="confirm-zone" id="floor1left" style="top: 140px; left: 355px; width: 109px; height: 310px;"></div>
-    <div class="confirm-zone" id="floor1right" style="top: 140px; left: 815px; width: 109px; height: 310px;"></div>
-    <div class="confirm-zone" id="floor1library" style="top: 140px; left: 540px; width: 200px; height: 308px;"></div>
-    <div class="confirm-zone" id="floor1botleft" style="top: 495px; left: 427px; width: 157px; height: 70px;"></div>
-    <div class="confirm-zone" id="floor1botright" style="top: 495px; left: 708px; width: 215px; height: 70px;"></div>
         <div id="sidebar-container"></div>
 
         <svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">

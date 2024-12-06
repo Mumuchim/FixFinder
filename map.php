@@ -287,10 +287,10 @@ session_start();
     <button class="open-button" onclick="openForm()">new report</button>
     <div class="form-popup" id="myForm">
     	
-   <form id="reportForm" class="form-container" action="php/rep.php" method="post" enctype="multipart/form-data">
+   <form id="reportForm" class="form-container" action="php/test.php" method="post" enctype="multipart/form-data">
             <div class="report">
-    		<h1 class="display-4  fs-1">Report</h1><br>
-            <label><p>Report here your concern.<p></label>
+    		<h1 class="display-4  fs-1">Report</h1>
+            <label><p>Report your concern here.<p></label>
     		<?php if(isset($_GET['error'])){ ?>
     		<div class="alert alert-danger" role="alert">
 			  <?php echo $_GET['error']; ?>
@@ -335,20 +335,6 @@ session_start();
     </textarea>
 </div>
 
-
-		  <!-- <div class="report-type">
-		    <label class="form-label">Type of Report</label>
-		    <select id="reportType" name="type" class="form-control">
-                            <option value="">Select Report Type</option>
-                            <option value="caution">Caution</option>
-                            <option value="cleaning">Cleaning</option>
-                            <option value="electrical-hazard">Electrical Hazard</option>
-                            <option value="it-maintenance">IT Maintenance</option>
-                            <option value="repair">Repair</option>
-                            <option value="request">Request</option>
-                        </select>
-		  </div> -->
-
           <div class="report-type">
     <label for="reportTypeInput">Type of Report:</label>
     <input 
@@ -360,6 +346,7 @@ session_start();
         readonly>
     <span id="reportTypeSpan" style="display: none;">Select a Pin</span>
 </div>
+
 
 
 
@@ -380,6 +367,8 @@ session_start();
 
 		</form>
     </div>
+
+
     
     <script src="js/studSidebar.js"></script>
     <script src="js/app.js"></script>

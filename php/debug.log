@@ -23,3 +23,10 @@ Type: cleaning
 Date: 2024-11-25
 Name: 
 Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'name' in 'field list'
+Form Data:
+Title: tally
+Details:             dasdasdasd
+Type: 
+Date: 2024-12-06
+Name: 
+Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'name' in 'field list'
