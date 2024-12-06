@@ -354,9 +354,11 @@ session_start();
         id="reportTypeInput" 
         name="type" 
         class="form-control" 
-        value="">
+        value=""
+        readonly> <!-- bawal na magtype ahihihi -->
     <span id="reportTypeSpan" style="display: none;">Default Report Type</span>
 </div>
+
 
 
 		  <div class="mb-3">

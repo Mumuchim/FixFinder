@@ -21,12 +21,16 @@ function preparePin(pinType) {
         const reportType = pinTypes[pinType] || "Unknown";
         reportTypeSpan.textContent = reportType; // Update the span's text content
         reportTypeInput.value = reportType; // Update the input box value
+
+        // Move the alert here, after the DOM has been updated
+        alert(`${reportType} selected!`);
     } else {
         console.error("Report type input or span not found!");
     }
+}
+
 
     alert(`${pinTypes[pinType]} selected!`); // Alert the user with the selected pin type
-}
 
 // Wait for the document to load before attaching event listeners
 document.addEventListener('DOMContentLoaded', function () {
