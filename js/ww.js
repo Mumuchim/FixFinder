@@ -44,7 +44,8 @@ function updateZones(floor) {
         zone.style.left = config.left;
         zone.style.width = config.width;
         zone.style.height = config.height;
-        zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)'; // Default style
+        // zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)'; // Default style
+        zone.style.backgroundColor = 'green'; // Default style
         mapContainer.appendChild(zone);
     });
 }
@@ -61,7 +62,6 @@ function highlightZone(pin) {
 }
 
 // Function to show the specified floor
-// Function to show the specified floor
 function showFloor(floor) {
     const firstFloor = document.getElementById('firstFloor');
     const secondFloor = document.getElementById('secondFloor');
@@ -70,25 +70,21 @@ function showFloor(floor) {
         firstFloor.style.display = 'block';
         secondFloor.style.display = 'none';
         updateZones('floor1'); // Update zones for Floor 1
+        localStorage.setItem('activeFloor', 1); // Save the active floor to localStorage
     } else if (floor === 2) {
         firstFloor.style.display = 'none';
         secondFloor.style.display = 'block';
         updateZones('floor2'); // Update zones for Floor 2
+        localStorage.setItem('activeFloor', 2); // Save the active floor to localStorage
     }
-
-    saveActiveFloor(floor); // Save the active floor to localStorage
 }
-
-
 
 // Initialize zones and set the active floor on page load
 document.addEventListener('DOMContentLoaded', () => {
     const savedFloor = localStorage.getItem('activeFloor'); // Get the saved floor from localStorage
-    const activeFloor = getCurrentActiveFloor(); // Get the saved floor value (1 or 2)
+    const activeFloor = savedFloor ? parseInt(savedFloor, 10) : 1; // Default to Floor 1 if nothing is saved
     showFloor(activeFloor); // Set the active floor
-    
 });
-
 
 
 
@@ -125,37 +121,11 @@ document.getElementById("closeButton").addEventListener("click", function () {
     document.getElementById("slidingColumn").classList.remove("show");
 });
 
-function saveActiveFloor(floor) {
-    const floorData = {
-        value: 'N/A',  // Set the value as 'N/A'
-        floor: floor   // Store the floor (1 or 2)
-    };
-
-    localStorage.setItem('activeFloor', JSON.stringify(floorData)); // Save as JSON
-}
-
-
-function getCurrentActiveFloor() {
-    const savedFloor = localStorage.getItem('activeFloor'); // Get the saved floor object from localStorage
-    if (savedFloor) {
-        const floorData = JSON.parse(savedFloor); // Parse the stored data
-
-        // Return the floor value or default to Floor 1 if invalid
-        return floorData.floor === 1 || floorData.floor === 2 ? floorData.floor : 1;
-    } else {
-        return 1; // Default to Floor 1 if no data is found
-    }
-}
-
-
-localStorage.removeItem('activeFloor');
-
-
 let pinPositions = [];
 
 function savePinPositions() {
     try {
-        pinPositions.forEach(position => {
+        const positionsWithImages = pinPositions.map(position => {
             const pinElement = document.getElementById(position.pinId);
             const img = pinElement.querySelector('img');
             const imgSrc = img ? img.src : null;
@@ -163,64 +133,43 @@ function savePinPositions() {
             // Remove the base URL and only save the relative path
             const relativeImgSrc = imgSrc ? imgSrc.replace(/^http:\/\/localhost:3000\//, '') : null;
 
-            const pinData = {
-                top: position.top,
-                left: position.left,
-                imgSrc: relativeImgSrc,
-                floor: position.floor || getCurrentActiveFloor(), // Use current active floor if not already set
+            return {
+                ...position,
+                imgSrc: relativeImgSrc  // Save only the relative image path
             };
-
-            const pinIdWithoutPrefix = position.pinId.replace(/^pin-/, ''); // Remove 'pin-' prefix
-            localStorage.setItem(pinIdWithoutPrefix, JSON.stringify(pinData)); // Save the full pin data including floor
         });
+        localStorage.setItem("pinPositions", JSON.stringify(positionsWithImages));
     } catch (e) {
         console.error("Error saving pin positions to localStorage", e);
     }
 }
 
+
 function loadPinPositions() {
     try {
-        Object.keys(localStorage).forEach(key => {
-            if (/^\d+$/.test(key)) { // Check if the key is a pin ID (numeric)
-                const pinData = JSON.parse(localStorage.getItem(key));
+        const savedPositions = JSON.parse(localStorage.getItem("pinPositions"));
+        if (savedPositions) {
+            savedPositions.forEach(position => {
+                const pinElement = document.createElement('div');
+                pinElement.classList.add('pin');
+                pinElement.style.position = 'absolute';
+                pinElement.style.top = position.top;
+                pinElement.style.left = position.left;
+                pinElement.id = position.pinId;
+                document.getElementById("mapContainer").appendChild(pinElement);
 
-                if (pinData) {
-                    const pinElement = document.createElement('div');
-                    pinElement.classList.add('pin');
-                    pinElement.style.position = 'absolute';
-                    pinElement.style.top = pinData.top;
-                    pinElement.style.left = pinData.left;
-                    pinElement.id = `pin-${key}`;
+                // Create image element with the saved image source
+                const img = document.createElement('img');
+                img.src = position.imgSrc;
+                pinElement.appendChild(img);
 
-                    document.getElementById("mapContainer").appendChild(pinElement);
+                pinElement.addEventListener('click', () => {
+                    showPinOptions(pinElement, position.pinId);
+                });
 
-                    // Create image element with the saved image source
-                    const img = document.createElement('img');
-                    img.src = pinData.imgSrc;
-                    pinElement.appendChild(img);
-
-                    pinElement.addEventListener('click', () => {
-                        showPinOptions(pinElement, key);
-                    });
-
-                    // Get and use the floor value
-                    const floor = pinData.floor;
-
-                    if (floor !== undefined) {
-                        // Display correct floor (1 or 2) based on pin's floor value
-                        showFloor(floor); // This should set the floor display (1 or 2)
-                    }
-
-                    pinPositions.push({
-                        pinId: `pin-${key}`,
-                        top: pinData.top,
-                        left: pinData.left,
-                        imgSrc: pinData.imgSrc,
-                        floor: pinData.floor, // Save the floor value
-                    });
-                }
-            }
-        });
+                pinPositions.push(position);
+            });
+        }
     } catch (e) {
         console.error("Error loading pin positions from localStorage", e);
     }
@@ -505,24 +454,3 @@ function cancelPinPlacement() {
     location.reload();
 }
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    const dateInput = document.getElementById('reportDate');
-    try {
-        // Get the current date in YYYY-MM-DD format
-        const today = new Date().toISOString().split('T')[0];
-
-        // Check if the input type is supported
-        if (dateInput.type === "date") {
-            dateInput.value = today;
-        } else {
-            throw new Error("Input type 'date' is not supported by this browser.");
-        }
-    } catch (error) {
-        console.error("Error setting the current date:", error.message);
-
-        // Fallback for unsupported browsers
-        dateInput.placeholder = "YYYY-MM-DD";
-        dateInput.type = "text";
-    }
-});

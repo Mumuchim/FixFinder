@@ -110,7 +110,6 @@ session_start();
         <svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- First Floor -->
             <g id="firstFloor">
-            <rect id="floor1top" class="zone" x="356" y="0" width="566" height="65" fill="rgba(0, 255, 0, 0.5)" />
                 <path id="COLLEGE LIBRARY" class="allPaths" d="M349.5 267.5 H729.5 V851.5 H349.5 Z" fill="#4A55A2" stroke="black" />
                 <path id="ST. CARLO ACUTIS CHAPEL" class="allPaths" d="M0.5 267.5 H202.5 V378.5 H0.5 Z" fill="#FFD0D0" stroke="black" />
                 <path id="ARETE HALL" class="allPaths" d="M0.5 379.5 H202.5 V485.5 H0.5 Z" fill="#E1ACAC" stroke="black" />
@@ -288,10 +287,10 @@ session_start();
     <button class="open-button" onclick="openForm()">new report</button>
     <div class="form-popup" id="myForm">
     	
-   <form id="reportForm" class="form-container" action="php/test.php" method="post" enctype="multipart/form-data">
+   <form id="reportForm" class="form-container" action="php/rep.php" method="post" enctype="multipart/form-data">
             <div class="report">
-    		<h1 class="display-4  fs-1">Report</h1>
-            <label><p>Report your concern here.<p></label>
+    		<h1 class="display-4  fs-1">Report</h1><br>
+            <label><p>Report here your concern.<p></label>
     		<?php if(isset($_GET['error'])){ ?>
     		<div class="alert alert-danger" role="alert">
 			  <?php echo $_GET['error']; ?>
@@ -334,6 +333,20 @@ session_start();
     </textarea>
 </div>
 
+
+		  <!-- <div class="report-type">
+		    <label class="form-label">Type of Report</label>
+		    <select id="reportType" name="type" class="form-control">
+                            <option value="">Select Report Type</option>
+                            <option value="caution">Caution</option>
+                            <option value="cleaning">Cleaning</option>
+                            <option value="electrical-hazard">Electrical Hazard</option>
+                            <option value="it-maintenance">IT Maintenance</option>
+                            <option value="repair">Repair</option>
+                            <option value="request">Request</option>
+                        </select>
+		  </div> -->
+
           <div class="report-type">
     <label for="reportTypeInput">Type of Report:</label>
     <input 
@@ -341,12 +354,9 @@ session_start();
         id="reportTypeInput" 
         name="type" 
         class="form-control" 
-        value="" 
-        readonly>
-    <span id="reportTypeSpan" style="display: none;">Select a Pin</span>
+        value="">
+    <span id="reportTypeSpan" style="display: none;">Default Report Type</span>
 </div>
-
-
 
 
 		  <div class="mb-3">
@@ -355,22 +365,18 @@ session_start();
 		           class="form-control"
 		           name="image">
 		  </div>
-
-		 <div class="mb-3">
-    <label for="reportDate" class="date-label">Report Date:</label>
-    <input type="date" id="reportDate" name="date" class="date-picker">
-</div>
-
+		  <div class="date-picker-section">
+                        <label for="reportDate" class="date-label">Report Date:</label>
+                        <input type="date"  name="date" class="date-picker">
+                    </div>
 		  <button type="submit" class="btn btn-primary" id="submitButton" >Submit</button>
           <button type="button" class="btn cancel" id="cancelRequestButton">Cancel Request</button>
 
 		</form>
     </div>
-
-
     
     <script src="js/studSidebar.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/ww.js"></script>
     <script src="js/submit.js"></script>
 
 </body>

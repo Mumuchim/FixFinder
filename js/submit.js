@@ -103,4 +103,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+document.getElementById('reportForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(this);
+
+    fetch('rep.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showPopup(data.success, 'success');
+        } else if (data.error) {
+            showPopup(data.error, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showPopup('An unexpected error occurred.', 'error');
+    });
+});
 

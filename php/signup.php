@@ -37,13 +37,25 @@ if (isset($_POST['fname']) &&
         header("Location: ../index.php?error=$em&$data");
         exit;
     } else {
+        $uid = null;
+
+        if ($role === 'student') {
+            // Generate a unique 8-digit UID for students only
+            do {
+                $uid = rand(10000000, 99999999);
+                $checkUIDQuery = "SELECT * FROM users WHERE uid = ?";
+                $stmt = $conn->prepare($checkUIDQuery);
+                $stmt->execute([$uid]);
+            } while ($stmt->rowCount() > 0);
+        }
+
         // Hashing the password
         $pass = password_hash($pass, PASSWORD_DEFAULT);
 
         // Insert into Database
-        $sql = "INSERT INTO users (fname, lname, email, password, role) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (uid, fname, lname, email, password, role) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$fname, $lname, $email, $pass, $role]); // Include role in the query
+        $stmt->execute([$uid, $fname, $lname, $email, $pass, $role]); // Include UID (null for admin)
 
         header("Location: ../index.php?success=Your account has been created successfully");
         exit;

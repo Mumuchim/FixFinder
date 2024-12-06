@@ -33,6 +33,7 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
             $id = $user['id'];
             $pp = $user['pp'];
             $role = $user['role']; // Retrieve role from the database
+            $uid = $user['uid'];   // Retrieve UID from the database
 
             if ($db_email === $email) {
                 if (password_verify($pass, $password)) {
@@ -42,6 +43,7 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
                     $_SESSION['lname'] = $lname;
                     $_SESSION['pp'] = $pp;
                     $_SESSION['role'] = $role; // Save role in session
+                    $_SESSION['uid'] = $uid;   // Save UID in session
 
                     // Redirect based on the user's role
                     if ($role === 'admin') {
