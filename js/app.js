@@ -325,13 +325,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     pin.removeEventListener('mousemove', onMouseMove);
                     pin.removeEventListener('mouseup', onMouseUp);
         
-                    pin.addEventListener('click', () => {
-                        if (!pinPlacedManually) {
-                            showPinOptions(pin, pinId);
-                        }
-                    });
+                    // Populate the form with the pin's information
+                    document.getElementById('pinId').value = pinId;  // Pin ID
+                    document.getElementById('coordinates').value = JSON.stringify({
+                        top: pin.style.top,
+                        left: pin.style.left,
+                        imgSrc: pin.querySelector('img') ? pin.querySelector('img').src : null,
+                        floor: getCurrentActiveFloor()
+                    });  // Coordinates (JSON stringified)
+                    document.getElementById('floor').value = getCurrentActiveFloor();  // Floor (1 or 2)
         
-                    openForm();
+                    openForm();  // Show the form
+        
                     pinPlacedManually = true;
                 } else {
                     cancelPinPlacement(); // Use updated cancel function
@@ -344,7 +349,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // Remove drag event listeners after mouseup
             document.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseup', onMouseUp);
-        }                     
+        }
+               
     
         function onMouseDown(e) {
             isDragging = true;
@@ -445,12 +451,20 @@ function showPinOptions(pinElement, pinId) {
         if (confirm('Are you sure you want to remove this pin?')) {
             const mapContainer = document.getElementById('mapContainer');
             mapContainer.removeChild(pinElement);
-
+    
+            // Remove pin from pinPositions array
             pinPositions = pinPositions.filter(p => p.pinId !== pinId);
+    
+            // Also remove the corresponding pin data from localStorage
+            const pinIdWithoutPrefix = pinId.replace(/^pin-/, ''); // Remove 'pin-' prefix
+            localStorage.removeItem(pinIdWithoutPrefix); // Remove the pin data from localStorage
+    
+            // Save the updated pin positions
             savePinPositions();
         }
         document.body.removeChild(modal);
     });
+    
 
     closeButton.addEventListener('click', () => {
         document.body.removeChild(modal);
@@ -526,3 +540,5 @@ document.addEventListener('DOMContentLoaded', function () {
         dateInput.type = "text";
     }
 });
+
+

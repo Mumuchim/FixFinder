@@ -110,7 +110,6 @@ session_start();
         <svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- First Floor -->
             <g id="firstFloor">
-            <rect id="floor1top" class="zone" x="356" y="0" width="566" height="65" fill="rgba(0, 255, 0, 0.5)" />
                 <path id="COLLEGE LIBRARY" class="allPaths" d="M349.5 267.5 H729.5 V851.5 H349.5 Z" fill="#4A55A2" stroke="black" />
                 <path id="ST. CARLO ACUTIS CHAPEL" class="allPaths" d="M0.5 267.5 H202.5 V378.5 H0.5 Z" fill="#FFD0D0" stroke="black" />
                 <path id="ARETE HALL" class="allPaths" d="M0.5 379.5 H202.5 V485.5 H0.5 Z" fill="#E1ACAC" stroke="black" />
@@ -283,6 +282,9 @@ session_start();
         </svg>
     </div>
 
+    <!-- 
+    REPORTTTTT FORM -->
+
     <body class="report_details">
     <!-- <div class="d-flex justify-content-center align-items-center vh-100"> -->
     <button class="open-button" onclick="openForm()">new report</button>
@@ -304,37 +306,71 @@ session_start();
 			</div>
 		    <?php } ?>
 
-            <div class="mb-3">
-		    <label class="form-label">Name:</label>
-		    <input type="text" 
-		           class="form-control"
-		           name="user"
-		           value="<?php 
-                                // Pre-fill with session data or allow user input
-                                if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
-                                    echo htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
-                                } elseif (isset($_SESSION['fname'])) {
-                                    echo htmlspecialchars($_SESSION['fname']);
-                                } else {
-                                    echo '';
-                                }
-                           ?>">
-		  </div>
+    <!-- <div class="mb-3">
+    <label class="form-label">Name:</label>
+    <input type="text" 
+           class="form-control"
+           name="user"
+           readonly
+           value="<?php 
+                // Pre-fill with session data or allow user input
+        //         if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
+        //             echo htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
+        //         } elseif (isset($_SESSION['fname'])) {
+        //             echo htmlspecialchars($_SESSION['fname']);
+        //         } else {
+        //             echo '';
+        //         }
+        //    ?>">
+</div> -->
 
-		  <div class="report-title">
-		    <label class="form-label">Title</label>
-		    <input type="text" class="form-control" name="title"
-		           value="<?php echo (isset($_GET['title']))?$_GET['title']:"" ?>">
-		  </div>
+<header style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #ddd;">
+    <?php 
+    // Pre-fill with session data
+    if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
+        echo "<p><strong>Name: </strong>" . htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
+    } elseif (isset($_SESSION['fname'])) {
+        echo htmlspecialchars($_SESSION['fname']);
+    } else {
+        echo '';
+    }
+    ?>
+</header>
 
-		  <div class="mb-3">
+<div class="report-title">
+    <label class="form-label">Title</label>
+    <input 
+        type="text" 
+        class="form-control" 
+        name="title" 
+        value="<?php echo (isset($_GET['title'])) ? $_GET['title'] : ""; ?>">
+</div>
+
+<div class="mb-3">
     <label class="form-label">Enter Details:</label>
-    <textarea rows="10" class="form-control" cols="40" name="details" placeholder="Write your details here..">
+    <textarea 
+        rows="10" 
+        class="form-control" 
+        cols="40" 
+        name="details" 
+        placeholder="Write your details here..">
         <?php echo isset($_GET['details']) ? $_GET['details'] : ""; ?>
     </textarea>
 </div>
 
-          <div class="report-type">
+<form id="reportForm">
+    <label for="pinId">Pin ID:</label>
+    <input type="text" id="pinId" readonly />
+
+    <label for="coordinates">Coordinates:</label>
+    <input type="text" id="coordinates" readonly />
+
+    <label for="floor">Floor:</label>
+    <input type="text" id="floor" readonly />
+</form>
+
+<div class="report-type">
+    <br>
     <label for="reportTypeInput">Type of Report:</label>
     <input 
         type="text" 
@@ -346,24 +382,42 @@ session_start();
     <span id="reportTypeSpan" style="display: none;">Select a Pin</span>
 </div>
 
-
-
-
-		  <div class="mb-3">
-		    <label class="form-label">Upload a file:</label>
-		    <input type="file" 
-		           class="form-control"
-		           name="image">
-		  </div>
-
-		 <div class="mb-3">
-    <label for="reportDate" class="date-label">Report Date:</label>
-    <input type="date" id="reportDate" name="date" class="date-picker">
+<div class="mb-3">
+    <label class="form-label">Upload a file:</label>
+    <input 
+        type="file" 
+        class="form-control" 
+        name="image">
 </div>
 
-		  <button type="submit" class="btn btn-primary" id="submitButton" >Submit</button>
-          <button type="button" class="btn cancel" id="cancelRequestButton">Cancel Request</button>
+<div class="mb-3">
+    <label for="reportDate" class="date-label">Report Date:</label>
+    <input 
+        type="date" 
+        id="reportDate" 
+        name="date" 
+        class="date-picker">
+</div>
 
+
+<button 
+    type="submit" 
+    class="btn btn-primary" 
+    id="submitButton">Submit</button>
+<button 
+    type="button" 
+    class="btn cancel" 
+    id="cancelRequestButton">Cancel Request</button>
+
+<footer style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #ddd;">
+    <?php 
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
+        echo "<p><strong>UID:</strong> " . htmlspecialchars($_SESSION['uid']) . "</p>";
+    } else {
+        echo "<p><strong>UID:</strong> Not available</p>";
+    }
+    ?>
+</footer>
 		</form>
     </div>
 
