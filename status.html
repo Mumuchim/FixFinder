@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Report</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            background-image: url('img/bgmap.png'); /* Add this line */
+            background-size: cover; /* Ensures the image covers the whole background */
+            background-position: center center; /* Centers the image */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            width: 500px;
+            text-align: center;
+            position: relative; /* Required for absolute positioning of child elements */
+        }
+        .report-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .details {
+            padding: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .details h3 {
+            color: #333;
+        }
+        .details p {
+            color: #555;
+        }
+        .status {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+        .button {
+            background-color: #0245c1;
+            color: white;
+            padding: 8px 8px;
+            text-decoration: none;
+            border-radius: 5px;
+            position: absolute; /* Position it relative to its closest positioned ancestor */
+            top: 280px; /* Adjust top distance */
+            left: 30px; /* Adjust left distance */
+            font-size: 14px;
+        }
+        .button:hover {
+            background-color: #218838;
+        }
+        .reporter-name {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="img/broken_door_knob.jpg" alt="Report Image" class="report-img">
+    <div class="details">
+        <h3><strong>Title:</strong> Broken Door</h3>
+        <p><strong>Details:</strong> The door knob is falling off and not properly set.</p>
+        <p><strong>Type of Report:</strong> Need Repair</p>
+        <div class="status">
+            <p><strong>Status:</strong> Ongoing</p>
+        </div>
+        <p class="reporter-name"><strong>Reporter:</strong> Jerome Isaac</p>
+    </div>
+    <a href="map.php" class="button">Go to Map</a>
+</div>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

@@ -462,7 +462,7 @@ function showPinOptions(pinElement, pinId) {
     document.body.appendChild(modal);
 
     statusButton.addEventListener('click', () => {
-        window.location.href = '/pages/status.html';
+        window.location.href = 'status.html';
         document.body.removeChild(modal);
     });
 
