@@ -40,15 +40,7 @@ session_start();
         </ul>   
 
         <!-- Displaying the UID for students at the bottom -->
-        <footer style="margin-top: auto; padding: 10px; text-align: center; border-top: 1px solid #ddd; color: white;">
-            <?php 
-            if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
-                echo "<p>UID: " . htmlspecialchars($_SESSION['uid']) . "</p>";
-            } else {
-                echo "<p>UID: Not available</p>";
-            }
-            ?>
-        </footer>
+        
     </div>
 </body>
 </html>

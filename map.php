@@ -17,6 +17,8 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/report.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body id="body">
@@ -282,6 +284,9 @@ session_start();
         </svg>
     </div>
 
+    <!-- 
+    REPORTTTTT FORM -->
+
     <body class="report_details">
     <!-- <div class="d-flex justify-content-center align-items-center vh-100"> -->
     <button class="open-button" onclick="openForm()">new report</button>
@@ -303,7 +308,9 @@ session_start();
 			</div>
 		    <?php } ?>
 
-            <div class="mb-3">
+
+
+    <div class="mb-3">
     <label class="form-label">Name:</label>
     <input type="text" 
            class="form-control"
@@ -320,7 +327,6 @@ session_start();
                 }
            ?>">
 </div>
-
 
 		  <div class="report-title">
 		    <label class="form-label">Title</label>
@@ -362,10 +368,46 @@ session_start();
     <input type="date" id="reportDate" name="date" class="date-picker">
 </div>
 
+
+<div class="mb-3">
+    <label class="form-label">UID:</label>
+    <input type="text" 
+           class="form-control"
+           name="uid"
+           readonly
+           value="<?php 
+                if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
+                    echo htmlspecialchars($_SESSION['uid']);
+                } else {
+                    echo 'Not available';
+                }
+           ?>">
+</div>
+
 		  <button type="submit" class="btn btn-primary" id="submitButton" >Submit</button>
           <button type="button" class="btn cancel" id="cancelRequestButton">Cancel Request</button>
-
+            
+          <!-- <footer style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #ddd;">
+                <?php 
+                if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
+                    echo "<p><strong>UID:</strong> " . htmlspecialchars($_SESSION['uid']) . "</p>";
+                } else {
+                    echo "<p><strong>UID:</strong> Not available</p>";
+                }
+                ?>
+            </footer> -->
 		</form>
+
+     <!-- The Overlay (background) -->
+<div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
+
+<!-- The Popup Modal -->
+<div id="popupModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                             padding: 20px; background: white; border: 1px solid #ccc; 
+                             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); z-index: 1000;">
+    <p id="popupMessage"></p>
+    <button id="closePop" onclick="closePopup()" >Close</button>
+</div>
     </div>
 
 

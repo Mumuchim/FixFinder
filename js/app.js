@@ -474,3 +474,54 @@ document.addEventListener('DOMContentLoaded', function () {
         dateInput.type = "text";
     }
 });
+
+
+ // Form submission handler// Show the modal with a success or error message
+function showPopup(message) {
+    const popupModal = document.getElementById('popupModal');
+    const overlay = document.getElementById('overlay');
+
+    document.getElementById('popupMessage').innerText = message;
+    popupModal.style.display = 'block';
+    overlay.style.display = 'block';
+}
+
+// Close the modal
+function closePopup() {
+    const popupModal = document.getElementById('popupModal');
+    const overlay = document.getElementById('overlay');
+
+    document.getElementById("popupModal").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+    // popupModal.style.display = 'none';
+    overlay.style.display = 'none';
+}
+
+// Attach event listener to the "Close" button
+document.getElementById('closeModalButton').addEventListener('click', closePopup);
+
+// Allow overlay click to close the modal
+document.getElementById('overlay').addEventListener('click', closePopup);
+
+// Handle form submission using AJAX to show success/error message without refreshing the page
+document.getElementById('reportForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent the form from submitting the normal way
+
+    const formData = new FormData(this);
+
+    fetch('php/test.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showPopup(data.success);
+        } else {
+            showPopup(data.error);
+        }
+    })
+    .catch(error => {
+        showPopup('An error occurred while submitting the form');
+    });
+});
