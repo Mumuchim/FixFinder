@@ -17,6 +17,8 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/report.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body id="body">
@@ -306,7 +308,9 @@ session_start();
 			</div>
 		    <?php } ?>
 
-    <!-- <div class="mb-3">
+
+
+            <div class="mb-3">
     <label class="form-label">Name:</label>
     <input type="text" 
            class="form-control"
@@ -314,28 +318,16 @@ session_start();
            readonly
            value="<?php 
                 // Pre-fill with session data or allow user input
-        //         if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
-        //             echo htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
-        //         } elseif (isset($_SESSION['fname'])) {
-        //             echo htmlspecialchars($_SESSION['fname']);
-        //         } else {
-        //             echo '';
-        //         }
-        //    ?>">
-</div> -->
+                if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
+                    echo htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
+                } elseif (isset($_SESSION['fname'])) {
+                    echo htmlspecialchars($_SESSION['fname']);
+                } else {
+                    echo '';
+                }
+           ?>">
+</div>
 
-<header style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #ddd;">
-    <?php 
-    // Pre-fill with session data
-    if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
-        echo "<p><strong>Name: </strong>" . htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
-    } elseif (isset($_SESSION['fname'])) {
-        echo htmlspecialchars($_SESSION['fname']);
-    } else {
-        echo '';
-    }
-    ?>
-</header>
 
 <div class="report-title">
     <label class="form-label">Title</label>
@@ -400,25 +392,36 @@ session_start();
 </div>
 
 
-<button 
-    type="submit" 
-    class="btn btn-primary" 
-    id="submitButton">Submit</button>
-<button 
-    type="button" 
-    class="btn cancel" 
-    id="cancelRequestButton">Cancel Request</button>
+<div class="mb-3">
+    <label class="form-label">UID:</label>
+    <input type="text" 
+           class="form-control"
+           name="uid"
+           readonly
+           value="<?php 
+                if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
+                    echo htmlspecialchars($_SESSION['uid']);
+                } else {
+                    echo 'Not available';
+                }
+           ?>">
+</div>
 
-<footer style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #ddd;">
-    <?php 
-    if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
-        echo "<p><strong>UID:</strong> " . htmlspecialchars($_SESSION['uid']) . "</p>";
-    } else {
-        echo "<p><strong>UID:</strong> Not available</p>";
-    }
-    ?>
-</footer>
+		  <button type="submit" class="btn btn-primary" id="submitButton" >Submit</button>
+          <button type="button" class="btn cancel" id="cancelRequestButton">Cancel Request</button>
+
 		</form>
+
+     <!-- The Overlay (background) -->
+<div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
+
+<!-- The Popup Modal -->
+<div id="popupModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                             padding: 20px; background: white; border: 1px solid #ccc; 
+                             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); z-index: 1000;">
+    <p id="popupMessage"></p>
+    <button id="closePop" onclick="closePopup()" >Close</button>
+</div>
     </div>
 
 

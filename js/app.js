@@ -540,5 +540,3 @@ document.addEventListener('DOMContentLoaded', function () {
         dateInput.type = "text";
     }
 });
-
-
