@@ -114,6 +114,11 @@ session_start();
 
     <!-- Map Section -->
 
+    <div id="hoveredIdContainer">
+	<span id="hoveredId">MAP NAME</span>
+    </div>
+
+
     <div id="mapContainer">
         <div id="sidebar-container"></div>
 
@@ -549,6 +554,7 @@ session_start();
     <script src="js/app.js"></script>
     <script src="js/submit.js"></script>
     <script src="js/toggle_button.js"></script>
+    <script src="js/hover_svg.js"></script>
 
 </body>
 
