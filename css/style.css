@@ -396,7 +396,7 @@ label #cancel {
 	
 	  .allPaths:hover {
 		cursor: pointer;
-		stroke: red; /* Visual feedback when hovering */
+		stroke: #FFFFFF/* Visual feedback when hovering */
 	  }
 
 	  /* #fixFinderContainer {
