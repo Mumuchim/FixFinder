@@ -65,6 +65,7 @@ function showFloor(floor) {
     const firstFloor = document.getElementById('firstFloor');
     const secondFloor = document.getElementById('secondFloor');
     
+    // Show or hide floors based on the floor number
     if (floor === 1) {
         firstFloor.style.display = 'block';
         secondFloor.style.display = 'none';
@@ -75,9 +76,33 @@ function showFloor(floor) {
         updateZones('floor2'); // Update zones for Floor 2
     }
 
+    // Save the active floor and load pin positions
     saveActiveFloor(floor); // Save the active floor to localStorage
     loadPinPositions(); // Load pins for the active floor
+    
+    // Show the floor change message
+    showFloorChangeMessage(floor);
 }
+
+// Function to display the floor change message in a modal
+function showFloorChangeMessage(floor) {
+    const message = (floor === 1) ? "You are now viewing \n Floor 1" : "You are now viewing \n Floor 2";
+    
+    // Set the message text
+    document.getElementById("floorMessage").innerText = message;
+    
+    // Show the modal
+    document.getElementById("floorChangeModal").style.display = "flex";
+    
+    // Auto-close the modal after 1 second (1000 ms)
+    setTimeout(closeModal, 1000);
+}
+
+// Function to close the modal
+function closeModal() {
+    document.getElementById("floorChangeModal").style.display = "none";
+}
+
 
 // Initialize zones and set the active floor on page load
 document.addEventListener('DOMContentLoaded', () => {

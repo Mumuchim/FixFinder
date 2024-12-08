@@ -279,3 +279,97 @@ label #cancel {
 	background-color: rgba(215, 124, 252, 0.3); /* 20% opacity */
     pointer-events: none; /* Prevent interactions */
 }
+
+.allPaths {
+    opacity: 0.9; /* Initial opacity */
+    transition: opacity 0.3s ease; /* Optional smooth transition */
+}
+
+.allPaths.hidden {
+    opacity: 0;
+}
+
+.map_photo {
+    opacity: 0.0; /* Initial opacity */
+    transition: opacity 0.3s ease; /* Optional smooth transition */
+}
+
+.map_photo.visible {
+    opacity: 0.9;
+}
+
+#toggleOpacityButton {
+    background-color: #063146; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 10px; /* Adjust padding for size */
+    font-size: 12px; /* Text size */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+    
+    /* Default position and dimensions */
+    position: absolute; /* Allows adjustment of top and left */
+    top: 510px; /* Default top position, can be adjusted */
+    left: 254px; /* Default left position, can be adjusted */
+    width: 100px; /* Default width */
+    height: 40px; /* Default height */
+    
+    z-index: 1000; /* Ensure the button is on top of other elements */
+}
+
+/* Hover effect */
+#toggleOpacityButton:hover {
+    background-color: #0b4d63; /* Darker shade on hover */
+}
+
+	/* Style for the floor change message modal */
+	#floorChangeModal {
+		display: none; /* Initially hidden */
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.4); /* Subtle background */
+		color: white;
+		font-size: 20px; /* Smaller font size for the modal */
+		font-weight: 400; /* Normal font weight */
+		text-align: center;
+		z-index: 9999; /* Ensure it's in front of other elements */
+		display: flex;
+		justify-content: center; /* Center horizontally */
+		align-items: center; /* Center vertically */
+		animation: fadeIn 0.5s ease-out; /* Simple fade-in animation */
+	}
+
+	/* The message text inside the modal */
+	#floorMessage {
+		background-color: rgba(0, 0, 0, 0.6); /* Slightly darker background for readability */
+		padding: 10px 20px; /* Adjust padding for smaller text */
+		border-radius: 8px; /* Rounded corners */
+		font-size: 18px; /* Smaller text for minimalistic look */
+		max-width: 300px; /* Limit the width for better design */
+		animation: fadeInText 0.5s ease-out; /* Fade-in effect for the text */
+	}
+
+	/* Keyframes for fade-in animation */
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	/* Keyframes for fade-in effect on text */
+	@keyframes fadeInText {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
