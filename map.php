@@ -33,73 +33,91 @@ session_start();
         <button id="closeButton">Close</button>
         <div id="pins"></div>
     
-        <!-- Pin Icons -->
-<div class="hoverable-container" style="position: absolute; top: 80px; right: 90px;" onclick="preparePin('cautionPin')">
+<!-- Pin Icons -->
+<div class="hoverable-container" style="position: absolute; top: 80px; right: 90px;" onmouseover="showIcon('cautionIcon')" onmouseout="hideIcon('cautionIcon')">
+    <div class="icon-background" style="background-image: url('img/Caution_symbol.png'); width: 45px; height: 45px; background-size: cover; position: absolute; opacity: 1;"></div>
     <img 
         id="cautionIcon" 
         src="img/Caution_shadow.png" 
         alt="Caution Pin" 
-        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20; opacity: 0;" 
         data-pin-type="cautionIcon"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Hazard Pin</span>
 </div>
 
-<div class="hoverable-container" style="position: absolute; top: 150px; right: 80px;" onclick="preparePin('cleaningPin')">
+<div class="hoverable-container" style="position: absolute; top: 150px; right: 80px;" onmouseover="showIcon('cleaningIcon')" onmouseout="hideIcon('cleaningIcon')">
+    <div class="icon-background" style="background-image: url('img/Cleaning_symbol.png'); width: 45px; height: 45px; background-size: cover; position: absolute; opacity: 1;"></div>
     <img 
         id="cleaningIcon" 
         src="img/Cleaning_shadow.png" 
         alt="Cleaning Pin" 
-        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20; opacity: 0;" 
         data-pin-type="cleaningIcon"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Cleaning Pin</span>
 </div>
 
-<div class="hoverable-container" style="position: absolute; top: 220px; right: 80px;" onclick="preparePin('electricalPin')">
+<div class="hoverable-container" style="position: absolute; top: 220px; right: 80px;" onmouseover="showIcon('electricalIcon')" onmouseout="hideIcon('electricalIcon')">
+    <div class="icon-background" style="background-image: url('img/Electrical Hazard_symbol.png'); width: 45px; height: 45px; background-size: cover; position: absolute; opacity: 1;"></div>
     <img 
         id="electricalIcon" 
         src="img/Electrical Hazard_shadow.png" 
         alt="Electrical Pin" 
-        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20; opacity: 0;" 
         data-pin-type="electricalIcon"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Electrical Pin</span>
 </div>
 
-<div class="hoverable-container" style="position: absolute; top: 290px; right: 43px;" onclick="preparePin('itPin')">
+<div class="hoverable-container" style="position: absolute; top: 290px; right: 43px;" onmouseover="showIcon('itIcon')" onmouseout="hideIcon('itIcon')">
+    <div class="icon-background" style="background-image: url('img/IT Maintenance_symbol.png'); width: 45px; height: 45px; background-size: cover; position: absolute; opacity: 1;"></div>
     <img 
         id="itIcon" 
         src="img/IT Maintenance_shadow.png" 
         alt="IT Maintenance Pin" 
-        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20; opacity: 0;" 
         data-pin-type="itIcon"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">IT Maintenance Pin</span>
 </div>
 
-<div class="hoverable-container" style="position: absolute; top: 360px; right: 95px;" onclick="preparePin('repairPin')">
+<div class="hoverable-container" style="position: absolute; top: 360px; right: 95px;" onmouseover="showIcon('repairIcon')" onmouseout="hideIcon('repairIcon')">
+    <div class="icon-background" style="background-image: url('img/Repair_symbol.png'); width: 45px; height: 45px; background-size: cover; position: absolute; opacity: 1;"></div>
     <img 
         id="repairIcon" 
         src="img/Repair_shadow.png" 
         alt="Repair Pin" 
-        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20; opacity: 0;" 
         data-pin-type="repairIcon"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Repair Pin</span>
 </div>
 
-<div class="hoverable-container" style="position: absolute; top: 430px; right: 85px;" onclick="preparePin('requestPin')">
+<div class="hoverable-container" style="position: absolute; top: 430px; right: 85px;" onmouseover="showIcon('requestIcon')" onmouseout="hideIcon('requestIcon')">
+    <div class="icon-background" style="background-image: url('img/Request_symbol.png'); width: 45px; height: 45px; background-size: cover; position: absolute; opacity: 1;"></div>
     <img 
         id="requestIcon" 
         src="img/Request_shadow.png" 
         alt="Request Pin" 
-        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20;"
+        style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20; opacity: 0;" 
         data-pin-type="requestIcon"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Request Pin</span>
 </div>
-        <!-- Add other icons similarly -->
+
+<script>
+    function showIcon(iconId) {
+        document.getElementById(iconId).style.opacity = "1"; // Show the icon
+        document.querySelector(`#${iconId}`).previousElementSibling.style.opacity = "0"; // Hide the background
+    }
+
+    function hideIcon(iconId) {
+        document.getElementById(iconId).style.opacity = "0"; // Hide the icon
+        document.querySelector(`#${iconId}`).previousElementSibling.style.opacity = "1"; // Show the background
+    }
+</script>
+
         
         <!-- The Confirm Button will appear when a pin is selected -->
         <button id="confirmButton" style="display: none;" onclick="confirmPin()">Confirm</button>
