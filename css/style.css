@@ -63,7 +63,7 @@
   
   #closeButton {
 	position: absolute;
-	top: 10px; /* Adjust vertical position */
+	top: 500px; /* Adjust vertical position */
 	right: 0px; /* Adjust horizontal position */
 	width: 230px;
 	margin: 10px;
@@ -378,7 +378,7 @@ label #cancel {
 		padding: 10px 15px;
 		background-color: #0b577d;
 		border: 1px solid #063146;
-		border-radius: 8px;
+		border-radius: 5px;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 		font-family: Arial, sans-serif;
 		text-align: center;
@@ -398,3 +398,43 @@ label #cancel {
 		cursor: pointer;
 		stroke: red; /* Visual feedback when hovering */
 	  }
+
+	  /* #fixFinderContainer {
+		background-color: transparent;
+		border-bottom: 4px solid #0b577d;
+		width: 250px;
+		display: inline-block;
+		padding: 5px 0;
+		position: absolute; 
+		top: 50px; 
+		left: 0px; 
+	} */
+	
+	#fixFinderTitle {
+		font-family: 'Arial', sans-serif;
+		font-size: 28px; /* Professional, readable size */
+		font-weight: 700; /* Bold to make it stand out */
+		color: #ffffff; /* White text for contrast */
+		letter-spacing: 1px; /* Subtle spacing for cleanliness */
+		text-transform: capitalize; /* Neat and professional */
+		position: absolute;
+		top: 20px;
+		left: 28px;
+		padding: 10px 20px; /* Comfortable padding for a refined look */
+		background: linear-gradient(45deg, #0b577d, #023e59); /* Gradient background for depth */
+		border-radius: 8px; /* Slight rounded corners for modern aesthetic */
+		border: 3px solid transparent; /* Transparent border for a minimalist appearance */
+		background-clip: padding-box; /* Ensures the gradient is clipped inside the padding */
+		box-shadow: 13px -10px 0px #7b7f7f; /* Sharp shadow with no blur */
+		transition: all 0.3s ease-in-out; /* Smooth transitions for hover effects */
+	}
+	
+	#fixFinderTitle:hover {
+		color: #ffffff; /* White text stays consistent on hover */
+		background: linear-gradient(45deg, #023e59, #0b577d); /* Subtle change in gradient direction on hover */
+		border: 3px solid #063146; /* White border on hover for sharp contrast */
+		transform: translateY(-4px); /* Subtle lift effect on hover */
+		box-shadow: 13px 10px 0px #7b7f7f; /* Sharper shadow for hover with no blur */
+	}
+	
+	
