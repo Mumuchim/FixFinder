@@ -401,14 +401,14 @@ label #cancel {
 
 	#fixFinderTitle {
 		font-family: 'Arial', sans-serif;
-		font-size: 28px; /* Professional, readable size */
-		font-weight: 700; /* Bold to make it stand out */
+		font-size: 23px; /* Professional, readable size */
+		font-weight: 1000; /* Bold to make it stand out */
 		color: #ffffff; /* White text for contrast */
 		letter-spacing: 1px; /* Subtle spacing for cleanliness */
 		text-transform: capitalize; /* Neat and professional */
 		position: absolute;
 		top: 20px;
-		left: 28px;
+		left: 30px;
 		padding: 10px 20px; /* Comfortable padding for a refined look */
 		background: linear-gradient(45deg, #0b577d, #023e59); /* Gradient background for depth */
 		border-radius: 8px; /* Slight rounded corners for modern aesthetic */
