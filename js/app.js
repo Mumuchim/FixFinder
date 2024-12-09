@@ -341,11 +341,15 @@ document.addEventListener('DOMContentLoaded', function () {
     
         makeDraggable(clone);
     
-        clone.addEventListener('click', () => {
-            if (!pinPlacedManually) {
-                showPinOptions(clone, pinId);
+        // Ensure the cloned pin does not trigger the event handler multiple times
+        clone.addEventListener('click', function () {
+            const pinType = clone.getAttribute('data-pin-type');
+            if (selectedPinType !== pinType) {
+                preparePin(pinType); // Only set the report type if it's different
             }
         });
+    
+        console.log("Cloned a pin of type:", pinType); // Debugging: check the cloned pin type
     }    
 
     function makeDraggable(pin) {
@@ -451,14 +455,61 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
 
-    function enablePinPlacement(icon) {
-        icon.addEventListener('click', function (e) {
-            const mapRect = mapContainer.getBoundingClientRect();
-            const x = e.clientX - mapRect.left;
-            const y = e.clientY - mapRect.top;
-            clonePin(icon, x, y);
-        });
+// Store the selected pin type globally
+let selectedPinType = null;
+
+// Function to handle pin selection and set report type
+function preparePin(pinType) {
+    if (selectedPinType === pinType) {
+        return; // Don't do anything if the same pin type was already selected
     }
+
+    console.log("Pin clicked:", pinType); // Debugging: check which pin is clicked
+    selectedPinType = pinType; // Store the selected pin type
+    
+    const pinTypes = {
+        cautionIcon: "Hazard",
+        cleaningIcon: "Cleaning",
+        electricalIcon: "Electrical Hazard",
+        itIcon: "IT Maintenance",
+        repairIcon: "Repair",
+        requestIcon: "Request"
+    };
+
+    // Set the Type of Report field based on the selected pin
+    const reportTypeInput = document.getElementById("reportTypeInput");
+    const reportTypeSpan = document.getElementById("reportTypeSpan");
+
+    if (reportTypeInput && reportTypeSpan) {
+        const reportType = pinTypes[pinType] || "Unknown";
+        reportTypeSpan.textContent = reportType; // Update the span's text content
+        reportTypeInput.value = reportType; // Update the input box value
+
+        // Alert after DOM update
+        alert(`${reportType} selected!`); // Should show the alert now
+    } else {
+        console.error("Report type input or span not found!");
+    }
+}
+
+
+// Modified enablePinPlacement function
+function enablePinPlacement(icon) {
+    icon.addEventListener('click', function (e) {
+        const mapRect = mapContainer.getBoundingClientRect();
+        const x = e.clientX - mapRect.left;
+        const y = e.clientY - mapRect.top;
+
+        // Get the pin type from the icon's data-pin-type attribute
+        const pinType = icon.dataset.pinType;
+
+        // Prepare the pin by setting the report type
+        preparePin(pinType);
+
+        // Clone the pin after preparing the report type
+        clonePin(icon, x, y);
+    });
+}
 
     enablePinPlacement(cautionIcon);
     enablePinPlacement(cleaningIcon);

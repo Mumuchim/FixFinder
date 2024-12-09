@@ -1,51 +1,3 @@
-// Store the selected pin type globally
-let selectedPinType = null;
-
-// Function to handle pin selection and set report type
-function preparePin(pinType) {
-    selectedPinType = pinType; // Store the selected pin type
-    const pinTypes = {
-        cautionPin: "Hazard",
-        cleaningPin: "Cleaning",
-        electricalPin: "Electrical Hazard",
-        itPin: "IT Maintenance",
-        repairPin: "Repair",
-        requestPin: "Request"
-    };
-
-    // Set the Type of Report field based on the selected pin
-    const reportTypeInput = document.getElementById("reportTypeInput");
-    const reportTypeSpan = document.getElementById("reportTypeSpan");
-
-    if (reportTypeInput && reportTypeSpan) {
-        const reportType = pinTypes[pinType] || "Unknown";
-        reportTypeSpan.textContent = reportType; // Update the span's text content
-        reportTypeInput.value = reportType; // Update the input box value
-
-        // Move the alert here, after the DOM has been updated
-        alert(`${reportType} selected!`);
-    } else {
-        console.error("Report type input or span not found!");
-    }
-}
-
-
-    alert(`${pinTypes[pinType]} selected!`); // Alert the user with the selected pin type
-
-// Wait for the document to load before attaching event listeners
-document.addEventListener('DOMContentLoaded', function () {
-    // Add event listeners to the pin images
-    const pins = document.querySelectorAll('[data-pin-type]'); // Select all pin images with the data-pin-type attribute
-    if (pins.length === 0) {
-        console.error("No pins found in the DOM! Ensure your pin elements have the data-pin-type attribute.");
-    } else {
-        pins.forEach(pin => {
-            pin.addEventListener('click', function () {
-                const pinType = pin.getAttribute('data-pin-type');
-                preparePin(pinType); // Call the function to handle the pin type
-            });
-        });
-    }
 
     // Handle form submission
     const submitButton = document.getElementById('submitButton');
@@ -101,7 +53,26 @@ document.addEventListener('DOMContentLoaded', function () {
     if (reportTypeInput && reportTypeSpan) {
         reportTypeInput.value = reportTypeSpan.textContent;
     }
-});
 
+document.addEventListener('DOMContentLoaded', function () {
+    const dateInput = document.getElementById('reportDate');
+    try {
+        // Get the current date in YYYY-MM-DD format
+        const today = new Date().toISOString().split('T')[0];
+
+        // Check if the input type is supported
+        if (dateInput.type === "date") {
+            dateInput.value = today;
+        } else {
+            throw new Error("Input type 'date' is not supported by this browser.");
+        }
+    } catch (error) {
+        console.error("Error setting the current date:", error.message);
+
+        // Fallback for unsupported browsers
+        dateInput.placeholder = "YYYY-MM-DD";
+        dateInput.type = "text";
+    }
+});
 
 
