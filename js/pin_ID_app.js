@@ -4,6 +4,61 @@ let cloningInProgress = false; // Track if a pin is being placed
 let lastClonedPin = null; // Track the most recently cloned pin
 let pinPlacedManually = false; // Flag to track if a pin was placed manually
 
+// Define zone configurations for each floor
+const zoneConfigurations = {
+    floor1: [
+        { id: 'floor1top', top: '0px', left: '356px', width: '566px', height: '65px' },
+        { id: 'floor1left', top: '140px', left: '355px', width: '109px', height: '310px' },
+        { id: 'floor1right', top: '140px', left: '816px', width: '107px', height: '310px' },
+        { id: 'floor1library', top: '140px', left: '540px', width: '200px', height: '306px' },
+        { id: 'floor1botleft', top: '495px', left: '427px', width: '157px', height: '70px' },
+        { id: 'floor1botright', top: '495px', left: '708px', width: '215px', height: '70px' }
+    ],
+    floor2: [
+        { id: 'floor2top', top: '0px', left: '357px', width: '566px', height: '65px' },
+        { id: 'floor2left', top: '140px', left: '355px', width: '109px', height: '310px' },
+        { id: 'floor2right', top: '140px', left: '818px', width: '106px', height: '310px' },
+        { id: 'floor2library', top: '140px', left: '541px', width: '200px', height: '307px' },
+        { id: 'floor2bot', top: '495px', left: '355px', width: '570px', height: '70px' },
+    ]
+};
+
+
+// Function to update zones based on the active floor
+// Function to update zones based on the active floor
+function updateZones(floor) {
+    const mapContainer = document.getElementById('mapContainer');
+
+    // Remove existing zones
+    const existingZones = mapContainer.querySelectorAll('.confirm-zone');
+    existingZones.forEach(zone => mapContainer.removeChild(zone));
+
+    // Add zones for the active floor
+    const zones = zoneConfigurations[floor] || [];
+    zones.forEach(config => {
+        const zone = document.createElement('div');
+        zone.classList.add('confirm-zone');
+        zone.id = config.id;
+        zone.style.position = 'absolute';
+        zone.style.top = config.top;
+        zone.style.left = config.left;
+        zone.style.width = config.width;
+        zone.style.height = config.height;
+        zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)'; // Default style
+        mapContainer.appendChild(zone);
+    });
+}
+
+function highlightZone(pin) {
+    const zones = document.querySelectorAll('.confirm-zone');
+    zones.forEach(zone => {
+        if (isInsideZone(pin, zone)) {
+            zone.style.backgroundColor = 'rgba(215, 124, 252, 0.3)';
+        } else {
+            zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
+        }
+    });
+}
 
 // Function to show the specified floor
 function showFloor(floor) {
@@ -183,13 +238,14 @@ function loadPinPositions() {
 }
 
 
+// Modified function to create a pin on the map with added click functionality
 function createPinOnMap(pinData, key) {
     const pinElement = document.createElement('div');
     pinElement.classList.add('pin');
     pinElement.style.position = 'absolute';
     pinElement.style.top = pinData.top;
     pinElement.style.left = pinData.left;
-    pinElement.id = `pin-${key}`;
+    pinElement.id = `pin-${key}`; // Pin ID based on key
 
     // Add the pin image if available
     if (pinData.imgSrc) {
@@ -203,7 +259,8 @@ function createPinOnMap(pinData, key) {
 
     // Add click event listener for pin options
     pinElement.addEventListener('click', () => {
-        showPinOptions(pinElement, key);
+        showPinOptions(pinElement, key);  // You can pass the key here
+        displayPinKeyInUI(key); // Display the pin ID in the span
     });
 
     // Track the pin position in memory
@@ -215,6 +272,33 @@ function createPinOnMap(pinData, key) {
         floor: pinData.floor,
     });
 }
+
+// New function to display the Pin ID in the UI
+function displayPinKeyInUI(key) {
+    const pinData = JSON.parse(localStorage.getItem(key));
+
+    if (pinData) {
+        const pinIDSpan = document.getElementById('pinIDClicked');
+        pinIDSpan.innerText = `Pin ID: ${key}`; // Set the Key as the Pin ID in the span
+    } else {
+        console.error("Pin data not found for the given key.");
+    }
+}
+
+// Example of how this can be linked with your click event
+document.addEventListener('DOMContentLoaded', function () {
+    const mapContainer = document.getElementById('mapContainer');
+
+    // Assuming you have a list of keys (such as numeric or UUID)
+    Object.keys(localStorage).forEach(key => {
+        // Only process numeric keys (pin IDs) or your key pattern
+        if (/^\d+$/.test(key)) {
+            const pinData = JSON.parse(localStorage.getItem(key));
+            createPinOnMap(pinData, key); // Create the pin
+        }
+    });
+});
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const mapContainer = document.getElementById('mapContainer');
@@ -257,11 +341,15 @@ document.addEventListener('DOMContentLoaded', function () {
     
         makeDraggable(clone);
     
-        clone.addEventListener('click', () => {
-            if (!pinPlacedManually) {
-                showPinOptions(clone, pinId);
+        // Ensure the cloned pin does not trigger the event handler multiple times
+        clone.addEventListener('click', function () {
+            const pinType = clone.getAttribute('data-pin-type');
+            if (selectedPinType !== pinType) {
+                preparePin(pinType); // Only set the report type if it's different
             }
         });
+    
+        console.log("Cloned a pin of type:", pinType); // Debugging: check the cloned pin type
     }    
 
     function makeDraggable(pin) {
@@ -431,6 +519,7 @@ function enablePinPlacement(icon) {
     enablePinPlacement(requestIcon);
 });
 
+// Show modal with pin options
 function showPinOptions(pinElement, pinId) {
     if (document.querySelector('.custom-modal')) {
         return;
@@ -477,36 +566,6 @@ function showPinOptions(pinElement, pinId) {
 
     document.body.appendChild(modal);
 
-    // Show pin ID from localStorage based on coordinates
-    const pinPosition = {
-        top: pinElement.style.top,
-        left: pinElement.style.left
-    };
-
-    // Function to get the pin key from localStorage based on coordinates
-    function getPinKeyByCoordinates(position) {
-        for (let key in localStorage) {
-            if (/^\d+$/.test(key)) {
-                const pinData = JSON.parse(localStorage.getItem(key));
-
-                // Check if the pin's coordinates match
-                if (pinData.top === position.top && pinData.left === position.left) {
-                    return key;  // Return the matching pin ID from localStorage
-                }
-            }
-        }
-        return null;  // Return null if no match is found
-    }
-
-    // Fetch and display the pin ID
-    const pinKey = getPinKeyByCoordinates(pinPosition);
-    const pinIdElement = document.getElementById("pinIDClicked");
-    if (pinKey) {
-        pinIdElement.textContent = pinKey;  // Show the pin ID in the span
-    } else {
-        pinIdElement.textContent = "Not Found";  // If no key is found
-    }
-
     statusButton.addEventListener('click', () => {
         window.location.href = 'status.html';
         document.body.removeChild(modal);
@@ -529,11 +588,13 @@ function showPinOptions(pinElement, pinId) {
         }
         document.body.removeChild(modal);
     });
+    
 
     closeButton.addEventListener('click', () => {
         document.body.removeChild(modal);
     });
 }
+
 
 window.onload = function() {
     loadPinPositions();
@@ -562,31 +623,24 @@ function closeForm() {
     }
 }
 
+
 document.getElementById("cancelRequestButton").addEventListener('click', closeForm);
+
+function isInsideZone(pin, zone) {
+    const pinRect = pin.getBoundingClientRect();
+    const zoneRect = zone.getBoundingClientRect();
+
+    return (
+        pinRect.left >= zoneRect.left &&
+        pinRect.right <= zoneRect.right &&
+        pinRect.top >= zoneRect.top &&
+        pinRect.bottom <= zoneRect.bottom
+    );
+}
 
 function cancelPinPlacement() {
     // Reload the page to reset all pin placements
     location.reload();
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const dateInput = document.getElementById('reportDate');
-    try {
-        // Get the current date in YYYY-MM-DD format
-        const today = new Date().toISOString().split('T')[0];
-
-        // Check if the input type is supported
-        if (dateInput.type === "date") {
-            dateInput.value = today;
-        } else {
-            throw new Error("Input type 'date' is not supported by this browser.");
-        }
-    } catch (error) {
-        console.error("Error setting the current date:", error.message);
-
-        // Fallback for unsupported browsers
-        dateInput.placeholder = "YYYY-MM-DD";
-        dateInput.type = "text";
-    }
-});
 

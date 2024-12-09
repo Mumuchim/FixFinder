@@ -454,7 +454,7 @@ session_start();
     <button class="open-button" onclick="openForm()">new report</button>
     <div class="form-popup" id="myForm">
     	
-   <form id="reportForm" class="form-container" action="php/test.php" method="post" enctype="multipart/form-data">
+   <form id="reportForm" class="form-container" action="php/.php" method="post" enctype="multipart/form-data">
             <div class="report">
     		<h1 class="display-4  fs-1">Report</h1>
             <label><p>Report your concern here.<p></label>
@@ -579,7 +579,7 @@ session_start();
     <script src="js/submit.js"></script>
     <script src="js/toggle_button.js"></script>
     <script src="js/hover_svg.js"></script>
-
+    <script src="js/zone.js"></script>
 </body>
 
 </html>
