@@ -238,14 +238,13 @@ function loadPinPositions() {
 }
 
 
-// Modified function to create a pin on the map with added click functionality
 function createPinOnMap(pinData, key) {
     const pinElement = document.createElement('div');
     pinElement.classList.add('pin');
     pinElement.style.position = 'absolute';
     pinElement.style.top = pinData.top;
     pinElement.style.left = pinData.left;
-    pinElement.id = `pin-${key}`; // Pin ID based on key
+    pinElement.id = `pin-${key}`;
 
     // Add the pin image if available
     if (pinData.imgSrc) {
@@ -259,8 +258,7 @@ function createPinOnMap(pinData, key) {
 
     // Add click event listener for pin options
     pinElement.addEventListener('click', () => {
-        showPinOptions(pinElement, key);  // You can pass the key here
-        displayPinKeyInUI(key); // Display the pin ID in the span
+        showPinOptions(pinElement, key);
     });
 
     // Track the pin position in memory
@@ -272,33 +270,6 @@ function createPinOnMap(pinData, key) {
         floor: pinData.floor,
     });
 }
-
-// New function to display the Pin ID in the UI
-function displayPinKeyInUI(key) {
-    const pinData = JSON.parse(localStorage.getItem(key));
-
-    if (pinData) {
-        const pinIDSpan = document.getElementById('pinIDClicked');
-        pinIDSpan.innerText = `Pin ID: ${key}`; // Set the Key as the Pin ID in the span
-    } else {
-        console.error("Pin data not found for the given key.");
-    }
-}
-
-// Example of how this can be linked with your click event
-document.addEventListener('DOMContentLoaded', function () {
-    const mapContainer = document.getElementById('mapContainer');
-
-    // Assuming you have a list of keys (such as numeric or UUID)
-    Object.keys(localStorage).forEach(key => {
-        // Only process numeric keys (pin IDs) or your key pattern
-        if (/^\d+$/.test(key)) {
-            const pinData = JSON.parse(localStorage.getItem(key));
-            createPinOnMap(pinData, key); // Create the pin
-        }
-    });
-});
-
 
 document.addEventListener('DOMContentLoaded', function () {
     const mapContainer = document.getElementById('mapContainer');
@@ -614,3 +585,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+////// LAST SAVED 2:46pm 8-12-24 //////////

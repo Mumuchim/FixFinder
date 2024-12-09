@@ -19,3 +19,4 @@ toggleButton.addEventListener('click', () => {
         mapPhoto.classList.toggle('visible');
     });
 });
+

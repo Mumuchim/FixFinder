@@ -42,6 +42,7 @@ session_start();
         alt="Caution Pin" 
         style="width: 45px; height: auto; cursor: pointer; margin: 10px; z-index: 20; opacity: 0;" 
         data-pin-type="cautionIcon"
+        data-dragging-image="img/Caution_noshadow.png"
     />
     <span style="font-size: 13px; color: #ffffff; cursor: pointer;">Hazard Pin</span>
 </div>
@@ -137,6 +138,9 @@ session_start();
     <div id="hoveredIdContainer">
 	<span id="hoveredId">MAP NAME</span>
     </div>
+
+    <span id="pinIDClicked">Pin ID</span>
+
 
 
     <div id="mapContainer">
