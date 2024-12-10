@@ -284,134 +284,90 @@ session_start();
         </svg>
     </div>
 
-    <!-- 
-    REPORTTTTT FORM -->
-
-    <body class="report_details">
-    <!-- <div class="d-flex justify-content-center align-items-center vh-100"> -->
-    <button class="open-button" onclick="openForm()">new report</button>
     <div class="form-popup" id="myForm">
-    	
    <form id="reportForm" class="form-container" action="php/test.php" method="post" enctype="multipart/form-data">
-            <div class="report">
-    		<h1 class="display-4  fs-1">Report</h1>
-            <label><p>Report your concern here.<p></label>
-    		<?php if(isset($_GET['error'])){ ?>
-    		<div class="alert alert-danger" role="alert">
-			  <?php echo $_GET['error']; ?>
-			</div>
-		    <?php } ?>
+      <div class="report">
+         <h1 class="display-4 fs-1">Report</h1>
+         <label><p>Report your concern here.<p></label>
 
-		    <?php if(isset($_GET['success'])){ ?>
-    		<div class="alert alert-success" role="alert">
-			  <?php echo $_GET['success']; ?>
-			</div>
-		    <?php } ?>
+         <!-- Pop-up message container -->
+         <div id="popupMessage" class="popup-message" style="display: none;"></div>
 
+         <div class="mb-3">
+            <label class="form-label">Name:</label>
+            <input type="text" 
+                   class="form-control"
+                   name="user"
+                   readonly
+                   value="<?php 
+                        if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
+                            echo htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
+                        } elseif (isset($_SESSION['fname'])) {
+                            echo htmlspecialchars($_SESSION['fname']);
+                        } else {
+                            echo '';
+                        }
+                   ?>">
+         </div>
 
+         <div class="report-title">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" name="title"
+                   value="<?php echo (isset($_GET['title']))?$_GET['title']:"" ?>">
+         </div>
 
-    <div class="mb-3">
-    <label class="form-label">Name:</label>
-    <input type="text" 
-           class="form-control"
-           name="user"
-           readonly
-           value="<?php 
-                // Pre-fill with session data or allow user input
-                if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
-                    echo htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
-                } elseif (isset($_SESSION['fname'])) {
-                    echo htmlspecialchars($_SESSION['fname']);
-                } else {
-                    echo '';
-                }
-           ?>">
+         <div class="mb-3">
+            <label class="form-label">Enter Details:</label>
+            <textarea rows="10" class="form-control" cols="40" name="details" placeholder="Write your details here..">
+                <?php echo isset($_GET['details']) ? $_GET['details'] : ""; ?>
+            </textarea>
+         </div>
+
+         <div class="report-type">
+            <label for="reportTypeInput">Type of Report:</label>
+            <input 
+                type="text" 
+                id="reportTypeInput" 
+                name="type" 
+                class="form-control" 
+                value="" 
+                readonly>
+            <span id="reportTypeSpan" style="display: none;">Select a Pin</span>
+         </div>
+
+         <div class="mb-3">
+            <label class="form-label">Upload a file:</label>
+            <input type="file" 
+                   class="form-control"
+                   name="image">
+         </div>
+
+         <div class="mb-3">
+            <label for="reportDate" class="date-label">Report Date:</label>
+            <input type="date" id="reportDate" name="date" class="date-picker">
+         </div>
+
+         <div class="mb-3">
+            <label class="form-label">UID:</label>
+            <input type="text" 
+                   class="form-control"
+                   name="uid"
+                   readonly
+                   value="<?php 
+                        if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
+                            echo htmlspecialchars($_SESSION['uid']);
+                        } else {
+                            echo 'Not available';
+                        }
+                   ?>">
+         </div>
+
+         <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+         <button type="button" class="btn cancel" id="cancelRequestButton">Cancel Request</button>
+      </div>
+   </form>
 </div>
 
-		  <div class="report-title">
-		    <label class="form-label">Title</label>
-		    <input type="text" class="form-control" name="title"
-		           value="<?php echo (isset($_GET['title']))?$_GET['title']:"" ?>">
-		  </div>
-
-		  <div class="mb-3">
-    <label class="form-label">Enter Details:</label>
-    <textarea rows="10" class="form-control" cols="40" name="details" placeholder="Write your details here..">
-        <?php echo isset($_GET['details']) ? $_GET['details'] : ""; ?>
-    </textarea>
-</div>
-
-          <div class="report-type">
-    <label for="reportTypeInput">Type of Report:</label>
-    <input 
-        type="text" 
-        id="reportTypeInput" 
-        name="type" 
-        class="form-control" 
-        value="" 
-        readonly>
-    <span id="reportTypeSpan" style="display: none;">Select a Pin</span>
-</div>
-
-
-
-
-		  <div class="mb-3">
-		    <label class="form-label">Upload a file:</label>
-		    <input type="file" 
-		           class="form-control"
-		           name="image">
-		  </div>
-
-		 <div class="mb-3">
-    <label for="reportDate" class="date-label">Report Date:</label>
-    <input type="date" id="reportDate" name="date" class="date-picker">
-</div>
-
-
-<div class="mb-3">
-    <label class="form-label">UID:</label>
-    <input type="text" 
-           class="form-control"
-           name="uid"
-           readonly
-           value="<?php 
-                if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
-                    echo htmlspecialchars($_SESSION['uid']);
-                } else {
-                    echo 'Not available';
-                }
-           ?>">
-</div>
-
-		  <button type="submit" class="btn btn-primary" id="submitButton" >Submit</button>
-          <button type="button" class="btn cancel" id="cancelRequestButton">Cancel Request</button>
-            
-          <!-- <footer style="text-align: center; margin-top: 20px; padding: 10px; border-top: 1px solid #ddd;">
-                <?php 
-                if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
-                    echo "<p><strong>UID:</strong> " . htmlspecialchars($_SESSION['uid']) . "</p>";
-                } else {
-                    echo "<p><strong>UID:</strong> Not available</p>";
-                }
-                ?>
-            </footer> -->
-		</form>
-
-     <!-- The Overlay (background) -->
-<div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;"></div>
-
-<!-- The Popup Modal -->
-<div id="popupModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-                             padding: 20px; background: white; border: 1px solid #ccc; 
-                             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); z-index: 1000;">
-    <p id="popupMessage"></p>
-    <button id="closePop" onclick="closePopup()" >Close</button>
-</div>
-    </div>
-
-
-    
     <script src="js/studSidebar.js"></script>
     <script src="js/app.js"></script>
     <script src="js/submit.js"></script>
