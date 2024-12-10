@@ -445,7 +445,7 @@ session_start();
     </div>
 
     <div class="form-popup" id="myForm">
-   <form id="reportForm" class="form-container" action="php/test.php" method="post" enctype="multipart/form-data">
+   <form id="reportForm" class="form-container" action="php/rep.php" method="post" enctype="multipart/form-data">
 
       <div class="report">
          
