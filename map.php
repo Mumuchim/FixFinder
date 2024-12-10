@@ -474,7 +474,6 @@ session_start();
            ?>">
 </div>
 
-
 <div class="report-title">
     <label class="form-label">Title</label>
     <input 

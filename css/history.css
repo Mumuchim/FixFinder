@@ -1,0 +1,122 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("../img/bgmap.png");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #2b2b2b; /* Slightly darker font color for better visibility */
+}
+
+/* Container */
+.container {
+    margin-top: 30px;
+}
+
+/* Card */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+/* Card Header */
+.card-header {
+    background-color: #357abd; /* Main color */
+    color: #f9f9f9; /* Bright white for text contrast */
+    padding: 20px;
+    border-bottom: 3px solid #285a8c; /* Slightly darker shade for contrast */
+    text-align: center;
+}
+
+.card-header h4 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.card-header p {
+    margin: 5px 0 0;
+    font-size: 16px;
+    font-style: italic;
+    color: black !important; /* Change text color to black */
+}
+
+/* Alert Message */
+.alert {
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    background-color: #f3f9ff; /* Light blue background for alerts */
+    color: #1a4b68; /* Deeper text color for visibility */
+    border: 1px solid #a4c9e5;
+}
+
+/* Table Styling */
+table.table {
+    margin-top: 20px;
+    border: 1px solid #e0e0e0;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table.table th,
+table.table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px;
+}
+
+table.table th {
+    background: #357abd; /* Main color */
+    color: #f9f9f9; /* Bright white for better readability */
+    border-bottom: 3px solid #285a8c;
+}
+
+table.table td {
+    border: 1px solid #e0e0e0;
+    color: #2b2b2b; /* Darker font color for better visibility */
+}
+
+table.table tr:nth-child(even) {
+    background-color: #f5faff; /* Alternating row color */
+}
+
+table.table img {
+    border-radius: 6px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+button {
+    background-color: #357abd; /* Main color */
+    color: #f9f9f9; /* Bright white for better text visibility */
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #285a8c; /* Darker shade for hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card-header h4 {
+        font-size: 18px;
+    }
+
+    table.table {
+        font-size: 14px;
+    }
+}

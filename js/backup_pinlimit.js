@@ -542,13 +542,10 @@ function showPinOptions(pinElement, pinId) {
     
             // Save the updated pin positions
             savePinPositions();
-    
-            // Refresh the page after removing the pin
-            location.reload(); // This will reload the page and reset everything
         }
         document.body.removeChild(modal);
     });
-    
+
     closeButton.addEventListener('click', () => {
         document.body.removeChild(modal);
     });
@@ -587,6 +584,5 @@ function cancelPinPlacement() {
     // Reload the page to reset all pin placements
     location.reload();
 }
-
 
 
