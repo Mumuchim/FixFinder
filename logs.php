@@ -55,6 +55,7 @@
                 <th>Key</th>
                 <th>Value</th>
                 <th>Floor</th> <!-- New column for Floor -->
+                <th>UID</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -69,75 +70,94 @@
     <script>
         // Function to render localStorage contents into the table
         function renderLocalStorage() {
-            const tableBody = document.getElementById('storageTable').getElementsByTagName('tbody')[0];
-            tableBody.innerHTML = ''; // Clear existing rows
+    const tableBody = document.getElementById('storageTable').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = ''; // Clear existing rows
 
-            // Iterate over all items in localStorage
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                const value = localStorage.getItem(key);
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key);
 
-                // Parse the value as JSON to check for floor information
-                let parsedValue = {};
-                try {
-                    parsedValue = JSON.parse(value);
-                } catch (e) {
-                    // If value isn't JSON, it will remain an empty object
-                }
-
-                const row = tableBody.insertRow();
-                const keyCell = row.insertCell(0);
-                const valueCell = row.insertCell(1);
-                const floorCell = row.insertCell(2); // New cell for floor information
-                const actionCell = row.insertCell(3);
-
-                keyCell.textContent = key;
-                valueCell.textContent = value;
-
-                // Show the floor data if available, otherwise display "N/A"
-                floorCell.textContent = parsedValue.floor ? parsedValue.floor : 'N/A';
-
-                // Make the value cell editable on click
-                valueCell.onclick = function() {
-                    const currentValue = valueCell.textContent;
-                    const inputField = document.createElement('input');
-                    inputField.type = 'text';
-                    inputField.value = currentValue;
-                    valueCell.innerHTML = ''; // Clear the cell and insert the input field
-                    valueCell.appendChild(inputField);
-                    
-                    // Focus on the input field to allow immediate editing
-                    inputField.focus();
-
-                    // When the user presses Enter or clicks away, update localStorage
-                    inputField.addEventListener('blur', function() {
-                        const newValue = inputField.value;
-                        if (newValue !== currentValue) {
-                            localStorage.setItem(key, newValue); // Update localStorage
-                        }
-                        renderLocalStorage(); // Re-render the table with updated value
-                    });
-
-                    inputField.addEventListener('keydown', function(event) {
-                        if (event.key === 'Enter') {
-                            inputField.blur(); // Trigger the blur event to save and exit
-                        }
-                    });
-                };
-                
-                // Create a "Delete" button to remove items from localStorage
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Delete';
-                deleteButton.classList.add('action-btn');
-                deleteButton.onclick = function () {
-                    if (confirm(`Are you sure you want to delete the key "${key}"?`)) {
-                        localStorage.removeItem(key);
-                        renderLocalStorage(); // Re-render the table after deletion
-                    }
-                };
-                actionCell.appendChild(deleteButton);
-            }
+        let parsedValue = {};
+        try {
+            parsedValue = JSON.parse(value);
+        } catch (e) {
+            // Value isn't valid JSON
         }
+
+        const row = tableBody.insertRow();
+        const keyCell = row.insertCell(0);
+        const valueCell = row.insertCell(1);
+        const floorCell = row.insertCell(2);
+        const uidCell = row.insertCell(3);
+        const actionCell = row.insertCell(4);
+
+        keyCell.textContent = key;
+        valueCell.textContent = value;
+        floorCell.textContent = parsedValue.floor || 'N/A';
+        uidCell.textContent = parsedValue.uid || 'N/A';
+
+        // Make floor cell editable
+        floorCell.onclick = function () {
+            const currentFloor = floorCell.textContent;
+            const inputField = document.createElement('input');
+            inputField.type = 'text';
+            inputField.value = currentFloor;
+            floorCell.innerHTML = ''; // Clear cell and add input field
+            floorCell.appendChild(inputField);
+            inputField.focus();
+
+            inputField.addEventListener('blur', function () {
+                const newFloor = inputField.value;
+                if (newFloor !== currentFloor) {
+                    parsedValue.floor = newFloor; // Update floor in parsed object
+                    localStorage.setItem(key, JSON.stringify(parsedValue)); // Update localStorage
+                }
+                renderLocalStorage(); // Re-render table
+            });
+
+            inputField.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    inputField.blur(); // Trigger blur event
+                }
+            });
+        };
+
+        valueCell.onclick = function () {
+            const currentValue = valueCell.textContent;
+            const inputField = document.createElement('input');
+            inputField.type = 'text';
+            inputField.value = currentValue;
+            valueCell.innerHTML = ''; // Clear cell and add input field
+            valueCell.appendChild(inputField);
+            inputField.focus();
+
+            inputField.addEventListener('blur', function () {
+                const newValue = inputField.value;
+                if (newValue !== currentValue) {
+                    localStorage.setItem(key, newValue); // Update localStorage
+                }
+                renderLocalStorage(); // Re-render table
+            });
+
+            inputField.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    inputField.blur(); // Trigger blur event
+                }
+            });
+        };
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.classList.add('action-btn');
+        deleteButton.onclick = function () {
+            if (confirm(`Are you sure you want to delete the key "${key}"?`)) {
+                localStorage.removeItem(key);
+                renderLocalStorage(); // Re-render table
+            }
+        };
+        actionCell.appendChild(deleteButton);
+    }
+}
 
         // Function to send localStorage data to the server
         function saveToDatabase() {

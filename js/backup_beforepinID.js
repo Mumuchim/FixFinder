@@ -4,6 +4,61 @@ let cloningInProgress = false; // Track if a pin is being placed
 let lastClonedPin = null; // Track the most recently cloned pin
 let pinPlacedManually = false; // Flag to track if a pin was placed manually
 
+// Define zone configurations for each floor
+const zoneConfigurations = {
+    floor1: [
+        { id: 'floor1top', top: '0px', left: '356px', width: '566px', height: '65px' },
+        { id: 'floor1left', top: '140px', left: '355px', width: '109px', height: '310px' },
+        { id: 'floor1right', top: '140px', left: '816px', width: '107px', height: '310px' },
+        { id: 'floor1library', top: '140px', left: '540px', width: '200px', height: '306px' },
+        { id: 'floor1botleft', top: '495px', left: '427px', width: '157px', height: '70px' },
+        { id: 'floor1botright', top: '495px', left: '708px', width: '215px', height: '70px' }
+    ],
+    floor2: [
+        { id: 'floor2top', top: '0px', left: '357px', width: '566px', height: '65px' },
+        { id: 'floor2left', top: '140px', left: '355px', width: '109px', height: '310px' },
+        { id: 'floor2right', top: '140px', left: '818px', width: '106px', height: '310px' },
+        { id: 'floor2library', top: '140px', left: '541px', width: '200px', height: '307px' },
+        { id: 'floor2bot', top: '495px', left: '355px', width: '570px', height: '70px' },
+    ]
+};
+
+
+// Function to update zones based on the active floor
+// Function to update zones based on the active floor
+function updateZones(floor) {
+    const mapContainer = document.getElementById('mapContainer');
+
+    // Remove existing zones
+    const existingZones = mapContainer.querySelectorAll('.confirm-zone');
+    existingZones.forEach(zone => mapContainer.removeChild(zone));
+
+    // Add zones for the active floor
+    const zones = zoneConfigurations[floor] || [];
+    zones.forEach(config => {
+        const zone = document.createElement('div');
+        zone.classList.add('confirm-zone');
+        zone.id = config.id;
+        zone.style.position = 'absolute';
+        zone.style.top = config.top;
+        zone.style.left = config.left;
+        zone.style.width = config.width;
+        zone.style.height = config.height;
+        zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)'; // Default style
+        mapContainer.appendChild(zone);
+    });
+}
+
+function highlightZone(pin) {
+    const zones = document.querySelectorAll('.confirm-zone');
+    zones.forEach(zone => {
+        if (isInsideZone(pin, zone)) {
+            zone.style.backgroundColor = 'rgba(215, 124, 252, 0.3)';
+        } else {
+            zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
+        }
+    });
+}
 
 // Function to show the specified floor
 function showFloor(floor) {
@@ -367,61 +422,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
 
-// Store the selected pin type globally
-let selectedPinType = null;
-
-// Function to handle pin selection and set report type
-function preparePin(pinType) {
-    if (selectedPinType === pinType) {
-        return; // Don't do anything if the same pin type was already selected
+    function enablePinPlacement(icon) {
+        icon.addEventListener('click', function (e) {
+            const mapRect = mapContainer.getBoundingClientRect();
+            const x = e.clientX - mapRect.left;
+            const y = e.clientY - mapRect.top;
+            clonePin(icon, x, y);
+        });
     }
-
-    console.log("Pin clicked:", pinType); // Debugging: check which pin is clicked
-    selectedPinType = pinType; // Store the selected pin type
-    
-    const pinTypes = {
-        cautionIcon: "Hazard",
-        cleaningIcon: "Cleaning",
-        electricalIcon: "Electrical Hazard",
-        itIcon: "IT Maintenance",
-        repairIcon: "Repair",
-        requestIcon: "Request"
-    };
-
-    // Set the Type of Report field based on the selected pin
-    const reportTypeInput = document.getElementById("reportTypeInput");
-    const reportTypeSpan = document.getElementById("reportTypeSpan");
-
-    if (reportTypeInput && reportTypeSpan) {
-        const reportType = pinTypes[pinType] || "Unknown";
-        reportTypeSpan.textContent = reportType; // Update the span's text content
-        reportTypeInput.value = reportType; // Update the input box value
-
-        // Alert after DOM update
-        alert(`${reportType} selected!`); // Should show the alert now
-    } else {
-        console.error("Report type input or span not found!");
-    }
-}
-
-
-// Modified enablePinPlacement function
-function enablePinPlacement(icon) {
-    icon.addEventListener('click', function (e) {
-        const mapRect = mapContainer.getBoundingClientRect();
-        const x = e.clientX - mapRect.left;
-        const y = e.clientY - mapRect.top;
-
-        // Get the pin type from the icon's data-pin-type attribute
-        const pinType = icon.dataset.pinType;
-
-        // Prepare the pin by setting the report type
-        preparePin(pinType);
-
-        // Clone the pin after preparing the report type
-        clonePin(icon, x, y);
-    });
-}
 
     enablePinPlacement(cautionIcon);
     enablePinPlacement(cleaningIcon);
@@ -431,6 +439,7 @@ function enablePinPlacement(icon) {
     enablePinPlacement(requestIcon);
 });
 
+// Show modal with pin options
 function showPinOptions(pinElement, pinId) {
     if (document.querySelector('.custom-modal')) {
         return;
@@ -477,36 +486,6 @@ function showPinOptions(pinElement, pinId) {
 
     document.body.appendChild(modal);
 
-    // Show pin ID from localStorage based on coordinates
-    const pinPosition = {
-        top: pinElement.style.top,
-        left: pinElement.style.left
-    };
-
-    // Function to get the pin key from localStorage based on coordinates
-    function getPinKeyByCoordinates(position) {
-        for (let key in localStorage) {
-            if (/^\d+$/.test(key)) {
-                const pinData = JSON.parse(localStorage.getItem(key));
-
-                // Check if the pin's coordinates match
-                if (pinData.top === position.top && pinData.left === position.left) {
-                    return key;  // Return the matching pin ID from localStorage
-                }
-            }
-        }
-        return null;  // Return null if no match is found
-    }
-
-    // Fetch and display the pin ID
-    const pinKey = getPinKeyByCoordinates(pinPosition);
-    const pinIdElement = document.getElementById("pinIDClicked");
-    if (pinKey) {
-        pinIdElement.textContent = pinKey;  // Show the pin ID in the span
-    } else {
-        pinIdElement.textContent = "Not Found";  // If no key is found
-    }
-
     statusButton.addEventListener('click', () => {
         window.location.href = 'status.html';
         document.body.removeChild(modal);
@@ -529,11 +508,13 @@ function showPinOptions(pinElement, pinId) {
         }
         document.body.removeChild(modal);
     });
+    
 
     closeButton.addEventListener('click', () => {
         document.body.removeChild(modal);
     });
 }
+
 
 window.onload = function() {
     loadPinPositions();
@@ -562,12 +543,26 @@ function closeForm() {
     }
 }
 
+
 document.getElementById("cancelRequestButton").addEventListener('click', closeForm);
+
+function isInsideZone(pin, zone) {
+    const pinRect = pin.getBoundingClientRect();
+    const zoneRect = zone.getBoundingClientRect();
+
+    return (
+        pinRect.left >= zoneRect.left &&
+        pinRect.right <= zoneRect.right &&
+        pinRect.top >= zoneRect.top &&
+        pinRect.bottom <= zoneRect.bottom
+    );
+}
 
 function cancelPinPlacement() {
     // Reload the page to reset all pin placements
     location.reload();
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const dateInput = document.getElementById('reportDate');
@@ -590,3 +585,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+////// LAST SAVED 2:46pm 8-12-24 //////////
