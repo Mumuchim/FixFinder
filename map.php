@@ -473,23 +473,6 @@ session_start();
            ?>">
 </div>
 
-         <div class="mb-3">
-            <label class="form-label">Name:</label>
-            <input type="text" 
-                   class="form-control"
-                   name="user"
-                   readonly
-                   value="<?php 
-                        if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
-                            echo htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
-                        } elseif (isset($_SESSION['fname'])) {
-                            echo htmlspecialchars($_SESSION['fname']);
-                        } else {
-                            echo '';
-                        }
-                   ?>">
-         </div>
-
 <div class="report-title">
     <label class="form-label">Title</label>
     <input 
@@ -498,11 +481,6 @@ session_start();
         name="title" 
         value="<?php echo (isset($_GET['title'])) ? $_GET['title'] : ""; ?>">
 </div>
-         <div class="report-title">
-            <label class="form-label">Title</label>
-            <input type="text" class="form-control" name="title"
-                   value="<?php echo (isset($_GET['title']))?$_GET['title']:"" ?>">
-         </div>
 
 <div class="mb-3">
     <label class="form-label">Enter Details:</label>

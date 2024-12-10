@@ -133,6 +133,15 @@ function savePinPositions() {
         const uidInput = document.querySelector('input[name="uid"]');
         const uid = uidInput ? uidInput.value : 'Unknown';
 
+        // Get all keys in localStorage (ignoring activeFloor key)
+        const allKeys = Object.keys(localStorage).filter(key => key !== 'activeFloor' && /^\d+$/.test(key));
+
+        // Limit the number of pins in localStorage to 5
+        if (allKeys.length >= 5) {
+            alert("You have reached the maximum number of pins. Please remove a pin before adding a new one.");
+            return;  // Don't save any new pins if the limit is reached
+        }
+
         pinPositions.forEach(position => {
             const pinElement = document.getElementById(position.pinId);
             const img = pinElement.querySelector('img');
@@ -222,6 +231,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let cloningInProgress = false; // Track if a pin is being placed
 
     function clonePin(pin, x, y) {
+        const allKeys = Object.keys(localStorage).filter(key => key !== 'activeFloor' && /^\d+$/.test(key));
+    
+        if (allKeys.length >= 5) {
+            alert("You have reached the maximum number of pins. Please remove a pin before adding a new one.");
+            return;  // Prevent cloning if there are already 5 pins in localStorage
+        }
+    
         if (cloningInProgress) {
             alert("Please confirm the current pin's position before cloning a new one.");
             return;
@@ -526,10 +542,13 @@ function showPinOptions(pinElement, pinId) {
     
             // Save the updated pin positions
             savePinPositions();
+    
+            // Refresh the page after removing the pin
+            location.reload(); // This will reload the page and reset everything
         }
         document.body.removeChild(modal);
     });
-
+    
     closeButton.addEventListener('click', () => {
         document.body.removeChild(modal);
     });
@@ -569,24 +588,5 @@ function cancelPinPlacement() {
     location.reload();
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const dateInput = document.getElementById('reportDate');
-    try {
-        // Get the current date in YYYY-MM-DD format
-        const today = new Date().toISOString().split('T')[0];
 
-        // Check if the input type is supported
-        if (dateInput.type === "date") {
-            dateInput.value = today;
-        } else {
-            throw new Error("Input type 'date' is not supported by this browser.");
-        }
-    } catch (error) {
-        console.error("Error setting the current date:", error.message);
-
-        // Fallback for unsupported browsers
-        dateInput.placeholder = "YYYY-MM-DD";
-        dateInput.type = "text";
-    }
-});
 
