@@ -150,11 +150,11 @@ session_start();
             <!-- First Floor -->
             <g id="firstFloor">
                 <!-- College Library -->
-                <image href="img/Lecture_Room.png" class= map_photo x="349.5" y="267.5" width="380" height="584" opacity="1" />
+                <image href="img/test.png" class= map_photo x="349.5" y="267.5" width="380" height="584" opacity="1" />
                 <path id="COLLEGE LIBRARY" class="allPaths" d="M349.5 267.5 H729.5 V851.5 H349.5 Z" fill="#4A55A2" stroke="black" />
 
                 <!-- St. Carlo Acutis Chapel -->
-                <image href="img/Lecture_Room.png" class= map_photo x="0.5" y="267.5" width="202" height="111" opacity="1" />
+                <image href="img/Chapel.png" class= map_photo x="0.5" y="267.5" width="202" height="111" opacity="1" />
                 <path id="ST. CARLO ACUTIS CHAPEL" class="allPaths" d="M0.5 267.5 H202.5 V378.5 H0.5 Z" fill="#FFD0D0" stroke="black" />
 
                 <!-- Arete Hall -->
@@ -194,7 +194,7 @@ session_start();
                 <path id="COMFORT ROOMS" class="allPaths" d="M985.5 949.5 H1079.5 V1079.5 H985.5 Z" fill="#4A55A2" stroke="black" />
 
                 <!-- EdTech -->
-                <image href="img/Lecture_Room.png" class= map_photo x="878.5" y="770.5" width="201" height="88" opacity="1" />
+                <image href="img/Edtech.png" class= map_photo x="878.5" y="770.5" width="201" height="88" opacity="1" />
                 <path id="EDTECH" class="allPaths" d="M878.5 770.5 H1079.5 V858.5 H878.5 Z" fill="#F5EFFF" stroke="black" />
 
                 <!-- Sandbox -->

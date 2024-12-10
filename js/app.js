@@ -589,4 +589,24 @@ function cancelPinPlacement() {
 }
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const dateInput = document.getElementById('reportDate');
+    try {
+        // Get the current date in YYYY-MM-DD format
+        const today = new Date().toISOString().split('T')[0];
+
+        // Check if the input type is supported
+        if (dateInput.type === "date") {
+            dateInput.value = today;
+        } else {
+            throw new Error("Input type 'date' is not supported by this browser.");
+        }
+    } catch (error) {
+        console.error("Error setting the current date:", error.message);
+
+        // Fallback for unsupported browsers
+        dateInput.placeholder = "YYYY-MM-DD";
+        dateInput.type = "text";
+    }
+});
 
