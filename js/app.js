@@ -524,7 +524,7 @@ function showPinOptions(pinElement, pinId) {
     }
 
     statusButton.addEventListener('click', () => {
-        window.location.href = 'status.html';
+        window.location.href = 'status.php';
         document.body.removeChild(modal);
     });
 
