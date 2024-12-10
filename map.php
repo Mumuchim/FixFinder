@@ -156,7 +156,7 @@ session_start();
                 <path id="ST. CARLO ACUTIS CHAPEL" class="allPaths" d="M0.5 267.5 H202.5 V378.5 H0.5 Z" fill="#FFD0D0" stroke="black" />
 
                 <!-- Arete Hall -->
-                <image href="img/Lecture_Room.png" class= map_photo x="0.5" y="379.5" width="202" height="106" opacity="1" />
+                <image href="img/Arete.png" class= map_photo x="0.5" y="379.5" width="202" height="106" opacity="1" />
                 <path id="ARETE HALL" class="allPaths" d="M0.5 379.5 H202.5 V485.5 H0.5 Z" fill="#E1ACAC" stroke="black" />
 
                 <!-- Discussion Room -->
@@ -168,11 +168,11 @@ session_start();
                 <path id="CREDO" class="allPaths" d="M0.5 585.5 H202.5 V679.5 H0.5 Z" fill="#A87676" stroke="black" />
 
                 <!-- Cafeteria -->
-                <image href="img/Lecture_Room.png" class= map_photo x="0.5" y="680.5" width="202" height="176" opacity="1" />
+                <image href="img/Cafe.png" class= map_photo x="0.5" y="680.5" width="202" height="176" opacity="1" />
                 <path id="CAFETERIA" class="allPaths" d="M0.5 680.5 H202.5 V856.5 H0.5 Z" fill="#835A5A" stroke="black" />
 
                 <!-- Clinic -->
-                <image href="img/Lecture_Room.png" class= map_photo x="136.5" y="949.5" width="208" height="130" opacity="1" />
+                <image href="img/Clinic.png" class= map_photo x="136.5" y="949.5" width="208" height="130" opacity="1" />
                 <path id="CLINIC" class="allPaths" d="M136.5 949.5 H344.5 V1079.5 H136.5 Z" fill="#C5DFF8" stroke="black" />
 
                 <!-- Guidance -->
@@ -180,7 +180,7 @@ session_start();
                 <path id="GUIDANCE" class="allPaths" d="M345.5 949.5 H432.5 V1079.5 H345.5 Z" fill="#A0BFE0" stroke="black" />
 
                 <!-- Psych Lab -->
-                <image href="img/Lecture_Room.png" class= map_photo x="671.5" y="949.5" width="206" height="130" opacity="1" />
+                <image href="img/Psych.png" class= map_photo x="671.5" y="949.5" width="206" height="130" opacity="1" />
                 <path id="PSYCH LAB" class="allPaths" d="M671.5 949.5 H877.5 V1079.5 H671.5 Z" fill="#7895CB" stroke="black" />
 
                 <!-- Stairs -->
@@ -406,7 +406,7 @@ session_start();
                 <path id="STAIRS" class="allPaths" d="M880.5,949.5 h106 v130 h-106 z" fill="black" stroke="black" />
                 
                 <!-- Comfort Rooms -->
-                <image href="img/Lecture_Room.png" class= map_photo x="987.5" y="949.5" width="94" height="130" opacity="1" />
+                <image href="img/CR1.png" class= map_photo x="987.5" y="949.5" width="94" height="130" opacity="1" />
                 <path id="COMFORT ROOMS" class="allPaths" d="M987.5,949.5 h94 v130 h-94 z" fill="#4A55A2" stroke="black" />
                 
                 <!-- CHS -->
@@ -442,7 +442,7 @@ session_start();
                 <path id="STAIRS_2" class="allPaths" d="M108.5,0.5 h101 v123 h-101 z" fill="black" stroke="black" />
                 
                 <!-- Comfort Rooms 2 -->
-                <image href="img/Lecture_Room.png" class= map_photo x="2.5" y="0.5" width="105" height="123" opacity="1" />
+                <image href="img/CR2-2ndfloor.png" class= map_photo x="2.5" y="0.5" width="105" height="123" opacity="1" />
                 <path id="COMFORT ROOMS_2" class="allPaths" d="M2.5,0.5 h105 v123 h-105 z" fill="#4A55A2" stroke="black" />
                 
                 <!-- Lecture Room -->
