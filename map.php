@@ -188,7 +188,7 @@ session_start();
                 <path id="STAIRS" class="allPaths" d="M878.5 949.5 H984.5 V1079.5 H878.5 Z" fill="black" stroke="black" />
 
                 <!-- Comfort Rooms -->
-                <image href="img/Lecture_Room.png" class= map_photo x="985.5" y="949.5" width="94" height="130" opacity="1" />
+                <image href="img/CR1.png" class= map_photo x="985.5" y="949.5" width="94" height="130" opacity="1" />
                 <path id="COMFORT ROOMS" class="allPaths" d="M985.5 949.5 H1079.5 V1079.5 H985.5 Z" fill="#4A55A2" stroke="black" />
 
                 <!-- EdTech -->
@@ -212,19 +212,19 @@ session_start();
                 <path id="SIMULATION ROOM" class="allPaths" d="M878.5 0.5 H1079.5 V123.5 H878.5 Z" fill="#D2E3C8" stroke="black" />
 
                 <!-- Lecture Room 4 -->
-                <image href="img/Lecture_Room.png" class= map_photo x="666.5" y="0.5" width="211" height="123" opacity="1" />
+                <image href="img/Lecture Room 4.png" class= map_photo x="666.5" y="0.5" width="211" height="123" opacity="1" />
                 <path id="LECTURE ROOM 4" class="allPaths" d="M666.5 0.5 H877.5 V123.5 H666.5 Z" fill="#86A789" stroke="black" />
 
                 <!-- Lecture Room 5 -->
-                <image href="img/Lecture_Room.png" class= map_photo x="454.5" y="0.5" width="211" height="123" opacity="1" />
+                <image href="img/Lecture Room 5.png" class= map_photo x="454.5" y="0.5" width="211" height="123" opacity="1" />
                 <path id="LECTURE ROOM 5" class="allPaths" d="M454.5 0.5 H665.5 V123.5 H454.5 Z" fill="#739072" stroke="black" />
 
                 <!-- Lecture Room 6 -->
-                <image href="img/Lecture_Room.png" class= map_photo x="250.5" y="0.5" width="203" height="123" opacity="1" />
+                <image href="img/Lecture Room 6.png" class= map_photo x="250.5" y="0.5" width="203" height="123" opacity="1" />
                 <path id="LECTURE ROOM 6" class="allPaths" d="M250.5 0.5 H453.5 V123.5 H250.5 Z" fill="#4F6F52" stroke="black" />
 
                 <!-- Server 3 Room -->
-                <image href="img/Lecture_Room.png" class= map_photo x="166.5" y="0.5" width="83" height="123" opacity="1" />
+                <image href="img/Server 3.png" class= map_photo x="166.5" y="0.5" width="83" height="123" opacity="1" />
                 <path id="SERVER 3 ROOM" class="allPaths" d="M166.5 0.5 H249.5 V123.5 H166.5 Z" fill="#3F6142" stroke="black" />
 
                 <!-- Stairs 2 -->
@@ -232,7 +232,7 @@ session_start();
                 <path id="STAIRS_2" class="allPaths" d="M83.5 0.5 H165.5 V123.5 H83.5 Z" fill="black" stroke="black" />
 
                 <!-- Comfort Rooms 2 -->
-                <image href="img/Lecture_Room.png" class= map_photo x="0.5" y="0.5" width="82" height="123" opacity="1" />
+                <image href="img/CR2.png" class= map_photo x="0.5" y="0.5" width="82" height="123" opacity="1" />
                 <path id="COMFORT ROOMS 2" class="allPaths" d="M0.5 0.5 H82.5 V123.5 H0.5 Z" fill="#4A55A2" stroke="black" />
 
                 <text x="540" y="540" font-size="24" fill="black" font-family="Arial" id="libraryText" text-anchor="middle">
@@ -342,7 +342,7 @@ session_start();
                 <path id="AMPHITHEATER" class="allPaths" d="M880.5,268.5 h201 v108 h-201 z" fill="#A594F9" stroke="black" />
                 
                 <!-- Chemistry -->
-                <image href="img/Lecture_Room.png" class= map_photo x="880.5" y="0.5" width="201" height="123" opacity="1" />
+                <image href="img/Chem-2ndfloor.png" class= map_photo x="880.5" y="0.5" width="201" height="123" opacity="1" />
                 <path id="CHEMISTRY" class="allPaths" d="M880.5,0.5 h201 v123 h-201 z" fill="#86A789" stroke="black" />
                 
                 <!-- Microbiology -->
