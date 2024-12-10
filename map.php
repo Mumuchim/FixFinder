@@ -141,8 +141,6 @@ session_start();
 
     <span id="pinIDClicked">Pin ID</span>
 
-
-
     <div id="mapContainer">
         <div id="sidebar-container"></div>
 
@@ -194,15 +192,15 @@ session_start();
                 <path id="COMFORT ROOMS" class="allPaths" d="M985.5 949.5 H1079.5 V1079.5 H985.5 Z" fill="#4A55A2" stroke="black" />
 
                 <!-- EdTech -->
-                <image href="img/Edtech.png" class= map_photo x="878.5" y="770.5" width="201" height="88" opacity="1" />
+                <image href="img/Edtech.png" class= map_photo x="878.5" y="770.5" width="206" height="88" opacity="1" />
                 <path id="EDTECH" class="allPaths" d="M878.5 770.5 H1079.5 V858.5 H878.5 Z" fill="#F5EFFF" stroke="black" />
 
                 <!-- Sandbox -->
-                <image href="img/Lecture_Room.png" class= map_photo x="878.5" y="681.5" width="201" height="88" opacity="1" />
+                <image href="img/SandBox.png" class= map_photo x="878.5" y="681.5" width="201" height="88" opacity="1" />
                 <path id="SANDBOX" class="allPaths" d="M878.5 681.5 H1079.5 V769.5 H878.5 Z" fill="#E5D9F2" stroke="black" />
 
                 <!-- Nexus -->
-                <image href="img/Lecture_Room.png" class= map_photo x="878.5" y="486.5" width="201" height="194" opacity="1" />
+                <image href="img/Nexus.png" class= map_photo x="878.5" y="486.5" width="201" height="194" opacity="1" />
                 <path id="NEXUS" class="allPaths" d="M878.5 486.5 H1079.5 V680.5 H878.5 Z" fill="#CDC1FF" stroke="black" />
 
                 <!-- Inspire / Robotics -->
