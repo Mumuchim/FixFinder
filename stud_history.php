@@ -74,6 +74,7 @@ $con->close();
                         <h4>Student History</h4>
                         <!-- Display Logged-In User's Name -->
                         <p class="text-muted">Logged in as: <strong><?= htmlspecialchars($user_fname . ' ' . $user_lname); ?></strong></p>
+                        <a href="map.php" class="btn btn-primary btn-sm float-end">Back to Homepage</a>
                     </div>
                     <div class="card-body">
                         <?php if ($no_records_message): ?>
