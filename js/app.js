@@ -157,7 +157,7 @@ function savePinPositions() {
                 uid: uid // Save the current session UID
             };
 
-            const pinIdWithoutPrefix = position.pinId.replace('');
+            const pinIdWithoutPrefix = position.pinId.replace(/^pin-/, '');
             localStorage.setItem(pinIdWithoutPrefix, JSON.stringify(pinData));
         });
     } catch (e) {
@@ -191,13 +191,14 @@ function loadPinPositions() {
     }
 }
 
+
 function createPinOnMap(pinData, key) {
     const pinElement = document.createElement('div');
     pinElement.classList.add('pin');
     pinElement.style.position = 'absolute';
     pinElement.style.top = pinData.top;
     pinElement.style.left = pinData.left;
-    pinElement.id = `${key}`;
+    pinElement.id = `pin-${key}`;
 
     // Add the pin image if available
     if (pinData.imgSrc) {
@@ -216,7 +217,7 @@ function createPinOnMap(pinData, key) {
 
     // Track the pin position in memory
     pinPositions.push({
-        pinId: `${key}`,
+        pinId: `pin-${key}`,
         top: pinData.top,
         left: pinData.left,
         imgSrc: pinData.imgSrc,
@@ -492,18 +493,17 @@ function showPinOptions(pinElement, pinId) {
 
     document.body.appendChild(modal);
 
-    // Show pin ID from localStorage based on coordinates
     const pinPosition = {
         top: pinElement.style.top,
         left: pinElement.style.left
     };
-
+    
     // Function to get the pin key from localStorage based on coordinates
     function getPinKeyByCoordinates(position) {
         for (let key in localStorage) {
             if (/^\d+$/.test(key)) {
                 const pinData = JSON.parse(localStorage.getItem(key));
-
+    
                 // Check if the pin's coordinates match
                 if (pinData.top === position.top && pinData.left === position.left) {
                     return key;  // Return the matching pin ID from localStorage
@@ -512,7 +512,7 @@ function showPinOptions(pinElement, pinId) {
         }
         return null;  // Return null if no match is found
     }
-
+    
     // Fetch and display the pin ID
     const pinKey = getPinKeyByCoordinates(pinPosition);
     const pinIdElement = document.getElementById("pinIDClicked");
@@ -521,7 +521,10 @@ function showPinOptions(pinElement, pinId) {
     } else {
         pinIdElement.textContent = "Not Found";  // If no key is found
     }
-
+    
+    // Update localStorage with the active pin ID
+    localStorage.setItem("activePinClicked", pinIdElement.textContent);
+    
     statusButton.addEventListener('click', () => {
         window.location.href = 'status.html';
         document.body.removeChild(modal);
@@ -608,3 +611,4 @@ document.addEventListener('DOMContentLoaded', function () {
         dateInput.type = "text";
     }
 });
+

@@ -4,11 +4,10 @@ error_reporting(E_ALL);
 
 include "db_conn.php";
 
-// Check if pinId is set and not empty
-if (isset($_GET['pinId']) && !empty($_GET['pinId'])) {
-    $pinId = $_GET['pinId'];
+// Check if pinId is passed via POST
+if (isset($_POST['pinId']) && !empty($_POST['pinId'])) {
+    $pinId = $_POST['pinId'];
     // Rest of your code to fetch data from the database
-
     try {
         // Prepare SQL query to fetch report by pinId
         $sql = "SELECT * FROM report WHERE pinId = ?";
@@ -21,7 +20,7 @@ if (isset($_GET['pinId']) && !empty($_GET['pinId'])) {
             $title = htmlspecialchars($report['title']);
             $details = htmlspecialchars($report['details']);
             $type = htmlspecialchars($report['type']);
-            // $status = htmlspecialchars($report['status']); // Assuming a 'status' column exists
+            $status = htmlspecialchars($report['status']); // Assuming a 'status' column exists
             $reporter = htmlspecialchars($report['user']);
             $image = htmlspecialchars($report['image']);
         } else {
@@ -42,74 +41,7 @@ if (isset($_GET['pinId']) && !empty($_GET['pinId'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Status Report</title>
     <style>
-       body {
-            font-family: Arial, sans-serif;
-            background-image: url('img/bgmap.png');
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            width: 500px;
-            text-align: center;
-            position: relative;
-        }
-        .report-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-        .details {
-            padding: 20px;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        .details h3 {
-            color: #333;
-        }
-        .details p {
-            color: #555;
-        }
-        .status {
-            background-color: #f1f1f1;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            color: #e74c3c;
-            margin-top: 10px;
-        }
-        .button {
-            background-color: #0245c1;
-            color: white;
-            padding: 8px 8px;
-            text-decoration: none;
-            border-radius: 5px;
-            position: absolute;
-            top: 280px;
-            left: 30px;
-            font-size: 14px;
-        }
-        .button:hover {
-            background-color: #218838;
-        }
-        .reporter-name {
-            font-size: 14px;
-            color: #555;
-            margin-top: 10px;
-        }
+        /* Your existing CSS */
     </style>
 </head>
 <body>
@@ -135,7 +67,33 @@ if (isset($_GET['pinId']) && !empty($_GET['pinId'])) {
     </div>
 <?php endif; ?>
 
-<script src="js/app.js"></script>
+<script>
+    // Check if activePinClicked exists in localStorage
+    const activePinClicked = localStorage.getItem('activePinClicked');
+
+    if (activePinClicked) {
+        // Send the activePinClicked value to the PHP script via AJAX (POST)
+        fetch('status.php', { // Replace with the actual PHP script name
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'pinId=' + encodeURIComponent(activePinClicked)  // Send pinId as POST data
+        })
+        .then(response => response.text())
+        .then(data => {
+            // The data from PHP will be included in the response.
+            // This part assumes PHP directly outputs the report's HTML content, 
+            // which could be dynamically updated based on the response.
+            document.body.innerHTML = data;  // Replace page content with the new data
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    } else {
+        console.error('activePinClicked not found in localStorage.');
+    }
+</script>
 
 </body>
 </html>

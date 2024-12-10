@@ -604,6 +604,7 @@ session_start();
     <script src="js/toggle_button.js"></script>
     <script src="js/hover_svg.js"></script>
     <script src="js/zone.js"></script>
+    <script src="js/fetch_pin.js"></script>
 </body>
 
 </html>

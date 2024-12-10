@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const imgSrc = getFixedImagePath(pinType); // Get the fixed image path based on pin type
     
         const clone = pin.cloneNode(true);
-        const pinId = `pin-${Date.now()}`;
+        const pinId = `${Date.now()}`;
         clone.id = pinId;
         clone.style.position = 'absolute';
         clone.style.left = `${x}px`;
