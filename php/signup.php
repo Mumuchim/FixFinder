@@ -3,8 +3,7 @@
 if (isset($_POST['fname']) && 
     isset($_POST['lname']) && 
     isset($_POST['email']) &&  
-    isset($_POST['pass']) && 
-    isset($_POST['role'])) { // Check if role is set
+    isset($_POST['pass'])) { // Check if the mandatory fields are set
 
     include "../db_conn.php";
 
@@ -12,7 +11,9 @@ if (isset($_POST['fname']) &&
     $lname = $_POST['lname'];
     $email = $_POST['email'];
     $pass = $_POST['pass'];
-    $role = $_POST['role']; // Capture the role
+
+    // Default role to 'student' if not set
+    $role = isset($_POST['role']) ? $_POST['role'] : 'student';
 
     $data = "fname=" . $fname . "&lname=" . $lname . "&email=" . $email;
     
@@ -32,7 +33,7 @@ if (isset($_POST['fname']) &&
         $em = "Password is required";
         header("Location: ../index.php?error=$em&$data");
         exit;
-    } else if (empty($role) || !in_array($role, ['student', 'admin'])) { // Validate role
+    } else if (!in_array($role, ['student', 'admin'])) { // Validate role if provided
         $em = "Invalid role selected";
         header("Location: ../index.php?error=$em&$data");
         exit;
@@ -59,7 +60,6 @@ if (isset($_POST['fname']) &&
 
         header("Location: ../index.php?success=Your account has been created successfully");
         exit;
-       
     }
 
 } else {
