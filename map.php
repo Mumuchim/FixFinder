@@ -148,7 +148,7 @@ session_start();
             <!-- First Floor -->
             <g id="firstFloor">
                 <!-- College Library -->
-                <image href="img/test.png" class= map_photo x="349.5" y="267.5" width="380" height="584" opacity="1" />
+                <image href="img/Library.png" class= map_photo x="349.5" y="267.5" width="380" height="584" opacity="1" />
                 <path id="COLLEGE LIBRARY" class="allPaths" d="M349.5 267.5 H729.5 V851.5 H349.5 Z" fill="#4A55A2" stroke="black" />
 
                 <!-- St. Carlo Acutis Chapel -->
