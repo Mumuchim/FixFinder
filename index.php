@@ -46,14 +46,14 @@
                         <input type="password" class="form-control" name="pass" required>
                     </div>
 
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label class="form-label">Role</label>
                         <select class="form-control" name="role" required>
                             <option value="" disabled selected>Select a role</option>
                             <option value="student">Student</option>
                             <option value="admin">Admin</option>
                         </select>
-                    </div>
+                    </div> -->
 
                     <button type="submit" class="btn btn-primary w-100">Sign in</button>
                 </form>

@@ -7,6 +7,7 @@ include "db_conn.php";
 // Check if pinId is passed via POST
 if (isset($_POST['pinId']) && !empty($_POST['pinId'])) {
     $pinId = $_POST['pinId'];
+    // Rest of your code to fetch data from the database
     try {
         // Prepare SQL query to fetch report by pinId
         $sql = "SELECT * FROM report WHERE pinId = ?";
@@ -19,7 +20,7 @@ if (isset($_POST['pinId']) && !empty($_POST['pinId'])) {
             $title = htmlspecialchars($report['title']);
             $details = htmlspecialchars($report['details']);
             $type = htmlspecialchars($report['type']);
-            $status = htmlspecialchars($report['status']);
+            $status = htmlspecialchars($report['status']); // Assuming a 'status' column exists
             $reporter = htmlspecialchars($report['user']);
             $image = htmlspecialchars($report['image']);
         } else {
@@ -195,6 +196,7 @@ body.admin .admin-only {
     </style>
 </head>
 <body>
+
 <?php if (isset($error_message)): ?>
     <div class="container">
         <p><?php echo $error_message; ?></p>
@@ -202,97 +204,114 @@ body.admin .admin-only {
     </div>
 <?php else: ?>
     <div class="container">
+ 
+        <!-- <img src="upload/<?php echo $image; ?>" alt="Report Image" class="report-img"> -->
         <img src="upload/<?php echo $image; ?>" alt="Report Image" class="report-img" id="reportImg" onclick="openModal('upload/<?php echo $image; ?>')">
+
         <div class="details">
             <h3><strong>Title:</strong> <?php echo $title; ?></h3>
             <p><strong>Details:</strong> <?php echo $details; ?></p>
             <p><strong>Type of Report:</strong> <?php echo $type; ?></p>
             <div class="status">
-                <p><strong>Status:</strong> <span id="status-text"><?php echo $status ?: 'Not Available'; ?></span></p>
+                <p><strong>Status:</strong> <?php echo $status ?: 'Not Available'; ?></p>
             </div>
             <p class="reporter-name"><strong>Reporter:</strong> <?php echo $reporter; ?></p>
-            <a href="map.php" class="button">Go to Map</a>
-            <a href="#" class="button accept-button" onclick="updateStatus('In Progress')">Accept</a>
-            <a href="#" class="button deny-button" onclick="updateStatus('Denied')">Deny</a>
+            <!-- <a href="map.php" class="button">Go to Map</a>
+<a href="#" class="button accept-button">Accept</a>
+<a href="#" class="button deny-button">Deny</a> -->
+
+<a href="map.php" class="button">Go to Map</a>
+<a href="#" class="button accept-button admin-only">Accept</a>
+<a href="#" class="button deny-button admin-only">Deny</a>
         </div>
+        
     </div>
 
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="modalImg">
-    </div>
+    <!-- <div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImg">
+</div> -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImg">
+</div>
+
+
 <?php endif; ?>
 
 <script>
-// Check if activePinClicked exists in localStorage
-const activePinClicked = localStorage.getItem('activePinClicked');
+    // Check if activePinClicked exists in localStorage
+    const activePinClicked = localStorage.getItem('activePinClicked');
 
-if (activePinClicked) {
-    // Send the activePinClicked value to the PHP script via AJAX (POST)
-    fetch('status.php', {  // Replace with the actual PHP script name
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'pinId=' + encodeURIComponent(activePinClicked)  // Send pinId as POST data
-    })
-    .then(response => response.text())
-    .then(data => {
-        // The data from PHP will be included in the response.
-        // This part assumes PHP directly outputs the report's HTML content,
-        // which could be dynamically updated based on the response.
-        document.body.innerHTML = data;  // Replace page content with the new data
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-} else {
-    console.error('activePinClicked not found in localStorage.');
-}
-
-// Function to update the status
-function updateStatus(newStatus) {
-    const pinId = localStorage.getItem('activePinClicked'); // Assume pinId is stored in localStorage
-
-    if (!pinId) {
-        alert('No active pin ID found.');
-        return;
+    if (activePinClicked) {
+        // Send the activePinClicked value to the PHP script via AJAX (POST)
+        fetch('status.php', { // Replace with the actual PHP script name
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'pinId=' + encodeURIComponent(activePinClicked)  // Send pinId as POST data
+        })
+        .then(response => response.text())
+        .then(data => {
+            // The data from PHP will be included in the response.
+            // This part assumes PHP directly outputs the report's HTML content, 
+            // which could be dynamically updated based on the response.
+            document.body.innerHTML = data;  // Replace page content with the new data
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    } else {
+        console.error('activePinClicked not found in localStorage.');
     }
 
-    // Send AJAX request to update status
-    fetch('update_status.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `pinId=${encodeURIComponent(pinId)}&status=${encodeURIComponent(newStatus)}`,
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Status updated successfully!');
-            document.getElementById('status-text').textContent = newStatus; // Update status in UI
-        } else {
-            alert(`Error: ${data.message}`);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while updating the status.');
-    });
-}
+//     function openModal(imageSrc) {
+//     const modal = document.getElementById('imageModal');
+//     const modalImg = document.getElementById('modalImg');
+//     modal.style.display = 'flex'; // Flexbox for proper centering
+//     modalImg.src = imageSrc;
+// }
+
+// function closeModal() {
+//     const modal = document.getElementById('imageModal');
+//     modal.style.display = 'none';
+// }
 
 function openModal(imageSrc) {
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
+    
+    // Set image source and display modal
     modalImg.src = imageSrc;
     modal.style.display = 'flex';
 }
 
 function closeModal() {
     const modal = document.getElementById('imageModal');
+    
+    // Hide modal
     modal.style.display = 'none';
 }
+
+// Hide modal when the page loads
+window.onload = function () {
+    const modal = document.getElementById('imageModal');
+    modal.style.display = 'none';
+};
+
+// Assume userRole is dynamically set
+const userRole = 'student'; // Replace with actual logic to determine role
+
+// Hide admin-only buttons if the user is not an admin
+if (userRole === 'student') {
+    document.querySelectorAll('.admin-only').forEach(button => {
+        button.style.display = 'none';
+    });
+}
+
+
 </script>
+
 </body>
 </html>

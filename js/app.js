@@ -526,7 +526,7 @@ function showPinOptions(pinElement, pinId) {
     localStorage.setItem("activePinClicked", pinIdElement.textContent);
     
     statusButton.addEventListener('click', () => {
-        window.location.href = 'status.html';
+        window.location.href = 'stat.php';
         document.body.removeChild(modal);
     });
 
