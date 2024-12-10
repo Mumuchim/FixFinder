@@ -235,133 +235,133 @@ session_start();
                 <image href="img/CR2.png" class= map_photo x="0.5" y="0.5" width="82" height="123" opacity="1" />
                 <path id="COMFORT ROOMS 2" class="allPaths" d="M0.5 0.5 H82.5 V123.5 H0.5 Z" fill="#4A55A2" stroke="black" />
 
-<text x="540" y="540" font-size="24" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="540" y="540" font-size="24" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     College Library
 </text>
 <text x="540" y="540" font-size="24" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     College Library
 </text>
 
-<text x="101" y="325" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="101" y="325" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     St. Carlo Acutis Chapel
 </text>
 <text x="101" y="325" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     St. Carlo Acutis Chapel
 </text>
 
-<text x="101" y="432" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="101" y="432" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Arete Hall
 </text>
 <text x="101" y="432" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Arete Hall
 </text>
 
-<text x="101" y="535" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="101" y="535" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Discussion Room
 </text>
 <text x="101" y="535" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Discussion Room
 </text>
 
-<text x="101" y="635" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="101" y="635" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Credo
 </text>
 <text x="101" y="635" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Credo
 </text>
 
-<text x="101" y="768" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="101" y="768" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Cafeteria
 </text>
 <text x="101" y="768" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Cafeteria
 </text>
 
-<text x="240" y="1014" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="240" y="1014" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Clinic
 </text>
 <text x="240" y="1014" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Clinic
 </text>
 
-<text x="389" y="1014" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="389" y="1014" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Guidance
 </text>
 <text x="389" y="1014" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Guidance
 </text>
 
-<text x="774" y="1014" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="774" y="1014" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Psych Lab
 </text>
 <text x="774" y="1014" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Psych Lab
 </text>
 
-<text x="1032" y="1014" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="1032" y="1014" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     CR
 </text>
 <text x="1032" y="1014" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     CR
 </text>
 
-<text x="978" y="817" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="978" y="817" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     EdTech
 </text>
 <text x="978" y="817" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     EdTech
 </text>
 
-<text x="978" y="725" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="978" y="725" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Sandbox
 </text>
 <text x="978" y="725" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Sandbox
 </text>
 
-<text x="978" y="583" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="978" y="583" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Nexus
 </text>
 <text x="978" y="583" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Nexus
 </text>
 
-<text x="978" y="376" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="978" y="376" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Inspire / Robotics
 </text>
 <text x="978" y="376" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Inspire / Robotics
 </text>
 
-<text x="978" y="62" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="978" y="62" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Simulation Room
 </text>
 <text x="978" y="62" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Simulation Room
 </text>
 
-<text x="772" y="62" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="772" y="62" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Lecture Room 4
 </text>
 <text x="772" y="62" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Lecture Room 4
 </text>
 
-<text x="560" y="62" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="560" y="62" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Lecture Room 5
 </text>
 <text x="560" y="62" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Lecture Room 5
 </text>
 
-<text x="352" y="62" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="352" y="62" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     Lecture Room 6
 </text>
 <text x="352" y="62" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
     Lecture Room 6
 </text>
 
-<text x="208" y="62" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="208" y="62" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     <tspan x="208" dy="0">Server</tspan>
     <tspan x="208" dy="1.2em">3 Room</tspan>
 </text>
@@ -370,7 +370,7 @@ session_start();
     <tspan x="208" dy="1.2em">3 Room</tspan>
 </text>
 
-<text x="41" y="62" font-size="16" fill="black" font-family="Arial" stroke="white" stroke-width="6" text-anchor="middle">
+<text x="41" y="62" font-size="16" fill="black" font-family="Arial" stroke=#D3D3D3 stroke-width="6" text-anchor="middle">
     CR 2
 </text>
 <text x="41" y="62" font-size="16" fill="black" font-family="Arial" stroke="black" stroke-width="1.5" text-anchor="middle">
@@ -466,119 +466,119 @@ session_start();
                 <path id="OSP/HUDDLE" class="allPaths" d="M84.5,625.5 h118 v106 h-118 z" fill="#A87676" stroke="black" />
 
             
-<text x="540" y="550" font-size="24" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="540" y="550" font-size="24" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     College Library
 </text>
 <text x="540" y="550" font-size="24" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     College Library
 </text>
 
-<text x="240" y="1020" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="240" y="1020" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     Scientia Hall 2
 </text>
 <text x="240" y="1020" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     Scientia Hall 2
 </text>
 
-<text x="685" y="1020" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="685" y="1020" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     Scientia Hall 1
 </text>
 <text x="685" y="1020" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     Scientia Hall 1
 </text>
 
-<text x="1032" y="1014" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="1032" y="1014" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     CR1
 </text>
 <text x="1032" y="1014" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     CR1
 </text>
 
-<text x="980" y="785" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="980" y="785" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     CHS
 </text>
 <text x="980" y="785" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     CHS
 </text>
 
-<text x="980" y="550" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="980" y="550" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     Skills Lab
 </text>
 <text x="980" y="550" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     Skills Lab
 </text>
 
-<text x="980" y="330" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="980" y="330" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     Amphitheater
 </text>
 <text x="980" y="330" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     Amphitheater
 </text>
 
-<text x="980" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="980" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     Chemistry
 </text>
 <text x="980" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     Chemistry
 </text>
 
-<text x="775" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="775" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     Microbiology
 </text>
 <text x="775" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     Microbiology
 </text>
 
-<text x="565" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="565" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     Physics
 </text>
 <text x="565" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     Physics
 </text>
 
-<text x="335" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="335" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     Anatomy
 </text>
 <text x="335" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     Anatomy
 </text>
 
-<text x="50" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="50" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     CR 2
 </text>
 <text x="50" y="62" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     CR 2
 </text>
 
-<text x="100" y="335" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="100" y="335" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     Lecture Room
 </text>
 <text x="100" y="335" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     Lecture Room
 </text>
 
-<text x="100" y="445" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="100" y="445" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     Lecture Room 2
 </text>
 <text x="100" y="445" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     Lecture Room 2
 </text>
 
-<text x="100" y="570" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="100" y="570" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     Resources Room
 </text>
 <text x="100" y="570" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     Resources Room
 </text>
 
-<text x="100" y="770" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="100" y="770" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     OVPAA
 </text>
 <text x="100" y="770" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
     OVPAA
 </text>
 
-<text x="145" y="680" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="white" stroke-width="6" paint-order="stroke fill">
+<text x="145" y="680" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke=#D3D3D3 stroke-width="6" paint-order="stroke fill">
     OSP/Huddle
 </text>
 <text x="145" y="680" font-size="16" fill="black" font-family="Arial" text-anchor="middle" stroke="black" stroke-width="1.5" paint-order="stroke fill">
