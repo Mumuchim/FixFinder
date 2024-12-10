@@ -446,31 +446,14 @@ session_start();
         </svg>
     </div>
 
-    <!-- 
-    REPORTTTTT FORM -->
-
-    <body class="report_details">
-    <!-- <div class="d-flex justify-content-center align-items-center vh-100"> -->
-    <button class="open-button" onclick="openForm()">new report</button>
     <div class="form-popup" id="myForm">
-    	
-   <form id="reportForm" class="form-container" action="php/.php" method="post" enctype="multipart/form-data">
-            <div class="report">
-    		<h1 class="display-4  fs-1">Report</h1>
-            <label><p>Report your concern here.<p></label>
-    		<?php if(isset($_GET['error'])){ ?>
-    		<div class="alert alert-danger" role="alert">
-			  <?php echo $_GET['error']; ?>
-			</div>
-		    <?php } ?>
+   <form id="reportForm" class="form-container" action="php/test.php" method="post" enctype="multipart/form-data">
+      <div class="report">
+         <h1 class="display-4 fs-1">Report</h1>
+         <label><p>Report your concern here.<p></label>
 
-		    <?php if(isset($_GET['success'])){ ?>
-    		<div class="alert alert-success" role="alert">
-			  <?php echo $_GET['success']; ?>
-			</div>
-		    <?php } ?>
-
-
+         <!-- Pop-up message container -->
+         <div id="popupMessage" class="popup-message" style="display: none;"></div>
 
             <div class="mb-3">
     <label class="form-label">Name:</label>
@@ -490,6 +473,22 @@ session_start();
            ?>">
 </div>
 
+         <div class="mb-3">
+            <label class="form-label">Name:</label>
+            <input type="text" 
+                   class="form-control"
+                   name="user"
+                   readonly
+                   value="<?php 
+                        if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
+                            echo htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
+                        } elseif (isset($_SESSION['fname'])) {
+                            echo htmlspecialchars($_SESSION['fname']);
+                        } else {
+                            echo '';
+                        }
+                   ?>">
+         </div>
 
 <div class="report-title">
     <label class="form-label">Title</label>
@@ -499,6 +498,11 @@ session_start();
         name="title" 
         value="<?php echo (isset($_GET['title'])) ? $_GET['title'] : ""; ?>">
 </div>
+         <div class="report-title">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" name="title"
+                   value="<?php echo (isset($_GET['title']))?$_GET['title']:"" ?>">
+         </div>
 
 <div class="mb-3">
     <label class="form-label">Enter Details:</label>
@@ -523,8 +527,7 @@ session_start();
     <input type="text" id="floor" readonly />
 </form>
 
-<div class="report-type">
-    <br>
+          <div class="report-type">
     <label for="reportTypeInput">Type of Report:</label>
     <input 
         type="text" 
@@ -535,6 +538,9 @@ session_start();
         readonly>
     <span id="reportTypeSpan" style="display: none;">Select a Pin</span>
 </div>
+
+
+
 
 <div class="mb-3">
     <label class="form-label">Upload a file:</label>
@@ -554,20 +560,20 @@ session_start();
 </div>
 
 
-<div class="mb-3">
-    <label class="form-label">UID:</label>
-    <input type="text" 
-           class="form-control"
-           name="uid"
-           readonly
-           value="<?php 
-                if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
-                    echo htmlspecialchars($_SESSION['uid']);
-                } else {
-                    echo 'Not available';
-                }
-           ?>">
-</div>
+         <div class="mb-3">
+            <label class="form-label">UID:</label>
+            <input type="text" 
+                   class="form-control"
+                   name="uid"
+                   readonly
+                   value="<?php 
+                        if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
+                            echo htmlspecialchars($_SESSION['uid']);
+                        } else {
+                            echo 'Not available';
+                        }
+                   ?>">
+         </div>
 
 		  <button type="submit" class="btn btn-primary" id="submitButton" >Submit</button>
           <button type="button" class="btn cancel" id="cancelRequestButton">Cancel Request</button>

@@ -59,6 +59,7 @@ if (isset($_POST['fname']) &&
 
         header("Location: ../index.php?success=Your account has been created successfully");
         exit;
+       
     }
 
 } else {
