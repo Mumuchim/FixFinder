@@ -448,19 +448,20 @@ session_start();
 
     <div class="form-popup" id="myForm">
    <form id="reportForm" class="form-container" action="php/test.php" method="post" enctype="multipart/form-data">
+
       <div class="report">
-         <h1 class="display-4 fs-1">Report</h1>
+         
+      <h1 class="display-4 fs-1">Report</h1>
          <label><p>Report your concern here.<p></label>
 
          <!-- Pop-up message container -->
-         <div id="popupMessage" class="popup-message" style="display: none;"></div>
+         <!-- <div id="popupMessage" class="popup-message" style="display: none;"></div> -->
 
-            <div class="mb-3">
-    <label class="form-label">Name:</label>
-    <input type="text" 
+    <div class="mb-3" style="display: none;">
+    <label class="form-label" style="display: none;">Name:</label>
+    <input type="hidden"
            class="form-control"
            name="user"
-           readonly
            value="<?php 
                 // Pre-fill with session data or allow user input
                 if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
@@ -473,22 +474,6 @@ session_start();
            ?>">
 </div>
 
-         <div class="mb-3">
-            <label class="form-label">Name:</label>
-            <input type="text" 
-                   class="form-control"
-                   name="user"
-                   readonly
-                   value="<?php 
-                        if (isset($_SESSION['fname']) && isset($_SESSION['lname'])) {
-                            echo htmlspecialchars($_SESSION['fname'] . ' ' . $_SESSION['lname']);
-                        } elseif (isset($_SESSION['fname'])) {
-                            echo htmlspecialchars($_SESSION['fname']);
-                        } else {
-                            echo '';
-                        }
-                   ?>">
-         </div>
 
 <div class="report-title">
     <label class="form-label">Title</label>
@@ -498,11 +483,6 @@ session_start();
         name="title" 
         value="<?php echo (isset($_GET['title'])) ? $_GET['title'] : ""; ?>">
 </div>
-         <div class="report-title">
-            <label class="form-label">Title</label>
-            <input type="text" class="form-control" name="title"
-                   value="<?php echo (isset($_GET['title']))?$_GET['title']:"" ?>">
-         </div>
 
 <div class="mb-3">
     <label class="form-label">Enter Details:</label>
@@ -516,18 +496,59 @@ session_start();
     </textarea>
 </div>
 
-<form id="reportForm">
-    <label for="pinId">Pin ID:</label>
+
+    <!-- <label for="pinId">Pin ID:</label>
     <input type="text" id="pinId" readonly />
 
     <label for="coordinates">Coordinates:</label>
     <input type="text" id="coordinates" readonly />
 
     <label for="floor">Floor:</label>
-    <input type="text" id="floor" readonly />
-</form>
+    <input type="text" id="floor" readonly /> -->
 
-          <div class="report-type">
+    <!-- <div class="mb-3">
+    <label for="pinId" class="form-label">Pin ID:</label>
+    <input 
+        type="text" 
+        id="pinId" 
+        name="pinId" 
+        class="form-control" 
+        readonly>
+</div> -->
+
+<div class="mb-3" hidden>
+    <label for="pinId" class="form-label">Pin ID:</label>
+    <input 
+        type="text" 
+        id="pinId" 
+        name="pinId" 
+        class="form-control" 
+        readonly>
+</div>
+
+
+<div class="mb-3" hidden>
+    <label for="coordinates" class="form-label">Coordinates:</label>
+    <input 
+        type="text" 
+        id="coordinates" 
+        name="coordinates" 
+        class="form-control" 
+        readonly>
+</div>
+
+<div class="mb-3" hidden>
+    <label for="floor" class="form-label">Floor:</label>
+    <input 
+        type="text" 
+        id="floor" 
+        name="floor" 
+        class="form-control" 
+        readonly>
+</div>
+
+
+    <div class="report-type">
     <label for="reportTypeInput">Type of Report:</label>
     <input 
         type="text" 
@@ -560,20 +581,20 @@ session_start();
 </div>
 
 
-         <div class="mb-3">
-            <label class="form-label">UID:</label>
-            <input type="text" 
-                   class="form-control"
-                   name="uid"
-                   readonly
-                   value="<?php 
-                        if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
-                            echo htmlspecialchars($_SESSION['uid']);
-                        } else {
-                            echo 'Not available';
-                        }
-                   ?>">
-         </div>
+<div class="mb-3">
+    <label class="form-label" style="display: none;">UID:</label>
+    <input type="hidden"
+           class="form-control"
+           name="uid"
+           value="<?php 
+                if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
+                    echo htmlspecialchars($_SESSION['uid']);
+                } else {
+                    echo 'Not available';
+                }
+           ?>">
+</div>
+
 
 		  <button type="submit" class="btn btn-primary" id="submitButton" >Submit</button>
           <button type="button" class="btn cancel" id="cancelRequestButton">Cancel Request</button>
