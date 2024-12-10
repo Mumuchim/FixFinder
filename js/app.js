@@ -191,14 +191,13 @@ function loadPinPositions() {
     }
 }
 
-
 function createPinOnMap(pinData, key) {
     const pinElement = document.createElement('div');
     pinElement.classList.add('pin');
     pinElement.style.position = 'absolute';
     pinElement.style.top = pinData.top;
     pinElement.style.left = pinData.left;
-    pinElement.id = `pin-${key}`;
+    pinElement.id = `${key}`;
 
     // Add the pin image if available
     if (pinData.imgSrc) {
@@ -217,7 +216,7 @@ function createPinOnMap(pinData, key) {
 
     // Track the pin position in memory
     pinPositions.push({
-        pinId: `pin-${key}`,
+        pinId: `${key}`,
         top: pinData.top,
         left: pinData.left,
         imgSrc: pinData.imgSrc,
@@ -247,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const imgSrc = getFixedImagePath(pinType); // Get the fixed image path based on pin type
     
         const clone = pin.cloneNode(true);
-        const pinId = `pin-${Date.now()}`;
+        const pinId = `${Date.now()}`;
         clone.id = pinId;
         clone.style.position = 'absolute';
         clone.style.left = `${x}px`;
@@ -524,7 +523,7 @@ function showPinOptions(pinElement, pinId) {
     }
 
     statusButton.addEventListener('click', () => {
-        window.location.href = 'status.php';
+        window.location.href = 'status.html';
         document.body.removeChild(modal);
     });
 
@@ -609,4 +608,3 @@ document.addEventListener('DOMContentLoaded', function () {
         dateInput.type = "text";
     }
 });
-
