@@ -1,0 +1,175 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #e7e7e7;
+    height: 100vh;
+    margin: 0; /* Ensure no default margin */
+}
+
+.form-popup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.button {
+    font-size: 1em;
+    padding: 15px 35px;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    background: #403e3d;
+    border-radius: 50px;
+    text-align: center;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+.wrapper {
+    margin: 50px auto;
+    padding: 20px;
+    background: #e7e7e7;
+    border-radius: 5px;
+    width: 90%; /* Use flexible width */
+    max-width: 500px; /* Limit max width */
+    position: relative;
+    transition: all 0.5s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+.wrapper h2 {
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+}
+.wrapper .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: all 200ms;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+.wrapper .close:hover {
+    color: #06D85F;
+}
+.wrapper .content {
+    max-height: 70vh; /* Use a max height */
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+}
+.container {
+    border-radius: 5px;
+    background-color: #e7e7e7;
+    padding: 20px 0;
+}
+.form-group-inline {
+    display: flex;
+    align-items: center; /* Align label and input vertically */
+    gap: 10px; /* Add spacing between label and input */
+    margin-bottom: 16px; /* Add spacing between rows */
+}
+form label {
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 1px;
+    min-width: 100px; /* Set a fixed width for labels to align neatly */
+    margin-bottom: 0; /* Remove default bottom margin */
+    text-align: right; /* Align label text to the right */
+}
+input[type=text], select, textarea {
+    flex: 1; /* Allow inputs to grow and take available space */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+textarea {
+    width: 100%; /* Details field spans full width */
+}
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Space between buttons */
+    margin-top: 16px; /* Space above buttons */
+}
+input[type="submit"], .cancel-button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    display: inline-block;
+}
+input[type="submit"] {
+    background-color: #413b3b;
+    color: #fff;
+}
+.cancel-button {
+    background-color: #f44336; /* Red color */
+    color: #fff;
+}
+.cancel-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
+
+
+
+/* Styling for the file upload field */
+input[type="file"] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%; /* Make the upload field span full width */
+    margin-top: 2px;
+    font-size: 13px; /* Adjust font size for better readability */
+    cursor: pointer; /* Indicate that it's clickable */
+    background-color: #f9f9f9; /* Light background for the upload field */
+}
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .wrapper {
+        width: 80%; /* Increase flexibility for smaller screens */
+    }
+    input[type="submit"] {
+        width: 100%; /* Submit button spans full width on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .button {
+        font-size: 0.9em; /* Adjust button size for small screens */
+        padding: 10px 20px;
+    }
+    .wrapper {
+        margin: 20px auto; /* Reduce margin for small screens */
+        padding: 15px;
+    }
+    .wrapper h2 {
+        font-size: 1.2em; /* Adjust header size */
+    }
+    input[type="submit"] {
+        padding: 12px 30px; /* Adjust padding for small screens */
+    }
+}

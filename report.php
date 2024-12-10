@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Report</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="/css/report.css">
 </head>
 <body>
     <div class="d-flex justify-content-center align-items-center vh-100">
@@ -54,18 +54,8 @@
 
 
 		  <div class="mb-3">
-		    <!-- <label class="form-label">Type of Report</label>
-		    <select id="reportType" name="type" class="form-control">
-                            <option value="">Select Report Type</option>
-                            <option value="caution">Caution</option>
-                            <option value="cleaning">Cleaning</option>
-                            <option value="electrical-hazard">Electrical Hazard</option>
-                            <option value="it-maintenance">IT Maintenance</option>
-                            <option value="repair">Repair</option>
-                            <option value="request">Request</option>
-                        </select> -->
-						<label for="reportType">Type of Report</label>
-						<input type="text" id="reportType" name="type" readonly>
+		<label for="reportType">Type of Report</label>
+		<input type="text" id="reportType" name="type" readonly>
 
 		  </div>
 
@@ -79,6 +69,21 @@
                         <label for="reportDate" class="date-label">Report Date:</label>
                         <input type="date"  name="date" class="date-picker">
         </div>
+
+		<div class="mb-3">
+            <label class="form-label">UID:</label>
+            <input type="text" 
+                   class="form-control"
+                   name="uid"
+                   readonly
+                   value="<?php 
+                        if (isset($_SESSION['role']) && $_SESSION['role'] === 'student' && isset($_SESSION['uid'])) {
+                            echo htmlspecialchars($_SESSION['uid']);
+                        } else {
+                            echo 'Not available';
+                        }
+                   ?>">
+         </div>
 
 		
 		
