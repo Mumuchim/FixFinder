@@ -204,7 +204,7 @@ session_start();
                 <path id="NEXUS" class="allPaths" d="M878.5 486.5 H1079.5 V680.5 H878.5 Z" fill="#CDC1FF" stroke="black" />
 
                 <!-- Inspire / Robotics -->
-                <image href="img/Lecture_Room.png" class= map_photo x="878.5" y="267.5" width="201" height="218" opacity="1" />
+                <image href="img/Robotics.png" class= map_photo x="878.5" y="267.5" width="201" height="218" opacity="1" />
                 <path id="INSPIRE / ROBOTICS" class="allPaths" d="M878.5 267.5 H1079.5 V485.5 H878.5 Z" fill="#A594F9" stroke="black" />
 
                 <!-- Simulation Room -->
@@ -346,15 +346,15 @@ session_start();
                 <path id="CHEMISTRY" class="allPaths" d="M880.5,0.5 h201 v123 h-201 z" fill="#86A789" stroke="black" />
                 
                 <!-- Microbiology -->
-                <image href="img/Lecture_Room.png" class= map_photo x="667.5" y="0.5" width="212" height="123" opacity="1" />
+                <image href="img/Micro-2ndfloor.png" class= map_photo x="667.5" y="0.5" width="212" height="123" opacity="1" />
                 <path id="MICROBIOLOGY" class="allPaths" d="M667.5,0.5 h212 v123 h-212 z" fill="#739072" stroke="black" />
                 
                 <!-- Physics -->
-                <image href="img/Lecture_Room.png" class= map_photo x="459.5" y="0.5" width="207" height="123" opacity="1" />
+                <image href="img/Physics-2ndfloor.png" class= map_photo x="459.5" y="0.5" width="207" height="123" opacity="1" />
                 <path id="PHYSICS" class="allPaths" d="M459.5,0.5 h207 v123 h-207 z" fill="#4F6F52" stroke="black" />
                 
                 <!-- Anatomy -->
-                <image href="img/Lecture_Room.png" class= map_photo x="210.5" y="0.5" width="248" height="123" opacity="1" />
+                <image href="img/Anatomy-2ndfloor.png" class= map_photo x="210.5" y="0.5" width="248" height="123" opacity="1" />
                 <path id="ANATOMY" class="allPaths" d="M210.5,0.5 h248 v123 h-248 z" fill="#3F6142" stroke="black" />
                 
                 <!-- Stairs 2 -->

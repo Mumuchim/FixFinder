@@ -157,7 +157,7 @@ function savePinPositions() {
                 uid: uid // Save the current session UID
             };
 
-            const pinIdWithoutPrefix = position.pinId.replace(/^pin-/, '');
+            const pinIdWithoutPrefix = position.pinId.replace('');
             localStorage.setItem(pinIdWithoutPrefix, JSON.stringify(pinData));
         });
     } catch (e) {
