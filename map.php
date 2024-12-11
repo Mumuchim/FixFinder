@@ -593,7 +593,7 @@ session_start();
         </svg>
     </div>
 
-    <div class="form-popup" id="myForm">
+    <div class="form-popup" style="display: none;" id="myForm">
    <form id="reportForm" class="form-container" action="php/rep.php" method="post" enctype="multipart/form-data">
 
       <div class="report">

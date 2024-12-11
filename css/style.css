@@ -253,10 +253,6 @@ label #cancel {
 	background-color: #0b577d;
   }
   
-  .form-popup {
-	display: none;
-  }
-  
   .hoverable-container {
     display: flex; /* Arrange image and text in a row */
     align-items: center; /* Vertically center-align text and image */
@@ -423,3 +419,7 @@ label #cancel {
 		transition: opacity 0.3s ease;
 	}
 	
+.form-popup {
+		display: none;
+	  }
+	  
