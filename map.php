@@ -160,11 +160,11 @@ session_start();
                 <path id="ARETE HALL" class="allPaths" d="M0.5 379.5 H202.5 V485.5 H0.5 Z" fill="#E1ACAC" stroke="black" />
 
                 <!-- Discussion Room -->
-                <image href="img/Lecture_Room.png" class= map_photo x="0.5" y="486.5" width="202" height="98" opacity="1" />
+                <image href="img/Discussion.png" class= map_photo x="0.5" y="486.5" width="202" height="98" opacity="1" />
                 <path id="DISCUSSION ROOM" class="allPaths" d="M0.5 486.5 H202.5 V584.5 H0.5 Z" fill="#CA8787" stroke="black" />
 
                 <!-- Credo -->
-                <image href="img/Lecture_Room.png" class= map_photo x="0.5" y="585.5" width="202" height="94" opacity="1" />
+                <image href="img/Credo.png" class= map_photo x="0.5" y="585.5" width="202" height="94" opacity="1" />
                 <path id="CREDO" class="allPaths" d="M0.5 585.5 H202.5 V679.5 H0.5 Z" fill="#A87676" stroke="black" />
 
                 <!-- Cafeteria -->
@@ -176,7 +176,7 @@ session_start();
                 <path id="CLINIC" class="allPaths" d="M136.5 949.5 H344.5 V1079.5 H136.5 Z" fill="#C5DFF8" stroke="black" />
 
                 <!-- Guidance -->
-                <image href="img/Lecture_Room.png" class= map_photo x="345.5" y="949.5" width="87" height="130" opacity="1" />
+                <image href="img/Guidance.png" class= map_photo x="345.5" y="949.5" width="87" height="130" opacity="1" />
                 <path id="GUIDANCE" class="allPaths" d="M345.5 949.5 H432.5 V1079.5 H345.5 Z" fill="#A0BFE0" stroke="black" />
 
                 <!-- Psych Lab -->
@@ -208,7 +208,7 @@ session_start();
                 <path id="INSPIRE / ROBOTICS" class="allPaths" d="M878.5 267.5 H1079.5 V485.5 H878.5 Z" fill="#A594F9" stroke="black" />
 
                 <!-- Simulation Room -->
-                <image href="img/Lecture_Room.png" class= map_photo x="878.5" y="0.5" width="201" height="123" opacity="1" />
+                <image href="img/Simulation.png" class= map_photo x="878.5" y="0.5" width="201" height="123" opacity="1" />
                 <path id="SIMULATION ROOM" class="allPaths" d="M878.5 0.5 H1079.5 V123.5 H878.5 Z" fill="#D2E3C8" stroke="black" />
 
                 <!-- Lecture Room 4 -->
