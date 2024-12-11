@@ -1,22 +1,35 @@
 const toggleButton = document.getElementById('toggleOpacityButton');
 
-toggleButton.addEventListener('click', () => {
-    if (toggleButton.textContent === "Pallete View") {
-        toggleButton.textContent = "2D Top View";
-    } else {
-        toggleButton.textContent = "Pallete View";
-    }
+// Function to initialize the view based on localStorage
+function initializeView() {
+    const activeView = localStorage.getItem('activeView') || "Pallete View";
+    toggleButton.textContent = activeView;
+    updateOpacity(activeView);
+}
 
-    // Example opacity toggle logic
+// Function to update opacity based on the active view
+function updateOpacity(view) {
     const allPaths = document.querySelectorAll('.allPaths');
     const mapPhotos = document.querySelectorAll('.map_photo');
 
-    allPaths.forEach(path => {
-        path.classList.toggle('hidden');
-    });
+    if (view === "Pallete View") {
+        allPaths.forEach(path => (path.style.opacity = "0.9"));
+        mapPhotos.forEach(mapPhoto => (mapPhoto.style.opacity = "0"));
+    } else if (view === "2D Top View") {
+        allPaths.forEach(path => (path.style.opacity = "0"));
+        mapPhotos.forEach(mapPhoto => (mapPhoto.style.opacity = "0.9"));
+    }
+}
 
-    mapPhotos.forEach(mapPhoto => {
-        mapPhoto.classList.toggle('visible');
-    });
+// Event listener for button click
+toggleButton.addEventListener('click', () => {
+    const currentView = toggleButton.textContent;
+    const newView = currentView === "Pallete View" ? "2D Top View" : "Pallete View";
+
+    toggleButton.textContent = newView;
+    localStorage.setItem('activeView', newView); // Save the new view to localStorage
+    updateOpacity(newView);
 });
 
+// Initialize view on page load
+initializeView();

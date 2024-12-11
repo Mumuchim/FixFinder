@@ -280,24 +280,6 @@ label #cancel {
     pointer-events: none; /* Prevent interactions */
 }
 
-.allPaths {
-    opacity: 0.9; /* Initial opacity */
-    transition: opacity 0.3s ease; /* Optional smooth transition */
-}
-
-.allPaths.hidden {
-    opacity: 0;
-}
-
-.map_photo {
-    opacity: 0.0; /* Initial opacity */
-    transition: opacity 0.3s ease; /* Optional smooth transition */
-}
-
-.map_photo.visible {
-    opacity: 0.9;
-}
-
 #toggleOpacityButton {
     background-color: #063146; /* Button color */
     color: white; /* Text color */
@@ -436,3 +418,8 @@ label #cancel {
 		font-size: 16px; /* Optional font size */
 		z-index: 1000; /* Make sure it appears above other elements */
 	}
+
+	.allPaths, .map_photo {
+		transition: opacity 0.3s ease;
+	}
+	
