@@ -151,6 +151,10 @@ session_start();
                 <image href="img/Library.png" class= map_photo x="349.5" y="267.5" width="380" height="584" opacity="1" />
                 <path id="COLLEGE LIBRARY" class="allPaths" d="M349.5 267.5 H729.5 V851.5 H349.5 Z" fill="#4A55A2" stroke="black" />
 
+                 <!-- College Library 2 -->
+                 <image href="img/LibraryWay.png" class= map_photo x="203.5" y="534.5" width="148" height="53" opacity="1" />
+                <path id="COLLEGE LIBRARY_2" class="allPaths" d="M203.5,534.5 h148 v53 h-148 z" fill="#4A55A2" stroke="black" />
+
                 <!-- St. Carlo Acutis Chapel -->
                 <image href="img/Chapel.png" class= map_photo x="0.5" y="267.5" width="202" height="111" opacity="1" />
                 <path id="ST. CARLO ACUTIS CHAPEL" class="allPaths" d="M0.5 267.5 H202.5 V378.5 H0.5 Z" fill="#FFD0D0" stroke="black" />
@@ -386,19 +390,19 @@ session_start();
             <!-- Second Floor -->
             <g id="secondFloor">
                 <!-- College Library -->
-                <image href="img/Lecture_Room.png" class= map_photo x="352.5" y="268.5" width="380" height="584" opacity="1" />
+                <image href="img/Library-2ndfloor.png" class= map_photo x="352.5" y="268.5" width="380" height="584" opacity="1" />
                 <path id="COLLEGE LIBRARY" class="allPaths" d="M352.5,268.5 h380 v584 h-380 z" fill="#4A55A2" stroke="black" />
                 
                 <!-- College Library 2 -->
-                <image href="img/Lecture_Room.png" class= map_photo x="203.5" y="534.5" width="148" height="53" opacity="1" />
+                <image href="img/LibraryWay-2ndfloor.png" class= map_photo x="203.5" y="534.5" width="148" height="53" opacity="1" />
                 <path id="COLLEGE LIBRARY_2" class="allPaths" d="M203.5,534.5 h148 v53 h-148 z" fill="#4A55A2" stroke="black" />
 
                 <!-- Scientia Hall 2 -->
-                <image href="img/Lecture_Room.png" class= map_photo x="2.5" y="949.5" width="485" height="130" opacity="1" />
+                <image href="img/Scientia 2.png" class= map_photo x="2.5" y="949.5" width="485" height="130" opacity="1" />
                 <path id="SCIENTIA HALL 2" class="allPaths" d="M2.5,949.5 h485 v130 h-485 z" fill="#C5DFF8" stroke="black" />
                 
                 <!-- Scientia Hall 1 -->
-                <image href="img/Lecture_Room.png" class= map_photo x="488.5" y="949.5" width="391" height="130" opacity="1" />
+                <image href="img/Scientia 1.png" class= map_photo x="488.5" y="949.5" width="391" height="130" opacity="1" />
                 <path id="SCIENTIA HALL 1" class="allPaths" d="M488.5,949.5 h391 v130 h-391 z" fill="#7895CB" stroke="black" />
                 
                 <!-- Stairs -->
@@ -410,15 +414,15 @@ session_start();
                 <path id="COMFORT ROOMS" class="allPaths" d="M987.5,949.5 h94 v130 h-94 z" fill="#4A55A2" stroke="black" />
                 
                 <!-- CHS -->
-                <image href="img/Lecture_Room.png" class= map_photo x="880.5" y="732.5" width="201" height="125" opacity="1" />
+                <image href="img/CHS.png" class= map_photo x="880.5" y="732.5" width="201" height="125" opacity="1" />
                 <path id="CHS" class="allPaths" d="M880.5,732.5 h201 v125 h-201 z" fill="#E5D9F2" stroke="black" />
                 
                 <!-- Skills Lab -->
-                <image href="img/Lecture_Room.png" class= map_photo x="880.5" y="377.5" width="201" height="354" opacity="1" />
+                <image href="img/Skills.png" class= map_photo x="880.5" y="377.5" width="201" height="354" opacity="1" />
                 <path id="SKILLS LAB" class="allPaths" d="M880.5,377.5 h201 v354 h-201 z" fill="#CDC1FF" stroke="black" />
                 
                 <!-- Amphitheater -->
-                <image href="img/Lecture_Room.png" class= map_photo x="880.5" y="268.5" width="201" height="108" opacity="1" />
+                <image href="img/Ampitheater.png" class= map_photo x="880.5" y="268.5" width="201" height="108" opacity="1" />
                 <path id="AMPHITHEATER" class="allPaths" d="M880.5,268.5 h201 v108 h-201 z" fill="#A594F9" stroke="black" />
                 
                 <!-- Chemistry -->
@@ -446,23 +450,23 @@ session_start();
                 <path id="COMFORT ROOMS_2" class="allPaths" d="M2.5,0.5 h105 v123 h-105 z" fill="#4A55A2" stroke="black" />
                 
                 <!-- Lecture Room -->
-                <image href="img/Lecture_Room.png" class= map_photo x="0.5" y="268.5" width="202" height="111" opacity="1" />
+                <image href="img/Lecture_Room-2ndfloor.png" class= map_photo x="0.5" y="268.5" width="202" height="111" opacity="1" />
                 <path id="LECTURE ROOM" class="allPaths" d="M0.5,268.5 h202 v111 h-202 z" fill="#FFD0D0" stroke="black" />
                 
                 <!-- Lecture Room 2 -->
-                <image href="img/Lecture_Room.png" class= map_photo x="0.5" y="380.5" width="202" height="106" opacity="1" />
+                <image href="img/Lecture_Room 2-2ndfloor.png" class= map_photo x="0.5" y="380.5" width="202" height="106" opacity="1" />
                 <path id="LECTURE ROOM_2" class="allPaths" d="M0.5,380.5 h202 v106 h-202 z" fill="#E1ACAC" stroke="black" />
                 
                 <!-- Resources Room -->
-                <image href="img/Lecture_Room.png" class= map_photo x="0.5" y="487.5" width="202" height="137" opacity="1" />
+                <image href="img/Resources.png" class= map_photo x="0.5" y="487.5" width="202" height="137" opacity="1" />
                 <path id="RESOURCES ROOM" class="allPaths" d="M0.5,487.5 h202 v137 h-202 z" fill="#CA8787" stroke="black" />
                 
                 <!-- OVPAA -->
-                <image href="img/Lecture_Room.png" class= map_photo x="0.5" y="625.5" width="202" height="232" opacity="1" />
+                <image href="img/OVPA.png" class= map_photo x="0.5" y="625.5" width="202" height="232" opacity="1" />
                 <path id="OVPAA" class="allPaths" d="M0.5,625.5 h202 v232 h-202 z" fill="#835A5A" stroke="black" />
                 
                 <!-- OSP/Huddle -->
-                <image href="img/Lecture_Room.png" class= map_photo x="84.5" y="625.5" width="118" height="106" opacity="1" />
+                <image href="img/Huddle.png" class= map_photo x="84.5" y="625.5" width="118" height="106" opacity="1" />
                 <path id="OSP/HUDDLE" class="allPaths" d="M84.5,625.5 h118 v106 h-118 z" fill="#A87676" stroke="black" />
 
             
