@@ -1,75 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LocalStorage Viewer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        .action-btn {
-            padding: 5px 10px;
-            background-color: #f44336;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        #saveToDB, #deleteAll {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        #deleteAll {
-            background-color: #f44336; /* Red color for Delete All */
-        }
-    </style>
-</head>
-<body>
-
-    <h1>LocalStorage Viewer</h1>
-    <p>Below is a list of all key-value pairs currently stored in <strong>localStorage</strong>.</p>
-    
-    <table id="storageTable">
-        <thead>
-            <tr>
-                <th>Key</th>
-                <th>Value</th>
-                <th>Floor</th> <!-- New column for Floor -->
-                <th>UID</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be populated by JavaScript -->
-        </tbody>
-    </table>
-
-    <button id="saveToDB">Save to Database</button>
-    <button id="deleteAll">Delete All</button> <!-- Delete All button -->
-
-    <script>
-        // Function to render localStorage contents into the table
-        function renderLocalStorage() {
+// Function to render localStorage contents into the table
+function renderLocalStorage() {
     const tableBody = document.getElementById('storageTable').getElementsByTagName('tbody')[0];
     tableBody.innerHTML = ''; // Clear existing rows
 
@@ -159,29 +89,28 @@
     }
 }
 
-        // Function to send localStorage data to the server
-    // Function to send localStorage data to the server
+// Function to send localStorage data to the server
 function saveToDatabase() {
     const storageData = [];
 
-    // Collect all key-value pairs from localStorage
+    // Collect all key-value pairs from localStorage, excluding keys starting with "active"
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
-        const value = localStorage.getItem(key);
-
-        let parsedValue = {};
-        try {
-            parsedValue = JSON.parse(value); // Try to parse JSON
-        } catch (e) {
-            // If parsing fails, it's a plain string
+        if (!key.startsWith('active')) {
+            const value = localStorage.getItem(key);
+            let parsedValue = {};
+            try {
+                parsedValue = JSON.parse(value);
+            } catch (e) {
+                // Value isn't valid JSON
+            }
+            storageData.push({
+                key: key.replace(/^\D+/g, ''), // Remove non-numeric characters from the key
+                value: value,
+                floor: parsedValue.floor || 'N/A',
+                uid: parsedValue.uid || 'N/A'
+            });
         }
-
-        storageData.push({
-            key: key,
-            value: value,
-            floor: parsedValue.floor || 'N/A',
-            uid: parsedValue.uid || 'N/A',
-        });
     }
 
     // Send the data to the server via an AJAX request
@@ -194,32 +123,37 @@ function saveToDatabase() {
     })
     .then(response => response.text())
     .then(data => {
+        console.log('Response from server:', data);
         alert('Data saved successfully!');
-        console.log(data); // For debugging
+        localStorage.clear(); // Clear localStorage after saving
+        console.log('Local storage cleared');
+        renderLocalStorage(); // Re-render the table
+        // Redirect to log-out page
+        window.location.href = 'logout.php';
     })
     .catch(error => {
         console.error('Error saving data:', error);
     });
 }
 
+// Function to delete all items from localStorage
+function deleteAll() {
+    if (confirm('Are you sure you want to delete all items in localStorage?')) {
+        localStorage.clear();
+        renderLocalStorage(); // Re-render the table after clearing localStorage
+    }
+}
 
-        // Function to delete all items from localStorage
-        function deleteAll() {
-            if (confirm('Are you sure you want to delete all items in localStorage?')) {
-                localStorage.clear();
-                renderLocalStorage(); // Re-render the table after clearing localStorage
-            }
-        }
+// Attach event listeners to the buttons
+document.getElementById('saveToDB').addEventListener('click', saveToDatabase);
+document.getElementById('deleteAll').addEventListener('click', deleteAll);
 
-        // Attach event listeners to the buttons
-        document.getElementById('saveToDB').addEventListener('click', saveToDatabase);
-        document.getElementById('deleteAll').addEventListener('click', deleteAll);
+// Save data to database when the user logs out
+document.getElementById('logoutButton').addEventListener('click', function() {
+    saveToDatabase();
+});
 
-        // Initial rendering of localStorage contents when the page loads
-        window.onload = function () {
-            renderLocalStorage();
-        };
-    </script>
-
-</body>
-</html>
+// Initial rendering of localStorage contents when the page loads
+window.onload = function () {
+    renderLocalStorage();
+};
