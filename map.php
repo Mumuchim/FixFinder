@@ -754,6 +754,75 @@ session_start();
           <button type="button" class="btn cancel" id="cancelRequestButton">Cancel Request</button>
 
 		</form>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="modalClose()">&times;</span>
+            <p id="modalMessage">Report submitted successfully!</p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#reportForm').submit(function(e) {
+                e.preventDefault(); // Prevent default form submission
+
+                var formData = new FormData(this); // Serialize form data
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'php/rep.php', // Path to your PHP script
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        try {
+                            var result = JSON.parse(response);
+
+                            if (result.success) {
+                                showModal(result.success);
+                            } else {
+                                showModal(result.error);
+                            }
+                        } catch (e) {
+                            console.error('Invalid JSON response:', e);
+                            showModal('Invalid response from server.');
+                        }
+                    },
+                    error: function() {
+                        showModal('Unable to process the request.');
+                    },
+                });
+            });
+        });
+
+        function showModal(message) {
+            document.getElementById('modalMessage').innerText = message;
+            document.getElementById('successModal').style.display = 'block';
+        }
+
+        function modalClose() {
+            document.getElementById('successModal').style.display = 'none';
+            location.reload(); // Reload the page
+        }
+
+        // Attach event listener to the "Close" button
+        document.querySelector('.close').addEventListener('click', modalClose);
+
+        // Allow overlay click to close the modal
+        document.getElementById('successModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                modalClose();
+            }
+        });
+    </script>
+
+
+
+
+</div>
+
     
     <script src="js/studSidebar.js"></script>
     <script src="js/app.js"></script>
