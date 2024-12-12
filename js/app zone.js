@@ -556,58 +556,60 @@ function showPinOptions(pinElement, pinId) {
     });
 }
 
-window.onload = function() {
-    loadPinPositions();
+// Define zone configurations for each floor
+const zoneConfigurations = {
+    floor1: [
+        { id: 'floor1top', top: '0px', left: '356px', width: '566px', height: '65px' },
+    ],
+    floor2: [
+        { id: 'floor2top', top: '0px', left: '357px', width: '566px', height: '65px' },
+
+    ]
 };
 
-function openForm() {
-    document.getElementById("myForm").style.display = "block";
+// Function to update zones based on the active floor
+function updateZones(floor) {
+    const mapContainer = document.getElementById('mapContainer');
+
+    // Remove existing zones
+    const existingZones = mapContainer.querySelectorAll('.confirm-zone');
+    existingZones.forEach(zone => mapContainer.removeChild(zone));
+
+    // Add zones for the active floor
+    const zones = zoneConfigurations[floor] || [];
+    zones.forEach(config => {
+        const zone = document.createElement('div');
+        zone.classList.add('confirm-zone');
+        zone.id = config.id;
+        zone.style.position = 'absolute';
+        zone.style.top = config.top;
+        zone.style.left = config.left;
+        zone.style.width = config.width;
+        zone.style.height = config.height;
+        zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)'; // Default style
+        mapContainer.appendChild(zone);
+    });
 }
 
-function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-
-    if (lastClonedPin) {
-        // Remove the last cloned pin from the map
-        const mapContainer = document.getElementById("mapContainer");
-        mapContainer.removeChild(lastClonedPin);
-
-        // Remove the last cloned pin from pinPositions
-        pinPositions = pinPositions.filter(pin => pin.pinId !== lastClonedPin.id);
-
-        // Save the updated pin positions to localStorage
-        savePinPositions();
-
-        // Reset the lastClonedPin
-        lastClonedPin = null;
-    }
-}
-
-document.getElementById("cancelRequestButton").addEventListener('click', closeForm);
-
-function cancelPinPlacement() {
-    // Reload the page to reset all pin placements
-    location.reload();
-}
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const dateInput = document.getElementById('reportDate');
-    try {
-        // Get the current date in YYYY-MM-DD format
-        const today = new Date().toISOString().split('T')[0];
-
-        // Check if the input type is supported
-        if (dateInput.type === "date") {
-            dateInput.value = today;
+function highlightZone(pin) {
+    const zones = document.querySelectorAll('.confirm-zone');
+    zones.forEach(zone => {
+        if (isInsideZone(pin, zone)) {
+            zone.style.backgroundColor = 'rgba(215, 124, 252, 0.3)';
         } else {
-            throw new Error("Input type 'date' is not supported by this browser.");
+            zone.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
         }
-    } catch (error) {
-        console.error("Error setting the current date:", error.message);
+    });
+}
 
-        // Fallback for unsupported browsers
-        dateInput.placeholder = "YYYY-MM-DD";
-        dateInput.type = "text";
-    }
-});
+function isInsideZone(pin, zone) {
+    const pinRect = pin.getBoundingClientRect();
+    const zoneRect = zone.getBoundingClientRect();
+
+    return (
+        pinRect.left >= zoneRect.left &&
+        pinRect.right <= zoneRect.right &&
+        pinRect.top >= zoneRect.top &&
+        pinRect.bottom <= zoneRect.bottom
+    );
+}
