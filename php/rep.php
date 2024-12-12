@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$required_fields = ['user', 'title', 'details', 'type', 'date', 'uid', 'pinId', 'coordinates', 'floor'];
+$required_fields = ['user', 'title', 'details', 'type', 'date', 'uid', 'pinId', 'coordinates', 'floor', 'specific_place'];
 $missing_fields = [];
 
 foreach ($required_fields as $field) {
@@ -28,6 +28,7 @@ $uid = $_POST['uid'];
 $pinId = $_POST['pinId'];
 $coordinates = $_POST['coordinates'];
 $floor = $_POST['floor'];
+$specific_place = $_POST['specific_place'];
 
 try {
     $new_img_name = 'default.png';
@@ -55,9 +56,9 @@ try {
         }
     }
 
-    $sql = "INSERT INTO report (user, title, details, type, image, date, uid, pinId, coordinates, floor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO report (user, title, details, type, image, date, uid, pinId, coordinates, floor, specific_place) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$user, $title, $details, $type, $new_img_name, $date, $uid, $pinId, $coordinates, $floor]);
+    $stmt->execute([$user, $title, $details, $type, $new_img_name, $date, $uid, $pinId, $coordinates, $floor, $specific_place]);
 
     echo json_encode(["success" => "Report submitted successfully!"]);
     exit;

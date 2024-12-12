@@ -89,9 +89,11 @@ $con->close();
                                     <th>ID</th>
                                     <th>Report Title</th>
                                     <th>Report Details</th>
+                                    <th>Specific Place of Report</th>
                                     <th>Report Type</th>
                                     <th>Report Image</th>
                                     <th>Report Date</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,9 +107,11 @@ $con->close();
                                                 <td><?= $row['id']; ?></td>
                                                 <td><?= $row['title']; ?></td>
                                                 <td><?= $row['details']; ?></td>
+                                                <td><?= $row['specific_place']; ?></td>
                                                 <td><?= $row['type']; ?></td>
                                                 <td><img width="50" height="50" src="upload/<?= $row['image']; ?>"></td>
-                                                <td><?= $row['date']; ?></td>                                          
+                                                <td><?= $row['date']; ?></td>   
+                                                <td><?= $row['status']; ?></td>                                       
                                             </tr>
                                         <?php
                                     }
