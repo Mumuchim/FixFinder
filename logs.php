@@ -160,33 +160,48 @@
 }
 
         // Function to send localStorage data to the server
-        function saveToDatabase() {
-            const storageData = [];
+    // Function to send localStorage data to the server
+function saveToDatabase() {
+    const storageData = [];
 
-            // Collect all key-value pairs from localStorage
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                const value = localStorage.getItem(key);
-                storageData.push({ key, value });
-            }
+    // Collect all key-value pairs from localStorage
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key);
 
-            // Send the data to the server via an AJAX request
-            fetch('save_to_db.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(storageData),
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert('Data saved successfully!');
-                console.log(data); // For debugging
-            })
-            .catch(error => {
-                console.error('Error saving data:', error);
-            });
+        let parsedValue = {};
+        try {
+            parsedValue = JSON.parse(value); // Try to parse JSON
+        } catch (e) {
+            // If parsing fails, it's a plain string
         }
+
+        storageData.push({
+            key: key,
+            value: value,
+            floor: parsedValue.floor || 'N/A',
+            uid: parsedValue.uid || 'N/A',
+        });
+    }
+
+    // Send the data to the server via an AJAX request
+    fetch('save_to_db.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(storageData),
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert('Data saved successfully!');
+        console.log(data); // For debugging
+    })
+    .catch(error => {
+        console.error('Error saving data:', error);
+    });
+}
+
 
         // Function to delete all items from localStorage
         function deleteAll() {

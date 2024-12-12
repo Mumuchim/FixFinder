@@ -45,8 +45,8 @@ session_start();
             <?php endif; ?>
             <li><a href="stud_history.php"><i class="fas fa-history"></i>History</a></li>
             <li><a href="edit.php"><i class="fas fa-edit"></i>Edit Profile</a></li>
-            <li><a href="logout.php"><i class="fas fa-sign-out"></i>Logout</a></li>
+            <li><a href="logout.php"s><i class="fas fa-sign-out"></i>Logout</a></li>
         </ul>   
     </div>
-</body>
+            </body>
 </html>
