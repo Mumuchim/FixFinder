@@ -612,3 +612,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+function showModal(message) {
+    document.getElementById('modalMessage').innerText = message;
+    document.getElementById('successModal').style.display = 'block';
+}
+
+function modalClose() {
+    document.getElementById('successModal').style.display = 'none';
+}
+
+// Attach event listener to the "Close" button
+document.querySelector('.close').addEventListener('click', modalClose);
+
+// Allow overlay click to close the modal
+document.getElementById('successModal').addEventListener('click', function(event) {
+    if (event.target === this) {
+        modalClose();
+    }
+});
