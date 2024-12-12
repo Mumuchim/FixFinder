@@ -1,19 +1,23 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = ""; // Replace with your MySQL password
+$dbname = "auth"; // Replace with your database name
 
-include "../db_conn.php";
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-// Get the JSON data from the request
-$data = json_decode(file_get_contents('php://input'), true);
-
-if (empty($data)) {
-    echo "No data received.";
-    exit;
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-try {
+// Get JSON data from the request
+$data = json_decode(file_get_contents('php://input'), true);
+
+if ($data) {
     foreach ($data as $item) {
+        // Extract only numeric values from the key
         $key = preg_replace('/\D/', '', $conn->real_escape_string($item['key']));
         
         // Check if the key is numeric
@@ -32,8 +36,8 @@ try {
         }
     }
     echo "Data saved successfully!";
-} catch (Exception $e) {
-    echo "Database error: " . $e->getMessage();
+} else {
+    echo "No data received!";
 }
 
 $conn->close();
