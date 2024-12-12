@@ -124,7 +124,7 @@ session_start();
         <button id="confirmButton" style="display: none;" onclick="confirmPin()">Confirm</button>
     </div>
 
-    <button id="toggleOpacityButton">Pallete View</button>
+    <button id="toggleOpacityButton">Palette View</button>
 
         <!-- Modal for floor change message -->
         <div id="floorChangeModal" style="display: none;">
