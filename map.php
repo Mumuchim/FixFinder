@@ -642,6 +642,14 @@ session_start();
     </textarea>
 </div>
 
+<div class="report-title">
+    <label class="form-label">Specific Place of Report:</label>
+    <input 
+        type="text" 
+        class="form-control" 
+        name="specific_place"  
+        value="<?php echo (isset($_GET['specific_place'])) ? $_GET['specific_place'] : ""; ?>">
+</div>
 
     <!-- <label for="pinId">Pin ID:</label>
     <input type="text" id="pinId" readonly />
@@ -694,7 +702,7 @@ session_start();
 </div>
 
 
-    <div class="report-type">
+    <div class="report-title">
     <label for="reportTypeInput">Type of Report:</label>
     <input 
         type="text" 

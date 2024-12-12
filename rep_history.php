@@ -17,7 +17,7 @@
                 <div class="card mt-5">
                     <div class="card-header">
                         <h4>Reports</h4>
-                        <a href="map.php" class="btn btn-primary btn-sm float-end">Back to Home</a>
+                        <a href="admin_dashboard.php" class="btn btn-primary btn-sm float-end">Back to Home</a>
                     </div>
                     <div class="card-body">
                         

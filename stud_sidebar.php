@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-// Assuming that the username or full name is stored in the session after login
-// Example: $_SESSION['username'] or $_SESSION['fname'] 
+// Assuming that 'fname' and 'role' are stored in the session after login
+// Example: $_SESSION['fname'] for full name, $_SESSION['role'] for role
 ?>
 
 <!DOCTYPE html>
@@ -24,23 +24,29 @@ session_start();
         <!-- Displaying the logged-in user's name in the header -->
         <header>
             <?php 
-            // Check if the session variable for the user's name is set
-            if(isset($_SESSION['fname'])) {
-                echo "Hello, " . htmlspecialchars($_SESSION['fname']);  // Display full name or username
+            if (isset($_SESSION['fname'])) {
+                echo "Hello, " . htmlspecialchars($_SESSION['fname']);
+                
+                // Display the role below the name
+                if (isset($_SESSION['role'])) {
+                    echo "<br><small>(" . htmlspecialchars(ucfirst($_SESSION['role'])) . ")</small>";
+                }
             } else {
                 echo "Welcome, Guest";  // Default if no user is logged in
             }
             ?>
         </header>
         <ul>
-            <li><a href="map.php"><i class="fa fa-qrcode"></i> Student Dashboard</a></li>
+            <!-- Adjust dashboard links based on the user's role -->
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                <li><a href="admin_dashboard.php"><i class="fa fa-tachometer-alt"></i> Admin Dashboard</a></li>
+            <?php else: ?>
+                <li><a href="map.php"><i class="fa fa-qrcode"></i> Student Dashboard</a></li>
+            <?php endif; ?>
             <li><a href="stud_history.php"><i class="fas fa-history"></i>History</a></li>
             <li><a href="edit.php"><i class="fas fa-edit"></i>Edit Profile</a></li>
             <li><a href="logout.php"><i class="fas fa-sign-out"></i>Logout</a></li>
         </ul>   
-
-        <!-- Displaying the UID for students at the bottom -->
-        
     </div>
 </body>
 </html>
