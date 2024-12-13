@@ -533,22 +533,47 @@ function showPinOptions(pinElement, pinId) {
     removeButton.addEventListener('click', () => {
         if (confirm('Are you sure you want to remove this pin?')) {
             const mapContainer = document.getElementById('mapContainer');
-            mapContainer.removeChild(pinElement);
+            
+            // Get the activePinClicked value
+            const activePinClicked = localStorage.getItem('activePinClicked');
     
-            // Remove pin from pinPositions array
-            pinPositions = pinPositions.filter(p => p.pinId !== pinId);
+            // Make an AJAX request to PHP to check and remove the row from the database
+            fetch('php/remove_pin.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ storageKey: activePinClicked }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove pin from the DOM
+                    mapContainer.removeChild(pinElement);
     
-            // Also remove the corresponding pin data from localStorage
-            const pinIdWithoutPrefix = pinId.replace(/^pin-/, ''); // Remove 'pin-' prefix
-            localStorage.removeItem(pinIdWithoutPrefix); // Remove the pin data from localStorage
+                    // Remove pin from pinPositions array
+                    pinPositions = pinPositions.filter(p => p.pinId !== pinId);
     
-            // Save the updated pin positions
-            savePinPositions();
+                    // Remove the corresponding pin data from localStorage
+                    const pinIdWithoutPrefix = pinId.replace(/^pin-/, ''); // Remove 'pin-' prefix
+                    localStorage.removeItem(pinIdWithoutPrefix); // Remove the pin data from localStorage
     
-            // Refresh the page after removing the pin
-            location.reload(); // This will reload the page and reset everything
+                    // Save the updated pin positions
+                    savePinPositions();
+    
+                    // Refresh the page after removing the pin
+                    location.reload();
+                } else {
+                    alert('Error removing the pin from the database.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to communicate with the server.');
+            });
+    
+            document.body.removeChild(modal);
         }
-        document.body.removeChild(modal);
     });
     
     closeButton.addEventListener('click', () => {
