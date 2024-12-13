@@ -590,6 +590,27 @@ session_start();
         </svg>
     </div>
 
+<script>
+    function loadFromDatabase() {
+    fetch('save_to_localstorage.php')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(item => {
+                // Store data from the DB into localStorage
+                localStorage.setItem(item.key, JSON.stringify(item.value)); // item.value is now an object, no extra encoding needed
+            });
+            renderLocalStorage(); // Re-render the table with new data
+        })
+        .catch(error => {
+            console.error('Error loading data from database:', error);
+        });
+}
+
+// Call the function as soon as the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    loadFromDatabase();
+});
+</script>
 
     <script src="js/adminSidebar.js"></script>
     <script src="js/app.js"></script>

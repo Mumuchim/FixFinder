@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -12,32 +14,54 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get JSON data from the request
-$data = json_decode(file_get_contents('php://input'), true);
+// Get the uid and role of the logged-in user from the session
+$uid = isset($_SESSION['uid']) ? $_SESSION['uid'] : null;
+$role = isset($_SESSION['role']) ? $_SESSION['role'] : null;
 
-if ($data) {
-    foreach ($data as $item) {
-        // Extract only numeric values from the key
-        $key = preg_replace('/\D/', '', $conn->real_escape_string($item['key']));
-        
-        // Check if the key is numeric
-        if (is_numeric($key)) {
-            $value = $conn->real_escape_string($item['value']);
-            $floor = isset($item['floor']) ? $conn->real_escape_string($item['floor']) : 'N/A';
-            $uid = isset($item['uid']) ? $conn->real_escape_string($item['uid']) : 'N/A';
-
-            // Insert into the database
-            $sql = "INSERT INTO local_storage (storage_key, storage_value, floor, uid) 
-                    VALUES ('$key', '$value', '$floor', '$uid')";
-
-            if (!$conn->query($sql)) {
-                echo "Error: " . $conn->error;
-            }
-        }
+if ($uid) {
+    if ($role === 'admin') {
+        // SQL query to fetch all data from the local_storage table for admin
+        $sql = "SELECT storage_key, storage_value, floor, uid FROM local_storage";
+    } else {
+        // SQL query to fetch data from the local_storage table based on the uid for regular users
+        $sql = "SELECT storage_key, storage_value, floor, uid FROM local_storage WHERE uid = ?";
     }
-    echo "Data saved successfully!";
+
+    $stmt = $conn->prepare($sql);
+
+    if ($role !== 'admin') {
+        $stmt->bind_param("s", $uid);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Prepare an array to hold the data
+    $data = [];
+
+    if ($result->num_rows > 0) {
+        // Fetch all rows and store them in the data array
+        while ($row = $result->fetch_assoc()) {
+            // Decode the value to get back to the original object
+            $value = json_decode($row['storage_value'], true); // Decode the value if it's JSON string
+            
+            $data[] = [
+                'key' => $row['storage_key'],
+                'value' => $value, // Store the decoded value
+                'floor' => $row['floor'],
+                'uid' => $row['uid'],
+            ];
+        }
+
+        // Send the data to the front-end (client-side) as JSON
+        echo json_encode($data);
+    } else {
+        echo json_encode(["message" => "No data found!"]);
+    }
+
+    $stmt->close();
 } else {
-    echo "No data received!";
+    echo json_encode(["message" => "User not logged in!"]);
 }
 
 $conn->close();
