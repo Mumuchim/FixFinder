@@ -120,8 +120,6 @@ if (activePinClicked) {
     console.error('activePinClicked not found in localStorage.');
 }
 
-// Function to update the status
-// Function to update the status and remove the pin
 function updateStatus(newStatus) {
     const pinId = localStorage.getItem('activePinClicked');
 
@@ -130,12 +128,45 @@ function updateStatus(newStatus) {
         return;
     }
 
+    // Exempt 'Accept' status from deletion process
+    if (newStatus === 'In Progress') {
+        // Update the status to 'In Progress' without deleting the pin
+        fetch('update_status.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `pinId=${encodeURIComponent(pinId)}&status=${encodeURIComponent(newStatus)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Status updated to "In Progress"');
+                document.getElementById('status-text').textContent = newStatus;
+
+                // Show the 'Mark as Done' and 'Cancel' buttons
+                document.querySelector('.accept-button').style.display = 'none';
+                document.querySelector('.deny-button').style.display = 'none';
+                document.querySelector('.mark-done-button').style.display = 'inline-block';
+                document.querySelector('.cancel-button').style.display = 'inline-block';
+            } else {
+                alert(`Error: ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while updating the status.');
+        });
+        return; // Exit the function without deleting the pin
+    }
+
+    // If status is not 'In Progress', continue with deletion process
     fetch('update_status.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `pinId=${encodeURIComponent(pinId)}&status=${encodeURIComponent(newStatus)}`,
+        body: `pinId=${encodeURIComponent(pinId)}&status=${encodeURIComponent(newStatus)}`
     })
     .then(response => response.json())
     .then(data => {
@@ -143,21 +174,41 @@ function updateStatus(newStatus) {
             alert('Status updated successfully!');
             document.getElementById('status-text').textContent = newStatus;
 
-            // After status update, remove the pin from localStorage and the database
-            removePin(pinId);
+            // Delete the pin from localStorage if it's not 'In Progress'
+            if (newStatus !== 'In Progress') {
+                const pinData = localStorage.getItem(pinId); // Fetch the pin data based on pinId
+                if (pinData && localStorage.getItem('activePinClicked') === pinId) {
+                    localStorage.removeItem(pinId); // Remove the pin data
+                    localStorage.removeItem('activePinClicked'); // Remove the active pin clicked reference
+                    console.log(`Pin with ID ${pinId} removed from localStorage.`);
+                }
 
-            // Hide the action buttons and navigate back to the map or update UI
-            if (newStatus === 'Denied' || newStatus === 'Cancelled') {
-                document.querySelector('.deny-button').style.display = 'none';
-                document.querySelector('.mark-done-button').style.display = 'none';
-                document.querySelector('.cancel-button').style.display = 'none';
+                // Call remove_pin.php to remove the pin from the database
+                fetch('php/remove_pin.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ storageKey: pinId }) // Send the pin's storageKey (pinId) to be removed
+                })
+                .then(response => response.json())
+                .then(dbData => {
+                    if (dbData.success) {
+                        console.log(`Pin with ID ${pinId} removed from the database.`);
+                    } else {
+                        console.error('Failed to remove pin from the database:', dbData.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error removing pin from the database:', error);
+                });
             }
 
-            if (newStatus === 'Done') {
-                document.querySelector('.mark-done-button').style.display = 'none';
-                document.querySelector('.cancel-button').style.display = 'none';
-                document.querySelector('.go-to-map-button').style.display = 'inline-block';
-            }
+            // Redirect to map.php after a brief delay
+            setTimeout(() => {
+                console.log('Redirecting to map.php...');
+                window.location.href = 'map.php'; // This will immediately redirect to map.php
+            }, 500); // 0.5 second delay
         } else {
             alert(`Error: ${data.message}`);
         }
@@ -167,52 +218,6 @@ function updateStatus(newStatus) {
         alert('An error occurred while updating the status.');
     });
 }
-
-/// Function to remove the pin from the DOM, localStorage, and database
-function removePin(pinId) {
-    const mapContainer = document.getElementById('mapContainer');
-
-    // Ensure pinId is the same as the storageKey in the database
-    const storageKey = pinId;  // Or use the actual key format if it's different
-
-    fetch('php/remove_pin.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ storageKey: storageKey })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Remove Pin Response:', data);  // Debugging: log response
-
-        if (data.success) {
-            // Remove pin from the DOM (if it's present)
-            const pinElement = document.getElementById(pinId);
-            if (pinElement) {
-                mapContainer.removeChild(pinElement);
-            }
-
-            // Remove pin from localStorage
-            localStorage.removeItem(pinId);  // Ensure this matches the stored pinId format
-
-            // Optionally remove pin from pinPositions array if used
-            pinPositions = pinPositions.filter(p => p.pinId !== pinId);
-
-            // Save the updated pin positions (if needed)
-            savePinPositions();
-
-            // Refresh the page or navigate
-            location.reload();
-        } else {
-            alert('Error removing the pin from the database.');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
 
 function openModal(imageSrc) {
     const modal = document.getElementById('imageModal');
