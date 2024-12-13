@@ -67,6 +67,5 @@ if (isset($_SESSION)) {
     </script>
 </head>
 <body>
-    <p>Logging out... Please wait.</p>
 </body>
 </html>
