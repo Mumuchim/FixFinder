@@ -23,9 +23,6 @@ session_start();
 
 <body id="body">
 
-    <!-- <div id="name">
-        <p id="namep"><?php echo htmlspecialchars($user_id); ?></p> 
-    </div> -->
 
     <div id="slidingColumn">
     <span id="fixFinderTitle">FixFinder</span>
@@ -605,9 +602,6 @@ session_start();
       <h1 class="display-4 fs-1">Report</h1>
          <label><p>Report your concern here.<p></label>
 
-         <!-- Pop-up message container -->
-         <!-- <div id="popupMessage" class="popup-message" style="display: none;"></div> -->
-
     <div class="mb-3" style="display: none;">
     <label class="form-label" style="display: none;">Name:</label>
     <input type="hidden"
@@ -655,24 +649,6 @@ session_start();
         value="<?php echo (isset($_GET['specific_place'])) ? $_GET['specific_place'] : ""; ?>">
 </div>
 
-    <!-- <label for="pinId">Pin ID:</label>
-    <input type="text" id="pinId" readonly />
-
-    <label for="coordinates">Coordinates:</label>
-    <input type="text" id="coordinates" readonly />
-
-    <label for="floor">Floor:</label>
-    <input type="text" id="floor" readonly /> -->
-
-    <!-- <div class="mb-3">
-    <label for="pinId" class="form-label">Pin ID:</label>
-    <input 
-        type="text" 
-        id="pinId" 
-        name="pinId" 
-        class="form-control" 
-        readonly>
-</div> -->
 
 <div class="mb-3" hidden>
     <label for="pinId" class="form-label">Pin ID:</label>
@@ -821,10 +797,6 @@ session_start();
             }
         });
     </script>
-
-
-
-
 </div>
 
     
