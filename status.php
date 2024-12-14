@@ -35,6 +35,7 @@ if (isset($_POST['pinId']) && !empty($_POST['pinId'])) {
             $title = htmlspecialchars($report['title']);
             $details = htmlspecialchars($report['details']);
             $type = htmlspecialchars($report['type']);
+            $specific_place = htmlspecialchars($report['specific_place']);
             $status = htmlspecialchars($report['status']);
             $reporter = htmlspecialchars($report['user']);
             $image = htmlspecialchars($report['image']);
@@ -68,6 +69,7 @@ if (isset($_POST['pinId']) && !empty($_POST['pinId'])) {
         <div class="details">
             <h3><strong>Title:</strong> <?php echo $title; ?></h3>
             <p><strong>Details:</strong> <?php echo $details; ?></p>
+            <p><strong>Specific Place of Report:</strong> <?php echo $specific_place; ?></p>
             <p><strong>Type of Report:</strong> <?php echo $type; ?></p>
             <div class="status">
                 <p><strong>Status:</strong> <span id="status-text"><?php echo $status ?: 'Not Available'; ?></span></p>
@@ -146,6 +148,7 @@ function updateStatus(newStatus) {
     document.querySelector('.deny-button').style.display = 'none';
     document.querySelector('.mark-done-button').style.display = 'inline-block';
     document.querySelector('.cancel-button').style.display = 'inline-block';
+    location.reload();
 } else if (data.error) { // Assuming you are checking for a different condition
     alert(`Error: ${data.message}`);
 } else {

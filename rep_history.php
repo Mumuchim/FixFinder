@@ -31,6 +31,8 @@
                                     <th>Report Type</th>
                                     <th>Report Image</th>
                                     <th>Report Date</th>
+                                    <th>Status</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,7 +55,8 @@
                                                 <td><?= $row['details']; ?></td>
                                                 <td><?= $row['type']; ?></td>
                                                 <td><img width="50" height="50" src="upload/<?= $row['image']; ?>"></td>
-                                                <td><?= $row['date']; ?></td>                                          
+                                                <td><?= $row['date']; ?></td>     
+                                                <td><?= $row['status']; ?></td>                                      
                                             </tr>
                                             <?php
                                         }
