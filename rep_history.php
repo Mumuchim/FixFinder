@@ -37,7 +37,8 @@
                                 <?php 
                                     $con = mysqli_connect("localhost","root","","auth");
 
-                                    $query = "SELECT * FROM report";
+                                    // Fetching data in descending order by ID
+                                    $query = "SELECT * FROM report ORDER BY id DESC"; 
                                     $query_run = mysqli_query($con, $query);
 
                                     if(mysqli_num_rows($query_run) > 0)
@@ -46,7 +47,6 @@
                                         {
                                             ?>
                                             <tr>
-                                                
                                                 <td><?= $row['id']; ?></td>
                                                 <td><?= $row['user']; ?></td>
                                                 <td><?= $row['title']; ?></td>
@@ -62,7 +62,7 @@
                                     {
                                         ?>
                                             <tr>
-                                                <td colspan="4">No Record Found</td>
+                                                <td colspan="7">No Record Found</td>
                                             </tr>
                                         <?php
                                     }
