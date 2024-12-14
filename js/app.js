@@ -230,55 +230,61 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let cloningInProgress = false; // Track if a pin is being placed
 
-    function clonePin(pin, x, y) {
-        const allKeys = Object.keys(localStorage).filter(key => key !== 'activeFloor' && /^\d+$/.test(key));
-    
-        if (allKeys.length >= 5) {
-            alert("You have reached the maximum number of pins. Please remove a pin before adding a new one.");
-            return;  // Prevent cloning if there are already 5 pins in localStorage
+// Modify `clonePin` to track the latest pin
+function clonePin(pin, x, y) {
+    const allKeys = Object.keys(localStorage).filter(key => key !== 'activeFloor' && /^\d+$/.test(key));
+
+    if (allKeys.length >= 5) {
+        alert("You have reached the maximum number of pins. Please remove a pin before adding a new one.");
+        return; // Prevent cloning if there are already 5 pins in localStorage
+    }
+
+    if (cloningInProgress) {
+        alert("Please confirm the current pin's position before cloning a new one.");
+        return;
+    }
+
+    const pinType = pin.dataset.pinType; // Get the pin type from the data-pin-type attribute
+    const imgSrc = getFixedImagePath(pinType); // Get the fixed image path based on pin type
+
+    const clone = pin.cloneNode(true);
+    const pinId = `pin-${Date.now()}`; // Use a unique ID
+    clone.id = pinId;
+    clone.style.position = 'absolute';
+    clone.style.left = `${x}px`;
+    clone.style.top = `${y}px`;
+
+    // Add pin to positions but don't save it yet
+    pinPositions.push({
+        pinId: pinId,
+        top: clone.style.top,
+        left: clone.style.left,
+        imgSrc: imgSrc, // Save the fixed image path
+    });
+
+    mapContainer.appendChild(clone);
+
+    // Track the latest pin ID globally
+    lastAddedPinId = pinId;
+
+    // Create image element with the fixed image path
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    clone.appendChild(img);
+
+    cloningInProgress = true; // Block additional cloning until confirmed
+
+    makeDraggable(clone);
+
+    clone.addEventListener('click', () => {
+        if (!pinPlacedManually) {
+            showPinOptions(clone, pinId);
         }
-    
-        if (cloningInProgress) {
-            alert("Please confirm the current pin's position before cloning a new one.");
-            return;
-        }
-    
-        const pinType = pin.dataset.pinType; // Get the pin type from the data-pin-type attribute
-        const imgSrc = getFixedImagePath(pinType); // Get the fixed image path based on pin type
-    
-        const clone = pin.cloneNode(true);
-        const pinId = `${Date.now()}`;
-        clone.id = pinId;
-        clone.style.position = 'absolute';
-        clone.style.left = `${x}px`;
-        clone.style.top = `${y}px`;
-    
-        // Add pin to positions but don't save it yet
-        pinPositions.push({
-            pinId: pinId,
-            top: clone.style.top,
-            left: clone.style.left,
-            imgSrc: imgSrc, // Save the fixed image path
-        });
-    
-        mapContainer.appendChild(clone);
-    
-        // Create image element with the fixed image path
-        const img = document.createElement('img');
-        img.src = imgSrc;
-        clone.appendChild(img);
-    
-        lastClonedPin = clone;
-        cloningInProgress = true; // Block additional cloning until confirmed
-    
-        makeDraggable(clone);
-    
-        clone.addEventListener('click', () => {
-            if (!pinPlacedManually) {
-                showPinOptions(clone, pinId);
-            }
-        });
-    }    
+    });
+}
+
+// Add cancel request button logic
+document.getElementById('cancelRequestButton').addEventListener('click', cancelPinPlacement);
 
     function makeDraggable(pin) {
         let isDragging = false;
@@ -560,7 +566,7 @@ function showPinOptions(pinElement, pinId) {
                     .then(data => {
                         if (data.success) {
                             // Remove pin from the DOM
-                            mapContainer.removeChild(pinElement);
+                     mapContainer.removeChild(pinElement);
     
                             // Remove pin from pinPositions array
                             pinPositions = pinPositions.filter(p => p.pinId !== pinId);
@@ -626,14 +632,40 @@ function closeForm() {
 
         // Reset the lastClonedPin
         lastClonedPin = null;
+        removeButton();
+        location.reload();
     }
 }
 
 document.getElementById("cancelRequestButton").addEventListener('click', closeForm);
 
+let lastAddedPinId = null; // Global variable to track the latest added pin ID
+
+// Function to cancel pin placement
 function cancelPinPlacement() {
-    // Reload the page to reset all pin placements
-    location.reload();
+    if (lastAddedPinId) {
+        // Check if the pin exists in the DOM
+        const lastAddedPin = document.getElementById(lastAddedPinId);
+        if (lastAddedPin) {
+            lastAddedPin.remove(); // Remove the pin from the DOM
+        }
+
+        // Remove the pin from the `pinPositions` array
+        pinPositions = pinPositions.filter(p => p.pinId !== lastAddedPinId);
+
+        // Remove the pin data from `localStorage`
+        const pinIdWithoutPrefix = lastAddedPinId.replace(/^pin-/, ''); // Remove 'pin-' prefix
+        localStorage.removeItem(pinIdWithoutPrefix);
+
+        alert("Pin placement has been canceled.");
+
+        // Reset variables
+        lastAddedPinId = null;
+        cloningInProgress = false;
+        pinPlacedManually = false;
+    } else {
+        alert("No pin to cancel.");
+    }
 }
 
 
