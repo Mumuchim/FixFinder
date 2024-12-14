@@ -537,7 +537,7 @@ function showPinOptions(pinElement, pinId) {
             // Get the activePinClicked value
             const activePinClicked = localStorage.getItem('activePinClicked');
     
-            // Make an AJAX request to PHP to check and remove the row from the database
+            // Make an AJAX request to PHP to check and remove the row from the database (remove_pin.php)
             fetch('php/remove_pin.php', {
                 method: 'POST',
                 headers: {
@@ -548,33 +548,54 @@ function showPinOptions(pinElement, pinId) {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Remove pin from the DOM
-                    mapContainer.removeChild(pinElement);
+                    // After the pin is removed, call remove_report.php to remove the report associated with the pin
+                    fetch('php/remove_report.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ pinId: activePinClicked }), // Assuming activePinClicked holds the pinId
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Remove pin from the DOM
+                            mapContainer.removeChild(pinElement);
     
-                    // Remove pin from pinPositions array
-                    pinPositions = pinPositions.filter(p => p.pinId !== pinId);
+                            // Remove pin from pinPositions array
+                            pinPositions = pinPositions.filter(p => p.pinId !== pinId);
     
-                    // Remove the corresponding pin data from localStorage
-                    const pinIdWithoutPrefix = pinId.replace(/^pin-/, ''); // Remove 'pin-' prefix
-                    localStorage.removeItem(pinIdWithoutPrefix); // Remove the pin data from localStorage
+                            // Remove the corresponding pin data from localStorage
+                            const pinIdWithoutPrefix = pinId.replace(/^pin-/, ''); // Remove 'pin-' prefix
+                            localStorage.removeItem(pinIdWithoutPrefix); // Remove the pin data from localStorage
     
-                    // Save the updated pin positions
-                    savePinPositions();
+                            // Save the updated pin positions
+                            savePinPositions();
     
-                    // Refresh the page after removing the pin
-                    location.reload();
+                            // Refresh the page after removing the pin
+                            location.reload();
+                        } else {
+                            alert('Error removing the report from the database.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Failed to communicate with the server while removing the report.');
+                    });
                 } else {
                     alert('Error removing the pin from the database.');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Failed to communicate with the server.');
+                alert('Failed to communicate with the server while removing the pin.');
             });
     
+            // Close the modal
             document.body.removeChild(modal);
         }
     });
+    
     
     closeButton.addEventListener('click', () => {
         document.body.removeChild(modal);
