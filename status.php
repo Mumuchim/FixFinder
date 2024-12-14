@@ -77,11 +77,11 @@ if (isset($_POST['pinId']) && !empty($_POST['pinId'])) {
             <a href="<?php echo $userRole === 'admin' ? 'admin_dashboard.php' : 'map.php'; ?>" class="button">Go to Map</a>
 
             <?php if ($userRole === 'admin'): ?>
-    <a href="#" class="button accept-button admin-only" onclick="updateStatus('In Progress')">Accept</a>
-    <a href="#" class="button deny-button admin-only" onclick="updateStatus('Denied')">Deny</a>
-    <a href="#" class="button mark-done-button admin-only" style="display: none;" onclick="updateStatus('Done')">Mark as Done</a>
-    <a href="#" class="button cancel-button admin-only" style="display: none;" onclick="updateStatus('Cancelled')">Cancel</a>
-<?php endif; ?>
+                <a href="#" class="button accept-button admin-only" style="<?php echo $status === 'Pending' ? 'display: inline-block;' : 'display: none;'; ?>" onclick="updateStatus('In Progress')">Accept</a>
+                <a href="#" class="button deny-button admin-only" style="<?php echo $status === 'Pending' ? 'display: inline-block;' : 'display: none;'; ?>" onclick="updateStatus('Denied')">Deny</a>
+                <a href="#" class="button mark-done-button admin-only" style="<?php echo $status === 'In Progress' ? 'display: inline-block;' : 'display: none;'; ?>" onclick="updateStatus('Done')">Mark as Done</a>
+                <a href="#" class="button cancel-button admin-only" style="<?php echo $status === 'In Progress' ? 'display: inline-block;' : 'display: none;'; ?>" onclick="updateStatus('Cancelled')">Cancel</a>
+            <?php endif; ?>
 <!-- <a href="map.php" class="button go-to-map-button">Go to Map</a> -->
 
 
@@ -141,17 +141,18 @@ function updateStatus(newStatus) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Status updated to "In Progress"');
-                document.getElementById('status-text').textContent = newStatus;
+    alert('Status updated to "In Progress"');
+    document.querySelector('.accept-button').style.display = 'none';
+    document.querySelector('.deny-button').style.display = 'none';
+    document.querySelector('.mark-done-button').style.display = 'inline-block';
+    document.querySelector('.cancel-button').style.display = 'inline-block';
+} else if (data.error) { // Assuming you are checking for a different condition
+    alert(`Error: ${data.message}`);
+} else {
+    document.querySelector('.mark-done-button').style.display = 'none';
+    document.querySelector('.cancel-button').style.display = 'none';
+}
 
-                // Show the 'Mark as Done' and 'Cancel' buttons
-                document.querySelector('.accept-button').style.display = 'none';
-                document.querySelector('.deny-button').style.display = 'none';
-                document.querySelector('.mark-done-button').style.display = 'inline-block';
-                document.querySelector('.cancel-button').style.display = 'inline-block';
-            } else {
-                alert(`Error: ${data.message}`);
-            }
         })
         .catch(error => {
             console.error('Error:', error);
@@ -207,7 +208,7 @@ function updateStatus(newStatus) {
             // Redirect to map.php after a brief delay
             setTimeout(() => {
                 console.log('Redirecting to map.php...');
-                window.location.href = 'map.php'; // This will immediately redirect to map.php
+                window.location.href = 'admin_dashboard.php'; // This will immediately redirect to map.php
             }, 500); // 0.5 second delay
         } else {
             alert(`Error: ${data.message}`);

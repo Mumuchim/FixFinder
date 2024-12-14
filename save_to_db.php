@@ -19,7 +19,7 @@ if ($data) {
     foreach ($data as $item) {
         // Extract only numeric values from the key
         $key = preg_replace('/\D/', '', $conn->real_escape_string($item['key']));
-
+        
         // Check if the key is numeric
         if (is_numeric($key)) {
             $value = $conn->real_escape_string($item['value']);
