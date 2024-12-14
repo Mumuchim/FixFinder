@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2024 at 05:29 PM
+-- Generation Time: Dec 14, 2024 at 03:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -31,23 +31,8 @@ CREATE TABLE `local_storage` (
   `id` int(11) NOT NULL,
   `storage_key` varchar(255) NOT NULL,
   `storage_value` text NOT NULL,
-  `floor` varchar(50) DEFAULT NULL,
-  `uid` varchar(50) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pins`
---
-
-CREATE TABLE `pins` (
-  `id` int(11) NOT NULL,
-  `pin_id` varchar(255) NOT NULL,
-  `top` varchar(50) NOT NULL,
-  `left` varchar(50) NOT NULL,
-  `img_src` varchar(255) NOT NULL,
+  `floor` varchar(50) NOT NULL,
+  `uid` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -61,7 +46,7 @@ CREATE TABLE `report` (
   `id` int(11) NOT NULL,
   `user` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `details` varchar(255) NOT NULL,
+  `details` varchar(500) NOT NULL,
   `type` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL DEFAULT 'default-pp.png',
   `date` date NOT NULL,
@@ -69,9 +54,11 @@ CREATE TABLE `report` (
   `pinId` varchar(50) DEFAULT NULL,
   `coordinates` varchar(100) DEFAULT NULL,
   `floor` varchar(50) DEFAULT NULL,
-  `status` varchar(50) DEFAULT 'Pending'
+  `status` varchar(50) DEFAULT 'Pending',
+  `specific_place` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
@@ -88,7 +75,15 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `users`
+--
 
+INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `password`, `role`, `uid`) VALUES
+(9, 'jhewen', 'shene', 'js@gmail.com', '$2y$10$MZBLag/bCQDw5CzNe4X6auVEAFcu3O2d3LhxK3T7UjpVvgdS9cs72', 'student', 87850305),
+(15, 'olivia', 'benson', 'gijevi@mailinator.com', '$2y$10$RfRhPglso2IDVjZ8fpNKrOgay4vCZGpGZEteX7zWrGbh3uIaV7eN6', 'admin', NULL),
+(16, 'pauline', 'kaye', 'pk@gmail.com', '$2y$10$YKFSRbefW79G1eGkMiyxdO5tU7ZOQPJMiJ73O6VqxWkoSdq.HdLN2', 'student', 22782317);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -97,13 +92,7 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `local_storage`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `storage_key` (`storage_key`);
-
---
--- Indexes for table `pins`
---
-ALTER TABLE `pins`
-  ADD PRIMARY KEY (`id`);
+  ADD UNIQUE KEY `storage_key_index` (`storage_key`);
 
 --
 -- Indexes for table `report`
@@ -128,25 +117,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `local_storage`
 --
 ALTER TABLE `local_storage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `pins`
---
-ALTER TABLE `pins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
 
 --
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
