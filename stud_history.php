@@ -27,8 +27,8 @@ $user_lname = trim($_SESSION['lname']);
 // Concatenate first name and last name for filtering
 $user_fullname = $user_fname . ' ' . $user_lname;
 
-// SQL query to fetch the reports for the logged-in user
-$query = "SELECT * FROM report WHERE user = ?";
+// SQL query to fetch the reports for the logged-in user in descending order
+$query = "SELECT * FROM report WHERE user = ? ORDER BY id DESC";
 
 // Prepare the statement
 $stmt = $con->prepare($query);
@@ -62,7 +62,7 @@ $con->close();
     <title>Student History</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <<link rel="stylesheet" href="css/history.css"> 
+    <link rel="stylesheet" href="css/history.css"> 
 </head>
 <body>
     <div class="container">
@@ -100,19 +100,18 @@ $con->close();
                                 <?php
                                 // Display records if found
                                 if ($result->num_rows > 0) {
-                                    $counter = 1;
                                     while ($row = $result->fetch_assoc()) {
                                         ?>
                                        <tr>
-                                                <td><?= $row['id']; ?></td>
-                                                <td><?= $row['title']; ?></td>
-                                                <td><?= $row['details']; ?></td>
-                                                <td><?= $row['specific_place']; ?></td>
-                                                <td><?= $row['type']; ?></td>
-                                                <td><img width="50" height="50" src="upload/<?= $row['image']; ?>"></td>
-                                                <td><?= $row['date']; ?></td>   
-                                                <td><?= $row['status']; ?></td>                                       
-                                            </tr>
+                                            <td><?= $row['id']; ?></td>
+                                            <td><?= $row['title']; ?></td>
+                                            <td><?= $row['details']; ?></td>
+                                            <td><?= $row['specific_place']; ?></td>
+                                            <td><?= $row['type']; ?></td>
+                                            <td><img width="50" height="50" src="upload/<?= $row['image']; ?>"></td>
+                                            <td><?= $row['date']; ?></td>   
+                                            <td><?= $row['status']; ?></td>                                       
+                                        </tr>
                                         <?php
                                     }
                                 }
